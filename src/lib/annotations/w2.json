@@ -1,0 +1,20 @@
+{
+  "w2:box1": {
+    "label": "Wages, tips, other comp.",
+    "soTitle": "Mushaharkaaga guud",
+    "so": "Tani waa wadarta lacagta aad shaqadaada ka heshay sanadkan oo dhan, ka hor inta aan canshuurta laga jarin.",
+    "en": "This is the total money you earned from your job this year, before any taxes were taken out."
+  },
+  "w2:box2": {
+    "label": "Federal income tax withheld",
+    "soTitle": "Canshuurta horay loo jaray",
+    "so": "Tani waa lacagta canshuurta federaalka ah ee loo-shaqeeyahaagu mushaharkaaga ka jaray, oo uu dawladda kuugu diray.",
+    "en": "This is the federal tax your employer already took out of your paychecks and sent to the government for you."
+  },
+  "w2:box3": {
+    "label": "Social security wages",
+    "soTitle": "Mushaharka Social Security",
+    "so": "Tani waa qaybta mushaharkaaga ee loo xisaabiyo Social Security — lacag ku taageeraysa marka aad hawlgabto.",
+    "en": "This is the part of your pay counted toward Social Security — money that helps support you when you retire."
+  }
+}
