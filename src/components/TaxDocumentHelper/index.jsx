@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import Nav from "./Nav";
 import UploadScreen from "./UploadScreen";
+import DetectingScreen from "./DetectingScreen";
+import UnmatchedScreen from "./UnmatchedScreen";
 import ViewerScreen from "./ViewerScreen";
 
 const ACCEPTED_TYPE = "application/pdf";
@@ -10,6 +12,9 @@ const ACCEPTED_TYPE = "application/pdf";
 export default function TaxDocumentHelper() {
   const [screen, setScreen] = useState("upload");
   const [file, setFile] = useState(null);
+  const [documentType, setDocumentType] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [fieldPositions, setFieldPositions] = useState({});
   const [dragOver, setDragOver] = useState(false);
 
   const fileUrl = useMemo(() => (file ? URL.createObjectURL(file) : null), [file]);
@@ -20,15 +25,25 @@ export default function TaxDocumentHelper() {
     };
   }, [fileUrl]);
 
-  const acceptFile = (candidate) => {
+  const acceptFile = async (candidate) => {
     if (!candidate || candidate.type !== ACCEPTED_TYPE) return;
     setFile(candidate);
-    setScreen("viewer");
+    setScreen("detecting");
+    const { analyzeDocument } = await import("@/lib/ocr/analyzeDocument");
+    const { documentType: detected, pageNumber: detectedPage, fieldPositions: positions } =
+      await analyzeDocument(candidate);
+    setDocumentType(detected);
+    setPageNumber(detectedPage ?? 1);
+    setFieldPositions(positions);
+    setScreen(detected ? "viewer" : "unmatched");
   };
 
   const goUpload = () => {
     setScreen("upload");
     setFile(null);
+    setDocumentType(null);
+    setPageNumber(1);
+    setFieldPositions({});
   };
 
   const onDragOver = (e) => {
@@ -61,7 +76,20 @@ export default function TaxDocumentHelper() {
         />
       )}
 
-      {screen === "viewer" && <ViewerScreen fileName={file?.name} fileUrl={fileUrl} onBack={goUpload} />}
+      {screen === "detecting" && <DetectingScreen />}
+
+      {screen === "unmatched" && <UnmatchedScreen onBack={goUpload} />}
+
+      {screen === "viewer" && (
+        <ViewerScreen
+          fileName={file?.name}
+          fileUrl={fileUrl}
+          documentType={documentType}
+          pageNumber={pageNumber}
+          fieldPositions={fieldPositions}
+          onBack={goUpload}
+        />
+      )}
     </div>
   );
 }

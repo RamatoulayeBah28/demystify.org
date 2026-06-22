@@ -36,6 +36,7 @@ export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onD
           type="file"
           accept="application/pdf"
           className="hidden"
+          onClick={(e) => e.stopPropagation()}
           onChange={(e) => onFileSelected(e.target.files?.[0])}
         />
         <div className="mx-auto mb-6 flex h-[84px] w-[84px] items-center justify-center rounded-full bg-dm-accent text-[34px] text-white shadow-[0_0_0_12px_var(--color-dm-glow)]">
@@ -44,7 +45,7 @@ export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onD
         <div className="mb-2 font-serif text-[27px] font-medium text-dm-ink">Halkan ku soo rid faylkaaga</div>
         <div className="mb-[26px] text-[17px] text-dm-muted">Drop your file here, or click to browse</div>
         <button
-          onClick={openPicker}
+          type="button"
           className="inline-flex items-center gap-[10px] rounded-[13px] bg-dm-accent px-7 py-[14px] text-[17px] font-semibold text-white"
         >
           <i className="fa-solid fa-folder-open" /> Dooro fayl
