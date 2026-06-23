@@ -43,6 +43,18 @@ async function renderPageToCanvas(pdf, pageNumber) {
   return canvas;
 }
 
+// Image uploads (JPG/PNG) are already a single, full-resolution "page" —
+// no pdf.js, no per-page loop, just decode straight to canvas.
+async function renderImageToCanvas(file) {
+  const bitmap = await createImageBitmap(file);
+  const canvas = document.createElement("canvas");
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
+  canvas.getContext("2d").drawImage(bitmap, 0, 0);
+  bitmap.close();
+  return canvas;
+}
+
 // For matching single OCR word tokens against a known word (e.g. "wages") —
 // strips all whitespace too, since we're comparing whole tokens, not phrases.
 function normalizeWord(text) {
@@ -162,8 +174,7 @@ function buildFieldPositions(anchors) {
   return { positions, calibratedFrom: pair };
 }
 
-async function analyzePage(pdf, pageNumber) {
-  const canvas = await renderPageToCanvas(pdf, pageNumber);
+async function analyzeCanvas(canvas, pageNumber) {
   const worker = await createWorker("eng");
   try {
     const { data } = await worker.recognize(canvas, {}, { blocks: true });
@@ -213,10 +224,7 @@ async function analyzePage(pdf, pageNumber) {
 
 const NOT_FOUND = { documentType: null, pageNumber: null, fieldPositions: {} };
 
-// Runs entirely in-browser; each rendered page and its OCR'd text are
-// discarded as soon as this function returns, per the project's
-// ephemeral-processing rule — nothing is persisted.
-export async function analyzeDocument(file) {
+async function analyzePdf(file) {
   let pdf;
   try {
     const buffer = await file.arrayBuffer();
@@ -228,7 +236,8 @@ export async function analyzeDocument(file) {
   const pages = Math.min(pdf.numPages, MAX_PAGES_TO_SCAN);
   for (let pageNumber = 1; pageNumber <= pages; pageNumber += 1) {
     try {
-      const result = await analyzePage(pdf, pageNumber);
+      const canvas = await renderPageToCanvas(pdf, pageNumber);
+      const result = await analyzeCanvas(canvas, pageNumber);
       if (result) return result;
     } catch {
       // Try the next page rather than failing the whole document.
@@ -236,4 +245,20 @@ export async function analyzeDocument(file) {
   }
 
   return NOT_FOUND;
+}
+
+async function analyzeImage(file) {
+  try {
+    const canvas = await renderImageToCanvas(file);
+    return (await analyzeCanvas(canvas, 1)) ?? NOT_FOUND;
+  } catch {
+    return NOT_FOUND;
+  }
+}
+
+// Runs entirely in-browser; each rendered page/image and its OCR'd text are
+// discarded as soon as this function returns, per the project's
+// ephemeral-processing rule — nothing is persisted.
+export async function analyzeDocument(file) {
+  return file.type === "application/pdf" ? analyzePdf(file) : analyzeImage(file);
 }

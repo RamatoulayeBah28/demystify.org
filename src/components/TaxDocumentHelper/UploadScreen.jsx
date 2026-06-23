@@ -2,7 +2,11 @@
 
 import { useRef } from "react";
 
-const FILE_TYPE_CHIPS = [{ icon: "fa-regular fa-file-pdf", label: "PDF" }];
+const FILE_TYPE_CHIPS = [
+  { icon: "fa-regular fa-file-pdf", label: "PDF" },
+  { icon: "fa-regular fa-image", label: "JPG" },
+  { icon: "fa-regular fa-image", label: "PNG" },
+];
 
 export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onDragLeave, onDrop }) {
   const inputRef = useRef(null);
@@ -34,7 +38,7 @@ export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onD
         <input
           ref={inputRef}
           type="file"
-          accept="application/pdf"
+          accept="application/pdf,image/jpeg,image/png"
           className="hidden"
           onClick={(e) => e.stopPropagation()}
           onChange={(e) => onFileSelected(e.target.files?.[0])}

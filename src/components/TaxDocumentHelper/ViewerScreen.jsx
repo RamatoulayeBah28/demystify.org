@@ -1,10 +1,20 @@
 import dynamic from "next/dynamic";
 import { getFieldIds } from "@/lib/annotations";
+import ImagePreview from "./ImagePreview";
 
 const PdfPreview = dynamic(() => import("./PdfPreview"), { ssr: false });
 
-export default function ViewerScreen({ fileName, fileUrl, documentType, pageNumber, fieldPositions, onBack }) {
+export default function ViewerScreen({
+  fileName,
+  fileType,
+  fileUrl,
+  documentType,
+  pageNumber,
+  fieldPositions,
+  onBack,
+}) {
   const hasAnnotations = getFieldIds(documentType).length > 0;
+  const isPdf = fileType === "application/pdf";
 
   return (
     <div className="mx-auto max-w-[1040px] px-8 pt-[26px] pb-[90px]">
@@ -16,7 +26,8 @@ export default function ViewerScreen({ fileName, fileUrl, documentType, pageNumb
           <i className="fa-solid fa-arrow-left" /> Dib u noqo
         </button>
         <span className="inline-flex items-center gap-[9px] text-[15px] font-medium text-dm-muted">
-          <i className="fa-regular fa-file-pdf text-dm-accent" /> {fileName}
+          <i className={isPdf ? "fa-regular fa-file-pdf text-dm-accent" : "fa-regular fa-image text-dm-accent"} />{" "}
+          {fileName}
         </span>
       </div>
 
@@ -47,14 +58,17 @@ export default function ViewerScreen({ fileName, fileUrl, documentType, pageNumb
         </div>
       </div>
 
-      {fileUrl && (
-        <PdfPreview
-          fileUrl={fileUrl}
-          documentType={documentType}
-          pageNumber={pageNumber}
-          fieldPositions={fieldPositions}
-        />
-      )}
+      {fileUrl &&
+        (isPdf ? (
+          <PdfPreview
+            fileUrl={fileUrl}
+            documentType={documentType}
+            pageNumber={pageNumber}
+            fieldPositions={fieldPositions}
+          />
+        ) : (
+          <ImagePreview fileUrl={fileUrl} documentType={documentType} fieldPositions={fieldPositions} />
+        ))}
     </div>
   );
 }

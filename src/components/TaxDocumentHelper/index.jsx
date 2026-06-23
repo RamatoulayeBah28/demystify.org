@@ -7,7 +7,7 @@ import DetectingScreen from "./DetectingScreen";
 import UnmatchedScreen from "./UnmatchedScreen";
 import ViewerScreen from "./ViewerScreen";
 
-const ACCEPTED_TYPE = "application/pdf";
+const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
 
 export default function TaxDocumentHelper() {
   const [screen, setScreen] = useState("upload");
@@ -26,7 +26,7 @@ export default function TaxDocumentHelper() {
   }, [fileUrl]);
 
   const acceptFile = async (candidate) => {
-    if (!candidate || candidate.type !== ACCEPTED_TYPE) return;
+    if (!candidate || !ACCEPTED_TYPES.includes(candidate.type)) return;
     setFile(candidate);
     setScreen("detecting");
     const { analyzeDocument } = await import("@/lib/ocr/analyzeDocument");
@@ -83,6 +83,7 @@ export default function TaxDocumentHelper() {
       {screen === "viewer" && (
         <ViewerScreen
           fileName={file?.name}
+          fileType={file?.type}
           fileUrl={fileUrl}
           documentType={documentType}
           pageNumber={pageNumber}
