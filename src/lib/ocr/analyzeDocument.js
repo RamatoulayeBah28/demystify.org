@@ -1,35 +1,19 @@
 import { createWorker } from "tesseract.js";
 import { pdfjs } from "@/lib/pdf/pdfWorker";
-
-// "Previously reported" / "Correct information" are column headers that
-// exist ONLY on Form W-2c's corrected layout — a regular W-2 has no reason
-// to print them. Used to tell w2 apart from w2c. Deliberately not using the
-// OMB number for this (1545-0008 vs 1545-0029, a 2-digit difference) —
-// it's been observed to misread in low-quality scan regions, which
-// produced real false-positive w2c classifications on actual W-2 pages.
-const W2C_PHRASES = ["previously reported", "correct information"];
+import { FORM_DEFINITIONS } from "./formDefinitions";
 
 const RENDER_SCALE = 2;
 const MAX_PAGES_TO_SCAN = 5;
 // findAnchor's proximity radius, in canvas pixels — kept proportional to
 // RENDER_SCALE so it doesn't silently drift if that constant changes.
 const ANCHOR_RADIUS = 100 * RENDER_SCALE;
-
-// Template positions (fraction of page) for a standard Form W-2.
-// `anchor` is where each box's leading number sits — the same thing
-// findAnchor measures on a real document, used to calibrate a per-document
-// transform from just two found anchors. `dotOffset` is where the dot
-// should actually render relative to that anchor (past the label text),
-// expressed in the same normalized units so it scales with the transform.
-// box15 is calibration-only — it has no annotation/dot of its own, it's
-// just a second reference point far from box1 for a stable scale estimate.
-const FIELD_TEMPLATE = {
-  box1: { anchor: { x: 0.45, y: 0.078 }, dotOffset: { x: 0.22, y: 0.007 } },
-  box2: { anchor: { x: 0.71, y: 0.078 }, dotOffset: { x: 0.21, y: 0.007 } },
-  box3: { anchor: { x: 0.45, y: 0.138 }, dotOffset: { x: 0.15, y: 0.007 } },
-  box15: { anchor: { x: 0.04, y: 0.42 }, dotOffset: { x: 0, y: 0 } },
-};
-const DISPLAYABLE_FIELD_IDS = ["box1", "box2", "box3"];
+// Values usually sit a bit further from the label than the label's own
+// keyword does, so this is a bit more generous than ANCHOR_RADIUS.
+const VALUE_RADIUS = ANCHOR_RADIUS * 1.5;
+// Match currency amounts: optional $, digits with optional commas, optional decimal.
+// Rejects numbers > 999999 (unlikely for W-2 values) and prefers decimals.
+const VALUE_PATTERN = /^\$?[\d,]+(\.\d{1,2})?$/;
+const VALUE_SANITY_MAX = 999999;
 
 async function renderPageToCanvas(pdf, pageNumber) {
   const page = await pdf.getPage(pageNumber);
@@ -71,11 +55,6 @@ function normalizeText(text) {
     .trim();
 }
 
-function isCorrectedForm(text) {
-  const normalized = normalizeText(text);
-  return W2C_PHRASES.some((phrase) => normalized.includes(phrase));
-}
-
 function flattenWords(page) {
   const words = [];
   for (const block of page.blocks ?? []) {
@@ -114,64 +93,121 @@ function findAnchor(words, number, keyword) {
   return nearbyWord(words, num, keyword) ? num : null;
 }
 
-function transformPoint(point, scaleX, scaleY, dx, dy) {
-  return { x: point.x * scaleX + dx, y: point.y * scaleY + dy };
+// Like findAnchor, but returns every matching occurrence (sorted top to
+// bottom) instead of just the first. A W-2c prints each box number twice —
+// once under "Previously reported", once under "Correct information" — so
+// finding only the first occurrence (what findAnchor does) silently grabs
+// whichever value sits nearest to that first instance and mislabels it.
+function findAllAnchors(words, number, keyword) {
+  const pattern = new RegExp(`^${number}(?!\\d)`);
+  return words
+    .filter((w) => pattern.test(normalizeWord(w.text)) && (w.confidence ?? 100) > 40)
+    .filter((num) => nearbyWord(words, num, keyword))
+    .sort((a, b) => a.bbox.y0 - b.bbox.y0);
 }
 
-// Picks the two found anchors whose template positions differ most in
-// BOTH x and y — a pair that only differs along one axis (e.g. box1 and
-// box2, which share the same template row) can't determine that axis's
-// scale and would divide by ~0.
-function bestAnchorPair(foundIds) {
+// The form prints every box's own number as a bare label (e.g. "3" right
+// next to box 3) — those are unambiguous, real box numbers, always small.
+// A bare candidate at or below this is almost certainly a stray label, not
+// a real wage/withholding amount, which essentially never prints bare and
+// this small.
+const BOX_NUMBER_LABEL_MAX = 20;
+
+// Temporary diagnostic: prints every digit/currency-shaped word near a
+// field's anchor, closest first, so we can see why the wrong one got
+// picked. Remove once real-world extraction accuracy is confirmed.
+function debugFieldCandidates(label, words, anchor, exclude) {
+  if (!anchor) {
+    console.log(`[analyzeDocument:debug] ${label}: no anchor found on this page`);
+    return;
+  }
+  const candidates = words
+    .filter((w) => w !== anchor && !exclude.has(w) && VALUE_PATTERN.test(w.text.trim()))
+    .map((w) => {
+      const dx = w.bbox.x0 - anchor.bbox.x0;
+      const dy = w.bbox.y0 - anchor.bbox.y0;
+      return { text: w.text, x0: w.bbox.x0, y0: w.bbox.y0, dist: Math.round(Math.sqrt(dx * dx + dy * dy)) };
+    })
+    .sort((a, b) => a.dist - b.dist)
+    .slice(0, 6);
+  console.log(
+    `[analyzeDocument:debug] ${label}: anchor="${anchor.text}" @ (${Math.round(anchor.bbox.x0)},${Math.round(anchor.bbox.y0)})`,
+  );
+  console.table(candidates);
+}
+
+// Finds the value (a money-looking number) nearest a field's anchor —
+// values sit next to/below their label, so proximity is the same trick
+// used to find the label itself, just matched against a number shape
+// instead of a known keyword. `exclude` should contain every known
+// box-number anchor word (across all fields, not just this one) so a
+// neighboring box's own number label is never mistaken for this box's value.
+function findNearbyValue(words, anchor, exclude = new Set(), radius = VALUE_RADIUS) {
   let best = null;
-  let bestScore = 0;
-  for (let i = 0; i < foundIds.length; i += 1) {
-    for (let j = i + 1; j < foundIds.length; j += 1) {
-      const refA = FIELD_TEMPLATE[foundIds[i]].anchor;
-      const refB = FIELD_TEMPLATE[foundIds[j]].anchor;
-      const score = Math.abs(refB.x - refA.x) * Math.abs(refB.y - refA.y);
-      if (score > bestScore) {
-        bestScore = score;
-        best = [foundIds[i], foundIds[j]];
-      }
+  let bestDist = Infinity;
+  let bestScore = 0; // Prefer decimals (score: 2) over whole numbers (score: 1)
+
+  for (const word of words) {
+    if (word === anchor || exclude.has(word)) continue;
+    const trimmed = word.text.trim();
+    if (!VALUE_PATTERN.test(trimmed)) continue;
+
+    // Parse numeric value for sanity checks
+    const numericStr = trimmed.replace(/[\$,]/g, "");
+    const numeric = parseFloat(numericStr);
+
+    // Reject values outside reasonable range for tax document amounts
+    if (numeric > VALUE_SANITY_MAX || numeric < 0) continue;
+
+    // A bare small integer (no $, comma, or decimal) is almost certainly
+    // another box's number label, not this field's value.
+    const hasDecimal = trimmed.includes(".");
+    const hasComma = trimmed.includes(",");
+    const hasDollar = trimmed.startsWith("$");
+    if (!hasDecimal && !hasComma && !hasDollar && numeric <= BOX_NUMBER_LABEL_MAX) continue;
+
+    // Score preference: decimals are more reliable than whole numbers
+    const score = hasDecimal ? 2 : 1;
+    
+    const dx = word.bbox.x0 - anchor.bbox.x0;
+    const dy = word.bbox.y0 - anchor.bbox.y0;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    if (dist < radius && (dist < bestDist || (dist === bestDist && score > bestScore))) {
+      best = trimmed;
+      bestDist = dist;
+      bestScore = score;
     }
   }
   return best;
 }
 
-// Calibrates a scale+offset transform from whichever 2 anchors were
-// actually found on this document, then applies it to every field's
-// template position — so box3's dot is placed by geometry, not by
-// re-searching for its label text (which is what caused it to get
-// mismatched onto box5 in an earlier version of this logic).
-function buildFieldPositions(anchors) {
-  const foundIds = Object.keys(anchors).filter((id) => FIELD_TEMPLATE[id]);
-  if (foundIds.length < 2) return {};
-
-  const pair = bestAnchorPair(foundIds);
-  if (!pair) return {};
-
-  const [idA, idB] = pair;
-  const realA = anchors[idA];
-  const realB = anchors[idB];
-  const refA = FIELD_TEMPLATE[idA].anchor;
-  const refB = FIELD_TEMPLATE[idB].anchor;
-
-  const scaleX = (realB.x - realA.x) / (refB.x - refA.x);
-  const scaleY = (realB.y - realA.y) / (refB.y - refA.y);
-  const dx = realA.x - refA.x * scaleX;
-  const dy = realA.y - refA.y * scaleY;
-
-  const positions = {};
-  for (const fieldId of DISPLAYABLE_FIELD_IDS) {
-    const { anchor, dotOffset } = FIELD_TEMPLATE[fieldId];
-    const digit = transformPoint(anchor, scaleX, scaleY, dx, dy);
-    positions[fieldId] = {
-      x: digit.x + dotOffset.x * scaleX,
-      y: digit.y + dotOffset.y * scaleY,
-    };
+// Tries every registered form definition against this page's OCR'd words
+// and picks whichever one matched the most anchors — distinct forms use
+// distinct number+keyword pairs, so overlapping vocabulary (e.g. "federal"
+// appears on both w2 and 1099-nec) doesn't cause cross-matches.
+function matchFormDefinition(words, normalizedText) {
+  let best = null;
+  let bestScore = 0;
+  for (const definition of FORM_DEFINITIONS) {
+    const anchors = {};
+    for (const { fieldId, number, keyword } of definition.fields) {
+      const found = findAnchor(words, number, keyword);
+      if (found) anchors[fieldId] = found;
+    }
+    const score = Object.keys(anchors).length;
+    if (score > bestScore) {
+      bestScore = score;
+      best = { definition, anchors };
+    }
   }
-  return { positions, calibratedFrom: pair };
+  if (!best) return null;
+
+  const documentType = best.definition.classify
+    ? best.definition.classify(normalizedText)
+    : best.definition.type;
+
+  return { documentType, definition: best.definition, anchors: best.anchors };
 }
 
 async function analyzeCanvas(canvas, pageNumber) {
@@ -179,50 +215,67 @@ async function analyzeCanvas(canvas, pageNumber) {
   try {
     const { data } = await worker.recognize(canvas, {}, { blocks: true });
     const text = data.text ?? "";
-
-    // Anchors are the primary signal for "is this page a W-2-family form
-    // grid at all" — more reliable than text-matching a title or OMB
-    // number, and we need them either way to place the dots.
     const words = flattenWords(data);
-    const anchors = {};
-    for (const [fieldId, keyword] of [
-      ["box1", "wages"],
-      ["box2", "federal"],
-      ["box15", "state"],
-    ]) {
-      const number = fieldId.replace("box", "");
-      const found = findAnchor(words, number, keyword);
-      if (found) {
-        anchors[fieldId] = { x: found.bbox.x0 / canvas.width, y: found.bbox.y0 / canvas.height };
-      }
-    }
 
-    const foundAnchorIds = Object.keys(anchors).join(",") || "none";
-    console.log(`[analyzeDocument] page ${pageNumber}: anchors=${foundAnchorIds}`);
-
-    const built = buildFieldPositions(anchors);
-    if (!built.positions) {
-      console.log(`[analyzeDocument] page ${pageNumber}: not enough anchors to calibrate, rejecting page`);
+    const match = matchFormDefinition(words, normalizeText(text));
+    if (!match) {
+      console.log(`[analyzeDocument] page ${pageNumber}: no form matched`);
       return null;
     }
 
-    const documentType = isCorrectedForm(text) ? "w2c" : "w2";
-    console.log(
-      `[analyzeDocument] page ${pageNumber}: classified as ${documentType}, calibrated from ${built.calibratedFrom.join("+")}`,
+    const { documentType, definition, anchors } = match;
+    const fieldValues = {};
+
+    console.log(`[analyzeDocument:debug] page ${pageNumber}: all OCR words`);
+    console.table(
+      words.map((w) => ({
+        text: w.text,
+        x0: Math.round(w.bbox.x0),
+        y0: Math.round(w.bbox.y0),
+        confidence: Math.round(w.confidence),
+      })),
     );
 
-    const fieldPositions = {};
-    for (const [fieldId, point] of Object.entries(built.positions)) {
-      fieldPositions[`${documentType}:${fieldId}`] = point;
+    if (documentType === "w2c") {
+      // Each box number appears twice on a W-2c, in reading order:
+      // "Previously reported" first, then "Correct information" — so the
+      // first occurrence's nearby value is the previous amount, the
+      // second occurrence's is the corrected one.
+      const occurrencesByField = definition.fields.map(({ fieldId, number, keyword }) => ({
+        fieldId,
+        occurrences: findAllAnchors(words, number, keyword),
+      }));
+      const allAnchorWords = new Set(occurrencesByField.flatMap((f) => f.occurrences));
+
+      for (const { fieldId, occurrences } of occurrencesByField) {
+        const [previousAnchor, correctedAnchor] = occurrences;
+        debugFieldCandidates(`${fieldId}:previous`, words, previousAnchor, allAnchorWords);
+        debugFieldCandidates(`${fieldId}:corrected`, words, correctedAnchor, allAnchorWords);
+        if (previousAnchor) {
+          fieldValues[`${documentType}:${fieldId}:previous`] = findNearbyValue(words, previousAnchor, allAnchorWords);
+        }
+        if (correctedAnchor) {
+          fieldValues[`${documentType}:${fieldId}:corrected`] = findNearbyValue(words, correctedAnchor, allAnchorWords);
+        }
+      }
+    } else {
+      const allAnchorWords = new Set(Object.values(anchors));
+      for (const [fieldId, anchor] of Object.entries(anchors)) {
+        debugFieldCandidates(fieldId, words, anchor, allAnchorWords);
+        fieldValues[`${documentType}:${fieldId}`] = findNearbyValue(words, anchor, allAnchorWords);
+      }
     }
 
-    return { documentType, pageNumber, fieldPositions };
+    const foundFieldIds = Object.keys(anchors).join(",") || "none";
+    console.log(`[analyzeDocument] page ${pageNumber}: classified as ${documentType}, fields=${foundFieldIds}`);
+
+    return { documentType, pageNumber, fieldValues };
   } finally {
     await worker.terminate();
   }
 }
 
-const NOT_FOUND = { documentType: null, pageNumber: null, fieldPositions: {} };
+const NOT_FOUND = { documentType: null, pageNumber: null, fieldValues: {} };
 
 async function analyzePdf(file) {
   let pdf;

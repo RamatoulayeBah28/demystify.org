@@ -1,0 +1,38 @@
+{
+  "w2c:box1": {
+    "label": "Wages, tips, other comp. (corrected)",
+    "soTitle": "Mushaharkaaga oo la saxay",
+    "so": "Kani waa sanduuq muujinaya labadaba: lacagtii markii hore lagu sheegay iyo tan saxda ah ee cusub. Haddii aad horay u soo gudbisay canshuurtaada adigoo isticmaalaya W-2-gii hore, waxaa laga yaabaa inaad u baahato inaad dib u gudbiso adigoo isticmaalaya tirooyinka saxda ah.",
+    "en": "This box shows both the amount that was originally reported and the corrected amount. If you already filed your taxes using your old W-2, you may need to refile using these corrected numbers."
+  },
+  "w2c:box2": {
+    "label": "Federal income tax withheld (corrected)",
+    "soTitle": "Canshuurta federaalka ee la saxay",
+    "so": "Kani waa sanduuq muujinaya lacagtii canshuurta federaalka ee horay laga jaray iyo tan saxda ah ee cusub. Tan waxay kaa caawin kartaa inaad ogaato haddii canshuurta lagaa jaray ay sax tahay.",
+    "en": "This box shows the federal tax withheld amount that was originally reported and the corrected amount, so you can check whether the right amount was taken out."
+  },
+  "w2c:box3": {
+    "label": "Social security wages (corrected)",
+    "soTitle": "Social Security mushaharka oo la saxay",
+    "so": "Kani waa qaybta mushaharkaaga ee loo xisaabiyo Social Security, saxda ah ee cusub. Haddii tirooyinka iska beddelsan, waxaa laga yaabaa inaad u baahato inaad iska beddelso canshuurtaada Social Security.",
+    "en": "This is the corrected Social Security wages. If this number changed, you may need to adjust your tax filing."
+  },
+  "w2c:box4": {
+    "label": "Social security tax withheld (corrected)",
+    "soTitle": "Social Security canshuurta oo la saxay",
+    "so": "Kani waa lacagta canshuurta Social Security ee saxda ah ee cusub. Haddii aad horay u soo gudbisay canshuurtaada, waxaa laga yaabaa inaad u baahato inaad iska beddelso.",
+    "en": "This is the corrected Social Security tax amount. You may need to adjust your tax filing if this changed."
+  },
+  "w2c:box5": {
+    "label": "Medicare wages & tips (corrected)",
+    "soTitle": "Medicare mushaharkaaga oo la saxay",
+    "so": "Kani waa qaybta mushaharkaaga ee loo xisaabiyo Medicare, saxda ah ee cusub.",
+    "en": "This is the corrected Medicare wages amount."
+  },
+  "w2c:box6": {
+    "label": "Medicare tax withheld (corrected)",
+    "soTitle": "Medicare canshuurta oo la saxay",
+    "so": "Kani waa lacagta canshuurta Medicare ee saxda ah ee cusub.",
+    "en": "This is the corrected Medicare tax amount."
+  }
+}

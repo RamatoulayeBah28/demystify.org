@@ -1,49 +1,121 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import Nav from "./Nav";
+import { useEffect, useRef, useState } from "react";
+import { getAnnotation } from "@/lib/annotations";
 import UploadScreen from "./UploadScreen";
 import DetectingScreen from "./DetectingScreen";
 import UnmatchedScreen from "./UnmatchedScreen";
 import ViewerScreen from "./ViewerScreen";
+import AnnotationPopover from "./AnnotationPopover";
 
 const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
+// Document types we have a designed template for. analyzeDocument can
+// recognize others (or none); anything not in this set routes to the
+// unmatched screen rather than rendering a template we haven't built.
+const SUPPORTED_TYPES = new Set(["w2", "w2c", "1099-nec"]);
+const POPOVER_WIDTH = 344;
+const POPOVER_HEIGHT = 480;
+const POPOVER_GAP = 16;
 
 export default function TaxDocumentHelper() {
   const [screen, setScreen] = useState("upload");
-  const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState(null);
   const [documentType, setDocumentType] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [fieldPositions, setFieldPositions] = useState({});
+  const [fieldValues, setFieldValues] = useState({});
+  const [activeN, setActiveN] = useState(null);
+  const [popTop, setPopTop] = useState(0);
+  const [popLeft, setPopLeft] = useState(0);
+  const [popSide, setPopSide] = useState("right");
+  const [playLang, setPlayLang] = useState(null);
+  const [progress, setProgress] = useState(0);
   const [dragOver, setDragOver] = useState(false);
 
-  const fileUrl = useMemo(() => (file ? URL.createObjectURL(file) : null), [file]);
+  const containerRef = useRef(null);
+  const timerRef = useRef(null);
 
-  useEffect(() => {
-    return () => {
-      if (fileUrl) URL.revokeObjectURL(fileUrl);
-    };
-  }, [fileUrl]);
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
 
-  const acceptFile = async (candidate) => {
-    if (!candidate || !ACCEPTED_TYPES.includes(candidate.type)) return;
-    setFile(candidate);
-    setScreen("detecting");
-    const { analyzeDocument } = await import("@/lib/ocr/analyzeDocument");
-    const { documentType: detected, pageNumber: detectedPage, fieldPositions: positions } =
-      await analyzeDocument(candidate);
-    setDocumentType(detected);
-    setPageNumber(detectedPage ?? 1);
-    setFieldPositions(positions);
-    setScreen(detected ? "viewer" : "unmatched");
+  useEffect(() => stopTimer, []);
+
+  const openBox = (e, n) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const c = container.getBoundingClientRect();
+    const b = e.currentTarget.getBoundingClientRect();
+    let side = "right";
+    let left = b.right - c.left + POPOVER_GAP;
+    if (left + POPOVER_WIDTH > c.width - 14) {
+      left = b.left - c.left - POPOVER_WIDTH - POPOVER_GAP;
+      side = "left";
+    }
+    if (left < 14) left = 14;
+    let top = b.top - c.top - 10;
+    top = Math.max(80, Math.min(top, c.height - POPOVER_HEIGHT - 20));
+    stopTimer();
+    setActiveN(n);
+    setPopLeft(left);
+    setPopTop(top);
+    setPopSide(side);
+    setPlayLang(null);
+    setProgress(0);
+  };
+
+  const toggle = (lang) => {
+    if (playLang === lang) {
+      stopTimer();
+      setPlayLang(null);
+      return;
+    }
+    stopTimer();
+    setPlayLang(lang);
+    setProgress(0);
+    timerRef.current = setInterval(() => {
+      setProgress((p) => {
+        const next = p + 2.4;
+        if (next >= 100) {
+          stopTimer();
+          setPlayLang(null);
+          return 100;
+        }
+        return next;
+      });
+    }, 110);
   };
 
   const goUpload = () => {
+    stopTimer();
     setScreen("upload");
-    setFile(null);
     setDocumentType(null);
-    setPageNumber(1);
-    setFieldPositions({});
+    setFieldValues({});
+    setActiveN(null);
+    setPlayLang(null);
+  };
+
+  const closePop = () => {
+    stopTimer();
+    setActiveN(null);
+    setPlayLang(null);
+    setProgress(0);
+  };
+
+  const acceptFile = async (candidate) => {
+    if (!candidate || !ACCEPTED_TYPES.includes(candidate.type)) return;
+    setFileName(candidate.name);
+    setScreen("detecting");
+    const { analyzeDocument } = await import("@/lib/ocr/analyzeDocument");
+    const { documentType: detected, fieldValues: extracted } =
+      await analyzeDocument(candidate);
+    const supported =
+      detected && SUPPORTED_TYPES.has(detected) ? detected : null;
+    setDocumentType(supported);
+    setFieldValues(extracted || {});
+    setActiveN(null);
+    setScreen(supported ? "viewer" : "unmatched");
   };
 
   const onDragOver = (e) => {
@@ -62,10 +134,15 @@ export default function TaxDocumentHelper() {
     acceptFile(e.dataTransfer.files?.[0]);
   };
 
-  return (
-    <div className="relative min-h-screen bg-dm-bg text-dm-ink">
-      <Nav />
+  const active = activeN
+    ? { n: activeN, ...getAnnotation(`${documentType}:box${activeN}`) }
+    : null;
 
+  return (
+    <div
+      ref={containerRef}
+      className="relative min-h-screen bg-dm-bg text-dm-ink"
+    >
       {screen === "upload" && (
         <UploadScreen
           dragOver={dragOver}
@@ -78,17 +155,32 @@ export default function TaxDocumentHelper() {
 
       {screen === "detecting" && <DetectingScreen />}
 
-      {screen === "unmatched" && <UnmatchedScreen onBack={goUpload} />}
-
       {screen === "viewer" && (
         <ViewerScreen
-          fileName={file?.name}
-          fileType={file?.type}
-          fileUrl={fileUrl}
           documentType={documentType}
-          pageNumber={pageNumber}
-          fieldPositions={fieldPositions}
+          fileName={fileName}
+          fieldValues={fieldValues}
           onBack={goUpload}
+          activeN={activeN}
+          onBoxClick={openBox}
+        />
+      )}
+
+      {screen === "unmatched" && (
+        <UnmatchedScreen onBack={goUpload} fileName={fileName} />
+      )}
+
+      {active && (
+        <AnnotationPopover
+          active={active}
+          top={popTop}
+          left={popLeft}
+          side={popSide}
+          playLang={playLang}
+          progress={progress}
+          onClose={closePop}
+          onPlaySomali={() => toggle("so")}
+          onPlayEnglish={() => toggle("en")}
         />
       )}
     </div>

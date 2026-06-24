@@ -16,5 +16,35 @@
     "soTitle": "Mushaharka Social Security",
     "so": "Tani waa qaybta mushaharkaaga ee loo xisaabiyo Social Security — lacag ku taageeraysa marka aad hawlgabto.",
     "en": "This is the part of your pay counted toward Social Security — money that helps support you when you retire."
+  },
+  "w2:box4": {
+    "label": "Social security tax withheld",
+    "soTitle": "Social Security canshuur",
+    "so": "Tani waa lacagta canshuurta Social Security ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
+    "en": "This is the Social Security tax amount your employer took out of your pay."
+  },
+  "w2:box5": {
+    "label": "Medicare wages & tips",
+    "soTitle": "Medicare mushaharkaaga",
+    "so": "Tani waa qaybta mushaharkaaga ee loo xisaabiyo Medicare — kaasoo gaashaan caafimaadka.",
+    "en": "This is the part of your pay counted toward Medicare — health insurance for seniors."
+  },
+  "w2:box6": {
+    "label": "Medicare tax withheld",
+    "soTitle": "Medicare canshuur",
+    "so": "Tani waa lacagta canshuurta Medicare ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
+    "en": "This is the Medicare tax amount your employer took out of your pay."
+  },
+  "w2:box16": {
+    "label": "State wages, tips, etc.",
+    "soTitle": "State mushaharka",
+    "so": "Tani waa lacagta mushaharkaaga ee dowladda lagaga jaray canshuurta stateka.",
+    "en": "This is the wages your state counted for calculating state income tax."
+  },
+  "w2:box17": {
+    "label": "State income tax withheld",
+    "soTitle": "State canshuurta",
+    "so": "Tani waa lacagta canshuurta stateka ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
+    "en": "This is the state income tax your employer took out of your paychecks."
   }
 }

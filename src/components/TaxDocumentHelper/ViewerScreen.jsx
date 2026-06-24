@@ -1,20 +1,22 @@
-import dynamic from "next/dynamic";
-import { getFieldIds } from "@/lib/annotations";
-import ImagePreview from "./ImagePreview";
+import W2Document from "./W2Document";
+import W2cDocument from "./W2cDocument";
+import Nec1099Document from "./Nec1099Document";
 
-const PdfPreview = dynamic(() => import("./PdfPreview"), { ssr: false });
+const DOCUMENTS = {
+  w2: W2Document,
+  w2c: W2cDocument,
+  "1099-nec": Nec1099Document,
+};
 
 export default function ViewerScreen({
-  fileName,
-  fileType,
-  fileUrl,
   documentType,
-  pageNumber,
-  fieldPositions,
+  fileName,
+  fieldValues,
   onBack,
+  activeN,
+  onBoxClick,
 }) {
-  const hasAnnotations = getFieldIds(documentType).length > 0;
-  const isPdf = fileType === "application/pdf";
+  const DocumentComponent = DOCUMENTS[documentType] ?? W2Document;
 
   return (
     <div className="mx-auto max-w-[1040px] px-8 pt-[26px] pb-[90px]">
@@ -26,49 +28,32 @@ export default function ViewerScreen({
           <i className="fa-solid fa-arrow-left" /> Dib u noqo
         </button>
         <span className="inline-flex items-center gap-[9px] text-[15px] font-medium text-dm-muted">
-          <i className={isPdf ? "fa-regular fa-file-pdf text-dm-accent" : "fa-regular fa-image text-dm-accent"} />{" "}
-          {fileName}
+          <i className="fa-regular fa-file-pdf text-dm-accent" /> {fileName}
         </span>
       </div>
 
       <div className="mb-[26px] flex max-w-[608px] items-center gap-[14px] rounded-2xl border border-dm-line bg-dm-accent-soft px-[18px] py-[15px]">
         <span className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-dm-accent text-base text-white">
-          <i className={hasAnnotations ? "fa-solid fa-hand-pointer" : "fa-solid fa-circle-info"} />
+          <i className="fa-solid fa-hand-pointer" />
         </span>
         <div>
-          {hasAnnotations ? (
-            <>
-              <div className="text-[17px] font-semibold leading-[1.35]">
-                Riix sanduuq kasta oo la calaamadeeyay si aad u maqasho sharaxaad fudud.
-              </div>
-              <div className="mt-0.5 text-sm text-dm-muted">
-                Tap any highlighted box to hear a simple explanation.
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="text-[17px] font-semibold leading-[1.35]">
-                Waa kan dukumentigaaga. Sharaxaadda qaybaha way ku soo biiri doontaa dhowaan.
-              </div>
-              <div className="mt-0.5 text-sm text-dm-muted">
-                Here&apos;s your document. Field-by-field explanations are coming soon.
-              </div>
-            </>
-          )}
+          <div className="text-[17px] font-semibold leading-[1.35]">
+            Riix sanduuq kasta oo la calaamadeeyay si aad u maqasho sharaxaad
+            fudud.
+          </div>
+          <div className="mt-0.5 text-sm text-dm-muted">
+            Tap any highlighted box to hear a simple explanation.
+          </div>
         </div>
       </div>
 
-      {fileUrl &&
-        (isPdf ? (
-          <PdfPreview
-            fileUrl={fileUrl}
-            documentType={documentType}
-            pageNumber={pageNumber}
-            fieldPositions={fieldPositions}
-          />
-        ) : (
-          <ImagePreview fileUrl={fileUrl} documentType={documentType} fieldPositions={fieldPositions} />
-        ))}
+      <div className="flex items-start">
+        <DocumentComponent
+          activeN={activeN}
+          onBoxClick={onBoxClick}
+          fieldValues={fieldValues}
+        />
+      </div>
     </div>
   );
 }

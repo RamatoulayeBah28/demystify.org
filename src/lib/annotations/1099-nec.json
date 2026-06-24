@@ -1,0 +1,14 @@
+{
+  "1099-nec:box1": {
+    "label": "Nonemployee compensation",
+    "soTitle": "Mushaharkaaga shaqo madax-bannaan",
+    "so": "Tani waa wadarta lacagta lagu siiyay sanadkan oo dhan halka aad u shaqaynaysay sidii qof madax-bannaan (mid aan shaqo joogto ahayn), ka hor inta aan canshuur laga jarin.",
+    "en": "This is the total amount you were paid this year for work you did as an independent contractor or freelancer, before any taxes were taken out."
+  },
+  "1099-nec:box4": {
+    "label": "Federal income tax withheld",
+    "soTitle": "Canshuurta federaalka ee horay loo jaray",
+    "so": "Tani waa canshuurta federaalka ah ee horay laga jaray mushaharkaaga oo loo diray dawladda. Inta badan, dadka shaqada madax-bannaan ah meel canshuur kama jarin, marka tani inta badan waxay noqon kartaa $0.",
+    "en": "This is any federal tax that was already taken out of your pay and sent to the government for you. Most independent contractors don't have tax withheld, so this is often $0."
+  }
+}
