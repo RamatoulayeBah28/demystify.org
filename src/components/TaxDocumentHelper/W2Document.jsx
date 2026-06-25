@@ -24,6 +24,14 @@ export default function W2Document({ activeN, onBoxClick, fieldValues }) {
     ...field,
     value: fieldValues[`w2:box${field.n}`] || "—",
   }));
+
+  const ssn = fieldValues["w2:boxA"] || "—";
+  const ein = fieldValues["w2:boxB"] || "—";
+  const employerNameAddress = fieldValues["w2:boxC"] || "—";
+  const controlNumber = fieldValues["w2:boxD"] || "—";
+  const employeeName = fieldValues["w2:boxE"] || "—";
+  const employeeAddress = fieldValues["w2:boxF"] || "—";
+
   return (
     <div className="w-[600px] flex-none rounded-md border border-dm-paper-line bg-white p-[18px] text-dm-paper-ink">
       <div className="mb-[10px] flex gap-[10px]">
@@ -32,7 +40,7 @@ export default function W2Document({ activeN, onBoxClick, fieldValues }) {
             a&nbsp;&nbsp;Employee SSN
           </div>
           <div className="mt-[3px] text-[17px] font-bold tracking-[0.04em]">
-            ***-**-4471
+            {ssn}
           </div>
         </div>
         <div className="flex flex-1 items-center justify-between rounded border border-dm-paper-line px-[14px] py-2">
@@ -61,18 +69,27 @@ export default function W2Document({ activeN, onBoxClick, fieldValues }) {
             <div className="text-[10px] uppercase tracking-[0.05em] text-dm-paper-muted">
               b&nbsp;&nbsp;Employer ID number (EIN)
             </div>
-            <div className="mt-[3px] text-base font-semibold">12-3456789</div>
+            <div className="mt-[3px] text-base font-semibold">{ein}</div>
           </div>
-          <div className="flex-1 rounded border border-dm-paper-line px-[10px] py-2">
+          <div className="rounded border border-dm-paper-line px-[10px] py-2">
             <div className="text-[10px] uppercase tracking-[0.05em] text-dm-paper-muted">
               c&nbsp;&nbsp;Employer name &amp; address
             </div>
             <div className="mt-[3px] text-[15px] font-semibold leading-[1.4]">
-              Greenline Logistics LLC
-              <br />
-              1420 Harbor Ave
-              <br />
-              Columbus, OH 43215
+              {employerNameAddress.split("\n").map((line, i) => (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="rounded border border-dm-paper-line px-[10px] py-2">
+            <div className="text-[10px] uppercase tracking-[0.05em] text-dm-paper-muted">
+              d&nbsp;&nbsp;Control number
+            </div>
+            <div className="mt-[3px] text-[15px] font-semibold">
+              {controlNumber}
             </div>
           </div>
           <div className="rounded border border-dm-paper-line px-[10px] py-2">
@@ -80,7 +97,20 @@ export default function W2Document({ activeN, onBoxClick, fieldValues }) {
               e&nbsp;&nbsp;Employee name
             </div>
             <div className="mt-[3px] text-[15px] font-semibold">
-              Amina H. Warsame
+              {employeeName}
+            </div>
+          </div>
+          <div className="flex-1 rounded border border-dm-paper-line px-[10px] py-2">
+            <div className="text-[10px] uppercase tracking-[0.05em] text-dm-paper-muted">
+              f&nbsp;&nbsp;Employee address
+            </div>
+            <div className="mt-[3px] text-[15px] font-semibold leading-[1.4]">
+              {employeeAddress.split("\n").map((line, i) => (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </span>
+              ))}
             </div>
           </div>
         </div>
