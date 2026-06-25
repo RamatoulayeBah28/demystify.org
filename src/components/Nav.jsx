@@ -10,6 +10,8 @@ const LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
+const DONATE_LINK = { href: "/donate", label: "Donate" };
+
 export default function Nav() {
   const pathname = usePathname();
 
@@ -36,6 +38,14 @@ export default function Nav() {
             {label}
           </Link>
         ))}
+        <Link
+          href={DONATE_LINK.href}
+          className={`rounded-full px-4 py-[8px] text-sm font-semibold no-underline ${
+            pathname === DONATE_LINK.href ? "bg-dm-ink text-white" : "bg-dm-accent text-white"
+          }`}
+        >
+          {DONATE_LINK.label}
+        </Link>
       </div>
     </nav>
   );
