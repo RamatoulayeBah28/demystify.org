@@ -48,7 +48,7 @@ export default function About() {
           alt="demystify.org"
           width={853}
           height={721}
-          className="mx-auto mb-4 h-48 w-auto"
+          className="mx-auto mb-4 h-64 w-auto"
         />
         <h1 className="mb-[18px] font-serif text-[40px] font-semibold leading-[1.15] tracking-[-0.015em] text-dm-ink">
           Canshuurtaada, luqaddaada
