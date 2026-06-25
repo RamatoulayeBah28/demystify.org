@@ -1,6 +1,7 @@
 import W2Document from "./W2Document";
 import W2cDocument from "./W2cDocument";
 import Nec1099Document from "./Nec1099Document";
+import ChatPanel from "./ChatPanel";
 
 const DOCUMENTS = {
   w2: W2Document,
@@ -32,7 +33,7 @@ export default function ViewerScreen({
         </span>
       </div>
 
-      <div className="mb-[26px] flex max-w-[608px] items-center gap-[14px] rounded-2xl border border-dm-line bg-dm-accent-soft px-[18px] py-[15px]">
+      <div className="mx-auto mb-[26px] flex max-w-[608px] items-center gap-[14px] rounded-2xl border border-dm-line bg-dm-accent-soft px-[18px] py-[15px]">
         <span className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-dm-accent text-base text-white">
           <i className="fa-solid fa-hand-pointer" />
         </span>
@@ -47,13 +48,15 @@ export default function ViewerScreen({
         </div>
       </div>
 
-      <div className="flex items-start">
+      <div className="flex items-start justify-center">
         <DocumentComponent
           activeN={activeN}
           onBoxClick={onBoxClick}
           fieldValues={fieldValues}
         />
       </div>
+
+      <ChatPanel documentType={documentType} fieldValues={fieldValues} />
     </div>
   );
 }

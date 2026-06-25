@@ -3,16 +3,15 @@
 ## Mission
 A web app helping Somali-speaking immigrants understand US tax 
 documents through plain-language annotation, Somali translation/audio, 
-and a scoped chatbot. Many users are anxious about both taxes and 
+and a follow-up chatbot. Many users are anxious about both taxes and 
 technology — defaults should be warm, calm, and plain-language, never 
 clinical or dense.
 
 ## Tech stack
 Next.js (App Router) + Tailwind, Supabase (auth + db), Claude API 
 (simplification/translation/chatbot), spaCy (NLP preprocessing), OCR 
-for extraction. Backend approach (Express vs. Next.js API routes) is 
-still undecided — flag it if it becomes relevant rather than assuming 
-one.
+for extraction. Backend is Next.js API routes (no separate Express 
+server).
 
 ## Architecture decisions
 - Documents are processed ephemerally. Never persist an uploaded file 
@@ -38,10 +37,15 @@ one.
   scripts); a disclaimed live fallback only for unmatched document 
   types, grounded in the closest vetted examples and visibly marked 
   unverified; and the follow-up chatbot.
-- Chatbot explains terminology and document content only. It does not 
-  give tax advice (dependency status, filing strategy, etc.) — those 
-  questions get redirected to a list of local volunteers/community 
-  organizations, not answered directly.
+- Chatbot answers broadly — terminology, document content, and direct 
+  tax-advice questions (dependency status, filing strategy, etc.) — 
+  rather than redirecting elsewhere. User research found that Somali 
+  users would rather ask their own trusted person than a stranger/org 
+  they don't know, so a generic redirect-to-volunteers flow isn't what 
+  people actually want. When a response constitutes real tax advice, 
+  add a brief disclaimer that it's not a substitute for a tax 
+  professional or a trusted person — a light liability guardrail, not 
+  a content restriction.
 - Resources tab (video walkthroughs, quizzes) is static content, 
   independent of the OCR/annotation pipeline.
 - Upload accepts PDF, JPG, PNG via drag-and-drop and click-to-browse 
