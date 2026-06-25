@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import { Newsreader, Hanken_Grotesk } from "next/font/google";
 import Nav from "@/components/Nav";
 import "./globals.css";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col bg-dm-bg text-dm-ink">
         <Nav />
         {children}
+        <Analytics />
       </body>
     </html>
   );

@@ -17,6 +17,17 @@ const POPOVER_WIDTH = 344;
 const POPOVER_HEIGHT = 480;
 const POPOVER_GAP = 16;
 
+// Fire-and-forget anonymous aggregate counter only — no file content, no
+// filename, no identity ever leaves the browser. Consistent with the
+// project's ephemeral-processing rule for everything else in this flow.
+function recordFileUploaded() {
+  fetch("/api/stats/increment", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ key: "files_uploaded" }),
+  }).catch(() => {});
+}
+
 export default function TaxDocumentHelper() {
   const [screen, setScreen] = useState("upload");
   const [fileName, setFileName] = useState(null);
@@ -105,6 +116,7 @@ export default function TaxDocumentHelper() {
 
   const acceptFile = async (candidate) => {
     if (!candidate || !ACCEPTED_TYPES.includes(candidate.type)) return;
+    recordFileUploaded();
     setFileName(candidate.name);
     setScreen("detecting");
     const { analyzeDocument } = await import("@/lib/ocr/analyzeDocument");
