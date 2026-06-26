@@ -14,9 +14,13 @@ export default function Contact() {
     const email = (f.elements.email?.value || "").trim();
     const topic = (f.elements.topic?.value || "").trim();
     const message = (f.elements.message?.value || "").trim();
-    const subject = encodeURIComponent(`Demystify.org — ${topic || "Contact"}${name ? ` (${name})` : ""}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\n${message}`);
-    window.location.href = `mailto:contact@demystify.org?subject=${subject}&body=${body}`;
+    const subject = encodeURIComponent(
+      `Demystify.org — ${topic || "Contact"}${name ? ` (${name})` : ""}`,
+    );
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\n${message}`,
+    );
+    window.location.href = `mailto:contact@demystifytax.org?subject=${subject}&body=${body}`;
     setSent(true);
   };
 
@@ -30,7 +34,8 @@ export default function Contact() {
           Su’aal ma qabtaa?
         </h1>
         <p className="text-lg leading-[1.55] text-dm-muted">
-          Fariin noo dir oo waxaan kaala soo xidhiidhi doonaa. Send us a message and we’ll get back to you.
+          Fariin noo dir oo waxaan kaala soo xidhiidhi doonaa. Send us a message
+          and we’ll get back to you.
         </p>
       </div>
 
@@ -39,9 +44,12 @@ export default function Contact() {
           <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-dm-accent text-2xl text-white">
             <i className="fa-solid fa-check" />
           </div>
-          <div className="mb-2 font-serif text-2xl font-semibold text-dm-ink">Mahadsanid!</div>
+          <div className="mb-2 font-serif text-2xl font-semibold text-dm-ink">
+            Mahadsanid!
+          </div>
           <p className="mb-[22px] text-base leading-[1.55] text-dm-muted">
-            Your message is on its way to contact@demystify.org. We’ll reply soon.
+            Your message is on its way to contact@demystifytax.org. We’ll reply
+            soon.
           </p>
           <button
             type="button"
@@ -52,9 +60,14 @@ export default function Contact() {
           </button>
         </div>
       ) : (
-        <form onSubmit={submitContact} className="flex flex-col gap-[18px] rounded-[20px] border border-dm-line bg-dm-surface p-[30px]">
+        <form
+          onSubmit={submitContact}
+          className="flex flex-col gap-[18px] rounded-[20px] border border-dm-line bg-dm-surface p-[30px]"
+        >
           <label className="flex flex-col gap-[7px]">
-            <span className="text-sm font-semibold text-dm-ink">Magaca · Name</span>
+            <span className="text-sm font-semibold text-dm-ink">
+              Magaca · Name
+            </span>
             <input
               name="name"
               type="text"
@@ -64,7 +77,9 @@ export default function Contact() {
             />
           </label>
           <label className="flex flex-col gap-[7px]">
-            <span className="text-sm font-semibold text-dm-ink">Iimaylka · Email</span>
+            <span className="text-sm font-semibold text-dm-ink">
+              Iimaylka · Email
+            </span>
             <input
               name="email"
               type="email"
@@ -74,7 +89,9 @@ export default function Contact() {
             />
           </label>
           <label className="flex flex-col gap-[7px]">
-            <span className="text-sm font-semibold text-dm-ink">Mawduuca · Topic</span>
+            <span className="text-sm font-semibold text-dm-ink">
+              Mawduuca · Topic
+            </span>
             <input
               name="topic"
               type="text"
@@ -83,7 +100,9 @@ export default function Contact() {
             />
           </label>
           <label className="flex flex-col gap-[7px]">
-            <span className="text-sm font-semibold text-dm-ink">Fariinta · Message</span>
+            <span className="text-sm font-semibold text-dm-ink">
+              Fariinta · Message
+            </span>
             <textarea
               name="message"
               required
@@ -99,7 +118,10 @@ export default function Contact() {
             <i className="fa-solid fa-paper-plane" /> Dir fariinta · Send
           </button>
           <div className="text-center text-sm text-dm-muted">
-            Waxaa lagugu xidhi doonaa <span className="font-semibold text-dm-accent">contact@demystify.org</span>
+            Waxaa lagugu xidhi doonaa{" "}
+            <span className="font-semibold text-dm-accent">
+              contact@demystifytax.org
+            </span>
           </div>
         </form>
       )}
