@@ -1,7 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
+import convertHeic from "heic-convert";
 import { DOCUMENT_TYPES, SUPPORTED_TYPES } from "@/lib/documentTypes";
 
 const MODEL = "claude-opus-4-8";
+const HEIC_EXTENSION_PATTERN = /\.(heic|heif)$/i;
 
 function buildSystemPrompt() {
   const typeBlocks = Object.entries(DOCUMENT_TYPES).map(([type, def]) => {
@@ -61,6 +63,14 @@ function parseExtraction(text) {
   return parsed;
 }
 
+// HEIC/HEIF isn't a format Claude's vision API accepts, and phone cameras
+// default to it — convert to JPEG in-memory before sending. Detected by
+// extension too, not just MIME type, since browsers/OSes are inconsistent
+// about reporting "image/heic" for these files (some report it blank).
+function isHeic(file) {
+  return file.type === "image/heic" || file.type === "image/heif" || HEIC_EXTENSION_PATTERN.test(file.name ?? "");
+}
+
 export async function POST(request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
@@ -73,12 +83,24 @@ export async function POST(request) {
     return Response.json({ error: "file is required." }, { status: 400 });
   }
 
-  const buffer = Buffer.from(await file.arrayBuffer());
+  let buffer = Buffer.from(await file.arrayBuffer());
+  let mediaType = file.type;
+
+  if (isHeic(file)) {
+    try {
+      buffer = Buffer.from(await convertHeic({ buffer, format: "JPEG", quality: 0.92 }));
+      mediaType = "image/jpeg";
+    } catch (error) {
+      console.error("[api/extract] HEIC conversion failed:", error);
+      return Response.json({ error: "Couldn't read this HEIC file." }, { status: 400 });
+    }
+  }
+
   const base64 = buffer.toString("base64");
   const documentBlock =
     file.type === "application/pdf"
       ? { type: "document", source: { type: "base64", media_type: "application/pdf", data: base64 } }
-      : { type: "image", source: { type: "base64", media_type: file.type, data: base64 } };
+      : { type: "image", source: { type: "base64", media_type: mediaType, data: base64 } };
 
   const anthropic = new Anthropic({ apiKey });
 

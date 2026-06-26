@@ -6,6 +6,7 @@ const FILE_TYPE_CHIPS = [
   { icon: "fa-regular fa-file-pdf", label: "PDF" },
   { icon: "fa-regular fa-image", label: "JPG" },
   { icon: "fa-regular fa-image", label: "PNG" },
+  { icon: "fa-regular fa-image", label: "HEIC" },
 ];
 
 export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onDragLeave, onDrop }) {
@@ -38,7 +39,7 @@ export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onD
         <input
           ref={inputRef}
           type="file"
-          accept="application/pdf,image/jpeg,image/png"
+          accept="application/pdf,image/jpeg,image/png,image/heic,image/heif,.heic,.heif"
           className="hidden"
           onClick={(e) => e.stopPropagation()}
           onChange={(e) => onFileSelected(e.target.files?.[0])}

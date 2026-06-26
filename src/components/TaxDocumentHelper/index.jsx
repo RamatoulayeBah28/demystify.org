@@ -9,7 +9,10 @@ import UnmatchedScreen from "./UnmatchedScreen";
 import ViewerScreen from "./ViewerScreen";
 import AnnotationPopover from "./AnnotationPopover";
 
-const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
+const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png", "image/heic", "image/heif"];
+// Browsers/OSes are inconsistent about reporting a MIME type for HEIC
+// files (some leave candidate.type blank) — fall back to the extension.
+const HEIC_EXTENSION_PATTERN = /\.(heic|heif)$/i;
 const POPOVER_WIDTH = 344;
 const POPOVER_HEIGHT = 480;
 const POPOVER_GAP = 16;
@@ -115,7 +118,10 @@ export default function TaxDocumentHelper() {
   };
 
   const acceptFile = async (candidate) => {
-    if (!candidate || !ACCEPTED_TYPES.includes(candidate.type)) return;
+    const isAccepted =
+      candidate &&
+      (ACCEPTED_TYPES.includes(candidate.type) || HEIC_EXTENSION_PATTERN.test(candidate.name ?? ""));
+    if (!isAccepted) return;
     recordFileUploaded();
     setFileName(candidate.name);
     setScreen("detecting");
