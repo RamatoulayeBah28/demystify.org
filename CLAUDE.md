@@ -37,15 +37,15 @@ server).
   scripts); a disclaimed live fallback only for unmatched document 
   types, grounded in the closest vetted examples and visibly marked 
   unverified; and the follow-up chatbot.
-- Chatbot answers broadly — terminology, document content, and direct 
-  tax-advice questions (dependency status, filing strategy, etc.) — 
-  rather than redirecting elsewhere. User research found that Somali 
-  users would rather ask their own trusted person than a stranger/org 
-  they don't know, so a generic redirect-to-volunteers flow isn't what 
-  people actually want. When a response constitutes real tax advice, 
-  add a brief disclaimer that it's not a substitute for a tax 
-  professional or a trusted person — a light liability guardrail, not 
-  a content restriction.
+- Chatbot only explains tax terminology and the content of the user's 
+  uploaded document. It declines filing-status/strategy/dependency/
+  deduction-type questions outright — those need a real tax 
+  professional, not a chatbot. Every reply ends with a short reminder 
+  that it's just a chatbot and the user should double-check anything 
+  important with someone they trust. (This is narrower than an earlier 
+  version of this decision that let it answer tax-advice questions 
+  directly with a disclaimer — reverted back to the original 
+  terminology/document-only scope.)
 - Resources tab (video walkthroughs, quizzes) is static content, 
   independent of the OCR/annotation pipeline.
 - Upload accepts PDF, JPG, PNG via drag-and-drop and click-to-browse 
