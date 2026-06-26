@@ -91,6 +91,9 @@ function VideoModal({ video, onClose, onOpenQuiz }) {
           </div>
         </div>
 
+        {/* Absolutely positioned off the video panel's right edge, not a
+            flex sibling of it — that way the video stays centered on
+            screen regardless of whether this button is present. */}
         {video.questions.length > 0 && (
           <button
             type="button"

@@ -9,6 +9,8 @@ const INTERACTIVE_FIELDS_TEMPLATE = [
   { n: 6, fieldId: "w2:box6" },
 ];
 
+// Shown with their extracted value but not clickable — no annotation
+// popover or audio icon, unlike INTERACTIVE_FIELDS_TEMPLATE above.
 const STATIC_FIELDS = [
   { n: 16, label: "State wages, tips, etc." },
   { n: 17, label: "State income tax" },

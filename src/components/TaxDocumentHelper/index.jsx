@@ -76,6 +76,9 @@ export default function TaxDocumentHelper() {
     setProgress(0);
   };
 
+  // Simulated playback only — there's no audio file or TTS call here, just
+  // a progress bar that fills over ~4.5s. Real audio for the annotation
+  // library is a separate, not-yet-built piece of work.
   const toggle = (lang) => {
     if (playLang === lang) {
       stopTimer();

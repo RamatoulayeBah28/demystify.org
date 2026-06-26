@@ -188,9 +188,10 @@ function parseAmount(rawText) {
   };
 }
 
-// Temporary diagnostic: prints every digit/currency-shaped word near a
-// field's anchor, closest first, so we can see why the wrong one got
-// picked. Remove once real-world extraction accuracy is confirmed.
+// Diagnostic logging, kept intentionally (not scaffolding to delete):
+// prints every digit/currency-shaped word near a field's anchor, closest
+// first, so a mismatch on a new document template can be diagnosed from
+// the browser console rather than guessed at.
 function debugFieldCandidates(label, words, anchor, exclude) {
   if (!anchor) {
     console.log(`[analyzeDocument:debug] ${label}: no anchor found on this page`);
@@ -451,11 +452,12 @@ async function analyzeCanvas(canvas, pageNumber) {
       })),
     );
 
-    // Temporary diagnostic: shows Tesseract's own line grouping directly,
-    // since the text-field extraction now walks that structure instead of
-    // a guessed pixel line-height — when a field grabs the wrong content,
-    // this is the fastest way to see whether it's because two visually
-    // distinct rows got merged into one OCR line (or vice versa).
+    // Diagnostic logging, kept intentionally: shows Tesseract's own line
+    // grouping directly, since text-field extraction walks that structure
+    // instead of a guessed pixel line-height — when a field grabs the
+    // wrong content, this is the fastest way to see whether it's because
+    // two visually distinct rows got merged into one OCR line (or vice
+    // versa) on a new document template.
     console.log(`[analyzeDocument:debug] page ${pageNumber}: all OCR lines`);
     console.table(
       lines.map((line) => ({

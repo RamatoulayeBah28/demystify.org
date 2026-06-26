@@ -14,9 +14,3 @@ export function getAnnotation(key) {
   const docType = key.split(":")[0];
   return LIBRARIES[docType]?.[key] ?? null;
 }
-
-// Returns the full "docType:fieldId" keys (e.g. "w2:box1"), not bare ids.
-export function getFieldIds(docType) {
-  const lib = LIBRARIES[docType];
-  return lib ? Object.keys(lib) : [];
-}

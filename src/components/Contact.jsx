@@ -5,6 +5,8 @@ import { useState } from "react";
 export default function Contact() {
   const [sent, setSent] = useState(false);
 
+  // No backend endpoint — this opens the user's own email client with a
+  // pre-filled message, rather than sending anything through our servers.
   const submitContact = (e) => {
     e.preventDefault();
     const f = e.currentTarget;

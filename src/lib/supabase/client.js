@@ -2,10 +2,11 @@ import { createClient } from "@supabase/supabase-js";
 
 let client = null;
 
-// All current Supabase-backed content (resources videos/quizzes) is
-// public, read-only, and gated by RLS policies scoped to the anon role —
-// so the plain anon key is sufficient here. Revisit if a future feature
-// needs the service-role key for privileged writes.
+// Every current Supabase-backed feature (Resources videos/quizzes, Our
+// Collaborators, anonymous usage counters) only needs the anon key: reads
+// are public and RLS-gated, and the few writes (stat increments) go
+// through narrow, allowlisted RPC functions rather than direct table
+// access. Revisit if a future feature needs the service-role key.
 export function getSupabaseClient() {
   if (client) return client;
 
