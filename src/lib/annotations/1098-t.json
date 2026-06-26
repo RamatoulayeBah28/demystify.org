@@ -1,0 +1,16 @@
+{
+  "1098-t:box1": {
+    "label": "Payments received for tuition",
+    "soTitle": "Lacagta dugsiga la bixiyay",
+    "so": "Tani waa wadarta lacagta dugsiga (tuition) ee la bixiyay sanadkan, taasoo kor u qaadi karta in lagu helo credit-ka canshuurta waxbarashada.",
+    "en": "This is the total tuition money paid this year, which may qualify for an education tax credit.",
+    "draft": true
+  },
+  "1098-t:box5": {
+    "label": "Scholarships or grants",
+    "soTitle": "Deeq-waxbarasho",
+    "so": "Tani waa wadarta deeq-waxbarashada (scholarships) ama kaalmada (grants) ee ardaygu helay sanadkan, taasoo dhimi karta lacagta credit-ka canshuurta la helayo.",
+    "en": "This is the total scholarship or grant money the student received this year, which can reduce how much education tax credit you can claim.",
+    "draft": true
+  }
+}

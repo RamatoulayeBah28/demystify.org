@@ -16,7 +16,7 @@ const STATIC_FIELDS = [
   { n: 17, label: "State income tax" },
 ];
 
-export default function W2Document({ activeN, onBoxClick, fieldValues }) {
+export default function W2Document({ activeFieldId, onBoxClick, fieldValues }) {
   const INTERACTIVE_FIELDS = INTERACTIVE_FIELDS_TEMPLATE.map((field) => ({
     ...field,
     value: fieldValues[field.fieldId] || "—",
@@ -120,11 +120,11 @@ export default function W2Document({ activeN, onBoxClick, fieldValues }) {
         <div className="grid flex-1 grid-cols-2 content-start gap-[10px]">
           {INTERACTIVE_FIELDS.map((field) => {
             const annotation = getAnnotation(field.fieldId);
-            const isActive = activeN === field.n;
+            const isActive = activeFieldId === field.fieldId;
             return (
               <div
                 key={field.n}
-                onClick={(e) => onBoxClick(e, field.n)}
+                onClick={(e) => onBoxClick(e, field.fieldId)}
                 className={`relative cursor-pointer rounded-lg border border-dm-paper-line border-l-4 border-l-dm-accent bg-dm-accent-soft pt-[9px] px-[11px] pb-[11px] outline-2 outline-offset-2 transition-[transform,box-shadow] duration-150 hover:-translate-y-px hover:shadow-[0_6px_18px_rgba(31,61,92,0.16)] ${
                   isActive ? "outline-dm-accent" : "outline-transparent"
                 }`}

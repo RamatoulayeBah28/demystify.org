@@ -33,7 +33,10 @@ export default function TaxDocumentHelper() {
   const [fileName, setFileName] = useState(null);
   const [documentType, setDocumentType] = useState(null);
   const [fieldValues, setFieldValues] = useState({});
-  const [activeN, setActiveN] = useState(null);
+  // Full "doctype:box1"-style key, not a bare number — some forms have
+  // non-numeric box labels (e.g. 1099-R's box2a), so the annotation
+  // lookup can't assume "box" + a number.
+  const [activeFieldId, setActiveFieldId] = useState(null);
   const [popTop, setPopTop] = useState(0);
   const [popLeft, setPopLeft] = useState(0);
   const [popSide, setPopSide] = useState("right");
@@ -53,7 +56,7 @@ export default function TaxDocumentHelper() {
 
   useEffect(() => stopTimer, []);
 
-  const openBox = (e, n) => {
+  const openBox = (e, fieldId) => {
     const container = containerRef.current;
     if (!container) return;
     const c = container.getBoundingClientRect();
@@ -68,7 +71,7 @@ export default function TaxDocumentHelper() {
     let top = b.top - c.top - 10;
     top = Math.max(80, Math.min(top, c.height - POPOVER_HEIGHT - 20));
     stopTimer();
-    setActiveN(n);
+    setActiveFieldId(fieldId);
     setPopLeft(left);
     setPopTop(top);
     setPopSide(side);
@@ -106,13 +109,13 @@ export default function TaxDocumentHelper() {
     setScreen("upload");
     setDocumentType(null);
     setFieldValues({});
-    setActiveN(null);
+    setActiveFieldId(null);
     setPlayLang(null);
   };
 
   const closePop = () => {
     stopTimer();
-    setActiveN(null);
+    setActiveFieldId(null);
     setPlayLang(null);
     setProgress(0);
   };
@@ -145,7 +148,7 @@ export default function TaxDocumentHelper() {
       detected && SUPPORTED_TYPES.has(detected) ? detected : null;
     setDocumentType(supported);
     setFieldValues(extracted);
-    setActiveN(null);
+    setActiveFieldId(null);
     setScreen(supported ? "viewer" : "unmatched");
   };
 
@@ -165,9 +168,7 @@ export default function TaxDocumentHelper() {
     acceptFile(e.dataTransfer.files?.[0]);
   };
 
-  const active = activeN
-    ? { n: activeN, ...getAnnotation(`${documentType}:box${activeN}`) }
-    : null;
+  const active = activeFieldId ? getAnnotation(activeFieldId) : null;
 
   return (
     <div
@@ -192,7 +193,7 @@ export default function TaxDocumentHelper() {
           fileName={fileName}
           fieldValues={fieldValues}
           onBack={goUpload}
-          activeN={activeN}
+          activeFieldId={activeFieldId}
           onBoxClick={openBox}
         />
       )}

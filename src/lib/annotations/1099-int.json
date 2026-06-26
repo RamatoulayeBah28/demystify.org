@@ -1,0 +1,30 @@
+{
+  "1099-int:box1": {
+    "label": "Interest income",
+    "soTitle": "Lacagta ribada",
+    "so": "Tani waa lacagta ribada ee aad ka heshay sanadkan, tusaale ahaan akoonkaaga kaydka (savings account) bangiga.",
+    "en": "This is the interest money you earned this year, for example from a savings account at the bank.",
+    "draft": true
+  },
+  "1099-int:box2": {
+    "label": "Early withdrawal penalty",
+    "soTitle": "Ganaax ka qaadasho hore",
+    "so": "Tani waa lacag aad lumisay maxaa yeelay waxaad lacagtaada ka qaadatay akoon kaydin ah ka hor wakhtigeedii.",
+    "en": "This is money you lost as a penalty for taking money out of a savings account before its term was up.",
+    "draft": true
+  },
+  "1099-int:box4": {
+    "label": "Federal income tax withheld",
+    "soTitle": "Canshuurta horay loo jaray",
+    "so": "Tani waa lacagta canshuurta federaalka ah ee horay laga jaray lacagtan ribada ah, oo dawladda loo diray.",
+    "en": "This is the federal tax that was already taken out of this interest money and sent to the government.",
+    "draft": true
+  },
+  "1099-int:box8": {
+    "label": "Tax-exempt interest",
+    "soTitle": "Riba aan canshuur lahayn",
+    "so": "Tani waa lacag riba ah oo aadan u baahnayn inaad canshuur federaal ah ka bixiso.",
+    "en": "This is interest income that you don't have to pay federal tax on.",
+    "draft": true
+  }
+}

@@ -39,6 +39,12 @@ separate Express server).
   key like w2:box1 (document type + field id) — not live generation, 
   not raw-text matching. This library doubles as the project's Somali 
   glossary: reviewed once, served many times.
+- New document types may ship with Claude-drafted (not yet 
+  human-reviewed) Somali/English explanations as a starting point. 
+  Each such entry is marked `"draft": true` in its annotation JSON, 
+  and the popover visibly shows a "Draft · Unreviewed" badge for it — 
+  never silently present unverified translations as vetted. Once a 
+  fluent reviewer signs off, drop the `draft` flag.
 - Claude API has four distinct jobs, kept separate: document field 
   extraction on upload (reads the document directly via vision — see 
   above); offline generation of seed content for human review 

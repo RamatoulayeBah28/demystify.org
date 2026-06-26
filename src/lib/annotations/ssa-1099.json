@@ -1,0 +1,30 @@
+{
+  "ssa-1099:box3": {
+    "label": "Total benefits paid",
+    "soTitle": "Wadarta lacagta hawlgabka",
+    "so": "Tani waa wadarta guud ee lacagta Social Security ee laguu bixiyay sanadkan, ka hor inta aan wax ka jarin.",
+    "en": "This is the total Social Security money paid to you this year, before anything was taken out.",
+    "draft": true
+  },
+  "ssa-1099:box4": {
+    "label": "Benefits repaid",
+    "soTitle": "Lacagta dib loogu celiyay",
+    "so": "Tani waa lacag aad dib ugu celisay Social Security sanadkan, tusaale ahaan haddii lacag badan laguu siiyay.",
+    "en": "This is money you paid back to Social Security this year, for example if you were overpaid.",
+    "draft": true
+  },
+  "ssa-1099:box5": {
+    "label": "Net benefits",
+    "soTitle": "Lacagta saafiga ah",
+    "so": "Tani waa lacagta saafiga ah ee aad dhab ahaan heshay — waa wadarta lacagta (sanduuq 3) marka laga jarayo lacagta dib loo celiyay (sanduuq 4).",
+    "en": "This is the actual amount you ended up with — the total paid (box 3) minus anything repaid (box 4).",
+    "draft": true
+  },
+  "ssa-1099:box6": {
+    "label": "Voluntary federal income tax withheld",
+    "soTitle": "Canshuur ikhtiyaari ah oo horay loo jaray",
+    "so": "Tani waa canshuur federaal ah oo aad si ikhtiyaari ah u codsatay in laga jaro lacagtaada hawlgabka, si aanad canshuur badan u bixin sanadka dambe.",
+    "en": "This is federal tax you chose to have taken out of your Social Security payments, so you owe less at tax time.",
+    "draft": true
+  }
+}

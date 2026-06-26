@@ -1,0 +1,23 @@
+{
+  "1099-misc:box1": {
+    "label": "Rents",
+    "soTitle": "Lacagta kirada",
+    "so": "Tani waa wadarta lacagta kirada ee aad heshay sanadkan, tusaale ahaan haddii aad guri ama dhul kireysay.",
+    "en": "This is the total rent money you received this year, for example if you rented out a house or land.",
+    "draft": true
+  },
+  "1099-misc:box3": {
+    "label": "Other income",
+    "soTitle": "Dakhli kale",
+    "so": "Tani waa lacag kale oo aad heshay sanadkan oo aan ku habboonayn sanduuqyada kale ee foomkan.",
+    "en": "This is other money you received this year that doesn't fit the other boxes on this form.",
+    "draft": true
+  },
+  "1099-misc:box4": {
+    "label": "Federal income tax withheld",
+    "soTitle": "Canshuurta federaalka horay loo jaray",
+    "so": "Tani waa lacagta canshuurta federaalka ah ee horay laga jaray lacagtan, oo dawladda federaalka loo diray.",
+    "en": "This is the federal tax that was already taken out of this payment and sent to the government.",
+    "draft": true
+  }
+}

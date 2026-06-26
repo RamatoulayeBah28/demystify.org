@@ -55,6 +55,77 @@ export const DOCUMENT_TYPES = {
       recipientTin: "Recipient's TIN — return ONLY the last 4 digits, formatted as ***-**-1234",
     },
   },
+  "1099-int": {
+    title: "Form 1099-INT, Interest Income",
+    fields: {
+      box1: "Box 1: Interest income — dollar amount",
+      box2: "Box 2: Early withdrawal penalty — dollar amount",
+      box4: "Box 4: Federal income tax withheld — dollar amount",
+      box8: "Box 8: Tax-exempt interest — dollar amount",
+      payerInfo: "Payer's name and address ONLY (not the TIN) — multiple lines joined with \\n",
+      payerTin: "Payer's TIN",
+      recipientName: "Recipient's full name",
+      recipientTin: "Recipient's TIN — return ONLY the last 4 digits, formatted as ***-**-1234",
+    },
+  },
+  "1099-g": {
+    title: "Form 1099-G, Certain Government Payments",
+    fields: {
+      box1: "Box 1: Unemployment compensation — dollar amount",
+      box2: "Box 2: State or local income tax refunds, credits, or offsets — dollar amount",
+      box4: "Box 4: Federal income tax withheld — dollar amount",
+      box11: "Box 11: State income tax withheld — dollar amount",
+      payerInfo: "Payer's name and address (the government agency) — multiple lines joined with \\n",
+      recipientName: "Recipient's full name",
+      recipientTin: "Recipient's TIN — return ONLY the last 4 digits, formatted as ***-**-1234",
+    },
+  },
+  "1099-r": {
+    title: "Form 1099-R, Distributions From Pensions, Annuities, Retirement, etc.",
+    fields: {
+      box1: "Box 1: Gross distribution — dollar amount",
+      box2a: "Box 2a: Taxable amount — dollar amount",
+      box4: "Box 4: Federal income tax withheld — dollar amount",
+      box7: "Box 7: Distribution code(s) — as printed, e.g. \"7\" or \"1\"",
+      payerInfo: "Payer's name and address ONLY (not the TIN) — multiple lines joined with \\n",
+      payerTin: "Payer's TIN",
+      recipientName: "Recipient's full name",
+      recipientTin: "Recipient's TIN — return ONLY the last 4 digits, formatted as ***-**-1234",
+    },
+  },
+  "ssa-1099": {
+    title: "Form SSA-1099, Social Security Benefit Statement",
+    fields: {
+      box3: "Box 3: Total benefits paid in the tax year — dollar amount",
+      box4: "Box 4: Benefits repaid to the SSA in the tax year — dollar amount",
+      box5: "Box 5: Net benefits (box 3 minus box 4) — dollar amount",
+      box6: "Box 6: Voluntary federal income tax withheld — dollar amount",
+      recipientName: "Box 1: Beneficiary's full name",
+      recipientTin: "Box 2: Beneficiary's Social Security number — return ONLY the last 4 digits, formatted as ***-**-1234",
+    },
+  },
+  "1098-t": {
+    title: "Form 1098-T, Tuition Statement",
+    fields: {
+      box1: "Box 1: Payments received for qualified tuition and related expenses — dollar amount",
+      box5: "Box 5: Scholarships or grants — dollar amount",
+      payerInfo: "Filer's name and address (the school) — multiple lines joined with \\n",
+      recipientName: "Student's full name",
+      recipientTin: "Student's TIN — return ONLY the last 4 digits, formatted as ***-**-1234",
+    },
+  },
+  "1099-misc": {
+    title: "Form 1099-MISC, Miscellaneous Information",
+    fields: {
+      box1: "Box 1: Rents — dollar amount",
+      box3: "Box 3: Other income — dollar amount",
+      box4: "Box 4: Federal income tax withheld — dollar amount",
+      payerInfo: "Payer's name and address ONLY (not the TIN) — multiple lines joined with \\n",
+      payerTin: "Payer's TIN",
+      recipientName: "Recipient's full name",
+      recipientTin: "Recipient's TIN — return ONLY the last 4 digits, formatted as ***-**-1234",
+    },
+  },
 };
 
 export const SUPPORTED_TYPES = new Set(Object.keys(DOCUMENT_TYPES));

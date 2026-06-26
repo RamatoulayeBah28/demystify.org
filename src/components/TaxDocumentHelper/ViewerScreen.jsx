@@ -1,12 +1,24 @@
 import W2Document from "./W2Document";
 import W2cDocument from "./W2cDocument";
 import Nec1099Document from "./Nec1099Document";
+import Int1099Document from "./Int1099Document";
+import G1099Document from "./G1099Document";
+import R1099Document from "./R1099Document";
+import Ssa1099Document from "./Ssa1099Document";
+import T1098Document from "./T1098Document";
+import Misc1099Document from "./Misc1099Document";
 import ChatPanel from "./ChatPanel";
 
 const DOCUMENTS = {
   w2: W2Document,
   w2c: W2cDocument,
   "1099-nec": Nec1099Document,
+  "1099-int": Int1099Document,
+  "1099-g": G1099Document,
+  "1099-r": R1099Document,
+  "ssa-1099": Ssa1099Document,
+  "1098-t": T1098Document,
+  "1099-misc": Misc1099Document,
 };
 
 export default function ViewerScreen({
@@ -14,7 +26,7 @@ export default function ViewerScreen({
   fileName,
   fieldValues,
   onBack,
-  activeN,
+  activeFieldId,
   onBoxClick,
 }) {
   const DocumentComponent = DOCUMENTS[documentType] ?? W2Document;
@@ -50,7 +62,7 @@ export default function ViewerScreen({
 
       <div className="flex items-start justify-center">
         <DocumentComponent
-          activeN={activeN}
+          activeFieldId={activeFieldId}
           onBoxClick={onBoxClick}
           fieldValues={fieldValues}
         />

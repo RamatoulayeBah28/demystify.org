@@ -1,0 +1,30 @@
+{
+  "1099-r:box1": {
+    "label": "Gross distribution",
+    "soTitle": "Wadarta lacagta laguu bixiyay",
+    "so": "Tani waa wadarta guud ee lacagta laga bixiyay xisaabtaada hawlgabka (retirement) ama qorshahaaga lacagta, ka hor inta aan canshuur laga jarin.",
+    "en": "This is the total amount paid out from your retirement plan or pension this year, before any tax was taken out.",
+    "draft": true
+  },
+  "1099-r:box2a": {
+    "label": "Taxable amount",
+    "soTitle": "Qaybta canshuurta lagu xisaabin doono",
+    "so": "Tani waa qaybta lacagtaas ah ee canshuur lagu xisaabin doono.",
+    "en": "This is the part of that money the government will count when figuring out your taxes.",
+    "draft": true
+  },
+  "1099-r:box4": {
+    "label": "Federal income tax withheld",
+    "soTitle": "Canshuurta federaalka horay loo jaray",
+    "so": "Tani waa lacagta canshuurta federaalka ah ee horay laga jaray lacagtan, oo dawladda federaalka loo diray.",
+    "en": "This is the federal tax that was already taken out of this payment and sent to the government.",
+    "draft": true
+  },
+  "1099-r:box7": {
+    "label": "Distribution code",
+    "soTitle": "Koodhka nooca lacag-bixinta",
+    "so": "Tani waa koodh yar oo sharaxaya nooca lacag-bixintan, tusaale ahaan haddii ay tahay hawlgab caadi ah ama mid hore. Koodhkan kaliya wuxuu kuu sheegayaa nooca — ma uusan macno gaar ah u qabin lacag-bixinta.",
+    "en": "This is a short code explaining what kind of payout this was, like a normal retirement payout or an early one. It just labels the type — it doesn't change the amount.",
+    "draft": true
+  }
+}

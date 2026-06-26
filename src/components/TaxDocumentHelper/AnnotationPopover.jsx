@@ -33,9 +33,19 @@ export default function AnnotationPopover({
         <i className="fa-solid fa-xmark" />
       </button>
 
-      <div className="mb-[10px] text-xs font-bold uppercase tracking-[0.07em] text-dm-accent">
-        <i className="fa-solid fa-circle-info" />
-        &nbsp; {active.label}
+      <div className="mb-[10px] flex items-center justify-between gap-[8px] text-xs font-bold uppercase tracking-[0.07em] text-dm-accent">
+        <span>
+          <i className="fa-solid fa-circle-info" />
+          &nbsp; {active.label}
+        </span>
+        {active.draft && (
+          <span
+            title="This explanation is an AI-drafted translation, not yet reviewed by a fluent speaker."
+            className="rounded-full bg-[#fdf3e0] px-[8px] py-[2px] text-[10px] font-bold normal-case tracking-normal text-[#8a6a1f]"
+          >
+            Draft · Unreviewed
+          </span>
+        )}
       </div>
 
       <div className="mb-2 font-serif text-xl font-semibold leading-[1.25] text-dm-ink">{active.soTitle}</div>

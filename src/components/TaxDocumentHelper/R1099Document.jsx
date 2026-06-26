@@ -7,16 +7,16 @@ const STATIC_FIELDS = [
   { key: "recipientTin", label: "Recipient's TIN" },
 ];
 
-const INTERACTIVE_FIELDS = [{ key: "box1" }, { key: "box4" }];
+const INTERACTIVE_FIELDS = [{ key: "box1" }, { key: "box2a" }, { key: "box4" }, { key: "box7" }];
 
-export default function Nec1099Document(props) {
+export default function R1099Document(props) {
   return (
     <GenericTaxDocument
       {...props}
-      documentType="1099-nec"
-      formTitle="Form 1099-NEC"
-      formSubtitle="Nonemployee Compensation"
-      ombNumber="OMB No. 1545-0116"
+      documentType="1099-r"
+      formTitle="Form 1099-R"
+      formSubtitle="Distributions From Pensions, Annuities, Retirement, etc."
+      ombNumber="OMB No. 1545-0119"
       staticFields={STATIC_FIELDS}
       interactiveFields={INTERACTIVE_FIELDS}
     />
