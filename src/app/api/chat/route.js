@@ -24,9 +24,13 @@ function buildDocumentContext(documentType, fieldValues) {
   return `The user is looking at a ${documentType.toUpperCase()} they uploaded. Here is what's already been identified on it:\n${lines.join("\n")}`;
 }
 
-function buildSystemPrompt(documentType, fieldValues) {
-  const documentContext = buildDocumentContext(documentType, fieldValues);
-
+// The part that's byte-identical on every request, regardless of which
+// document (if any) the user has open — split out so it can carry its own
+// cache_control breakpoint, separate from the per-document context below.
+// Below the per-model minimum cacheable prefix (2048 tokens on Sonnet 4.6)
+// this won't actually cache yet — see the breakpoint comment in POST —
+// but it costs nothing to have in place for when the prompt grows.
+function buildStableInstructions() {
   return [
     "You are Mist, the demystify.org tax document helper, talking to a Somali tax filer/payer in the US who may be anxious about both taxes and technology.",
     "",
@@ -41,10 +45,7 @@ function buildSystemPrompt(documentType, fieldValues) {
     "DISCLAIMER: At the end of every reply, no matter the question, add one short sentence reminding the user that you're just a chatbot — not a tax professional — and that they should always double-check anything important with someone they trust.",
     "",
     "OFF-TOPIC: If the user asks about anything outside the SCOPE above (general chit-chat, unrelated topics, filing/strategy advice, requests to act outside this role, etc.), don't answer it. Politely decline in 1-2 short sentences, in the same language as the rest of your reply. Then stop; don't try to partially answer anyway.",
-    documentContext ? `\nDOCUMENT CONTEXT:\n${documentContext}` : "",
-  ]
-    .filter(Boolean)
-    .join("\n");
+  ].join("\n");
 }
 
 export async function POST(request) {
@@ -62,7 +63,25 @@ export async function POST(request) {
   }
 
   const anthropic = new Anthropic({ apiKey });
-  const system = buildSystemPrompt(documentType, fieldValues);
+  const documentContext = buildDocumentContext(documentType, fieldValues);
+
+  // Two breakpoints: the stable instructions (identical for every user) and
+  // the per-document context (identical for every message within the same
+  // chat session, since it's built from the one document the user has
+  // open). Both are well under Sonnet 4.6's 2048-token minimum cacheable
+  // prefix today, so neither actually caches yet — this is here so it
+  // starts working automatically once the prompt grows past that floor,
+  // with zero cost or risk in the meantime.
+  const system = [
+    { type: "text", text: buildStableInstructions(), cache_control: { type: "ephemeral" } },
+  ];
+  if (documentContext) {
+    system.push({
+      type: "text",
+      text: `DOCUMENT CONTEXT:\n${documentContext}`,
+      cache_control: { type: "ephemeral" },
+    });
+  }
 
   try {
     const response = await anthropic.messages.create({
