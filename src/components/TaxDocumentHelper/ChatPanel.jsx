@@ -29,14 +29,10 @@ function useSomaliVoice() {
   return voice;
 }
 
-// Hidden instruction that kicks off the conversation with a greeting
-// grounded in the user's actual uploaded document (via the documentType/
-// fieldValues already sent on every request), instead of a static,
-// generic opening line. Written in English for clarity to the model, with
-// an explicit language override since there's no real user message yet
-// for the system prompt's "mirror the user's language" rule to read.
-const KICKOFF_MESSAGE =
-  "Please start our conversation: briefly introduce yourself, then summarize in 2-3 short sentences what you can see on the document I uploaded (use the document context provided), then invite me to ask a question. Reply in Somali.";
+// Static, instant opening line — an earlier version asked Claude to
+// generate a document-grounded greeting on open, but that meant a real
+// API round trip (and its latency) before the user saw anything.
+const GREETING = "Hi, I'm Mist, your tax tutor. Ask me anything around tax terminology or your uploaded document!";
 
 async function requestReply(messagesForApi, documentType, fieldValues) {
   const res = await fetch("/api/chat", {
@@ -57,31 +53,10 @@ export default function ChatPanel({ documentType, fieldValues }) {
   const [error, setError] = useState(null);
   const somaliVoice = useSomaliVoice();
   const listRef = useRef(null);
-  const kickedOffRef = useRef(false);
 
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages, sending]);
-
-  // Greets with a summary of the user's actual document the first time
-  // the panel is opened, instead of showing a generic static line.
-  useEffect(() => {
-    if (!open || !documentType || messages.length > 0 || kickedOffRef.current) return;
-    kickedOffRef.current = true;
-    const kickoffMessages = [{ role: "user", content: KICKOFF_MESSAGE, hidden: true }];
-    (async () => {
-      setSending(true);
-      setError(null);
-      try {
-        const reply = await requestReply(kickoffMessages, documentType, fieldValues);
-        setMessages([...kickoffMessages, { role: "assistant", content: reply }]);
-      } catch {
-        setError("Waan ka xunnahay, khalad ayaa dhacay. Fadlan isku day mar kale.");
-      } finally {
-        setSending(false);
-      }
-    })();
-  }, [open, documentType, fieldValues, messages.length]);
 
   const speak = (text) => {
     if (!somaliVoice) return;
@@ -133,8 +108,8 @@ export default function ChatPanel({ documentType, fieldValues }) {
     <div className="fixed bottom-6 right-6 z-40 flex h-[560px] w-[380px] flex-col overflow-hidden rounded-[20px] border border-dm-line bg-dm-panel shadow-[0_22px_60px_rgba(31,61,92,0.22)] animate-[dm-pop_0.18s_ease]">
       <div className="flex items-center justify-between border-b border-dm-line px-[18px] py-[14px]">
         <div>
-          <div className="font-serif text-lg font-semibold leading-none text-dm-ink">Caawiye Canshuur</div>
-          <div className="mt-0.5 text-xs text-dm-muted">Tax helper chat</div>
+          <div className="font-serif text-lg font-semibold leading-none text-dm-ink">Mist</div>
+          <div className="mt-0.5 text-xs text-dm-muted">Your tax tutor</div>
         </div>
         <button
           type="button"
@@ -146,7 +121,12 @@ export default function ChatPanel({ documentType, fieldValues }) {
       </div>
 
       <div ref={listRef} className="flex-1 overflow-y-auto px-[16px] py-[14px]">
-        {messages.filter((m) => !m.hidden).map((m, i) => (
+        <div className="mb-3 flex justify-start">
+          <div className="max-w-[280px] rounded-[14px] bg-dm-bg px-4 py-[10px] text-[15px] leading-[1.5] text-dm-ink">
+            {GREETING}
+          </div>
+        </div>
+        {messages.map((m, i) => (
           <div key={i} className={`mb-3 flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
               className={`max-w-[280px] rounded-[14px] px-4 py-[10px] text-[15px] leading-[1.5] ${
