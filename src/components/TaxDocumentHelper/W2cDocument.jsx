@@ -15,6 +15,12 @@ export default function W2cDocument({ activeN, onBoxClick, fieldValues }) {
     previouslyReported: fieldValues[`${field.fieldId}:previous`] || "—",
     corrected: fieldValues[`${field.fieldId}:corrected`] || "—",
   }));
+
+  const ssn = fieldValues["w2c:boxA"] || "—";
+  const ein = fieldValues["w2c:boxB"] || "—";
+  const employerNameAddress = fieldValues["w2c:boxC"] || "—";
+  const employeeName = fieldValues["w2c:boxE"] || "—";
+
   return (
     <div className="w-[600px] flex-none rounded-md border border-dm-paper-line bg-white p-[18px] text-dm-paper-ink">
       <div className="mb-[10px] flex gap-[10px]">
@@ -23,7 +29,7 @@ export default function W2cDocument({ activeN, onBoxClick, fieldValues }) {
             d&nbsp;&nbsp;Employee&apos;s SSN
           </div>
           <div className="mt-[3px] text-[17px] font-bold tracking-[0.04em]">
-            ***-**-4471
+            {ssn}
           </div>
         </div>
         <div className="flex flex-1 items-center justify-between rounded border border-dm-paper-line px-[14px] py-2">
@@ -52,18 +58,19 @@ export default function W2cDocument({ activeN, onBoxClick, fieldValues }) {
             <div className="text-[10px] uppercase tracking-[0.05em] text-dm-paper-muted">
               b&nbsp;&nbsp;Employer ID number (EIN)
             </div>
-            <div className="mt-[3px] text-base font-semibold">12-3456789</div>
+            <div className="mt-[3px] text-base font-semibold">{ein}</div>
           </div>
           <div className="flex-1 rounded border border-dm-paper-line px-[10px] py-2">
             <div className="text-[10px] uppercase tracking-[0.05em] text-dm-paper-muted">
               c&nbsp;&nbsp;Employer name &amp; address
             </div>
             <div className="mt-[3px] text-[15px] font-semibold leading-[1.4]">
-              Greenline Logistics LLC
-              <br />
-              1420 Harbor Ave
-              <br />
-              Columbus, OH 43215
+              {employerNameAddress.split("\n").map((line, i) => (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </span>
+              ))}
             </div>
           </div>
           <div className="rounded border border-dm-paper-line px-[10px] py-2">
@@ -71,7 +78,7 @@ export default function W2cDocument({ activeN, onBoxClick, fieldValues }) {
               e&nbsp;&nbsp;Employee&apos;s name
             </div>
             <div className="mt-[3px] text-[15px] font-semibold">
-              Amina H. Warsame
+              {employeeName}
             </div>
           </div>
         </div>

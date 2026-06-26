@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getAnnotation } from "@/lib/annotations";
+import { SUPPORTED_TYPES } from "@/lib/documentTypes";
 import UploadScreen from "./UploadScreen";
 import DetectingScreen from "./DetectingScreen";
 import UnmatchedScreen from "./UnmatchedScreen";
@@ -9,10 +10,6 @@ import ViewerScreen from "./ViewerScreen";
 import AnnotationPopover from "./AnnotationPopover";
 
 const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
-// Document types we have a designed template for. analyzeDocument can
-// recognize others (or none); anything not in this set routes to the
-// unmatched screen rather than rendering a template we haven't built.
-const SUPPORTED_TYPES = new Set(["w2", "w2c", "1099-nec"]);
 const POPOVER_WIDTH = 344;
 const POPOVER_HEIGHT = 480;
 const POPOVER_GAP = 16;
@@ -122,13 +119,26 @@ export default function TaxDocumentHelper() {
     recordFileUploaded();
     setFileName(candidate.name);
     setScreen("detecting");
-    const { analyzeDocument } = await import("@/lib/ocr/analyzeDocument");
-    const { documentType: detected, fieldValues: extracted } =
-      await analyzeDocument(candidate);
+
+    let detected = null;
+    let extracted = {};
+    try {
+      const formData = new FormData();
+      formData.append("file", candidate);
+      const res = await fetch("/api/extract", { method: "POST", body: formData });
+      const data = await res.json();
+      if (res.ok) {
+        detected = data.documentType;
+        extracted = data.fieldValues || {};
+      }
+    } catch {
+      // Treated the same as an unrecognized document below.
+    }
+
     const supported =
       detected && SUPPORTED_TYPES.has(detected) ? detected : null;
     setDocumentType(supported);
-    setFieldValues(extracted || {});
+    setFieldValues(extracted);
     setActiveN(null);
     setScreen(supported ? "viewer" : "unmatched");
   };

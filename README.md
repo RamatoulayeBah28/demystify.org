@@ -1,9 +1,9 @@
 # demystify.org
 
 A web app that helps Somali-speaking immigrants understand US tax documents. Users upload a tax form (W-2, W-2c, or
-1099-NEC), the app auto-detects the document type from the OCR'd text, and each field is annotated with a
-plain-English explanation, a Somali translation, and audio playback. A follow-up chatbot answers questions about tax
-terminology and the uploaded document. The Resources tab has Somali-voiced video walkthroughs with quick
+1099-NEC), Claude reads the document directly to detect its type and extract its fields, and each field is annotated
+with a plain-English explanation, a Somali translation, and audio playback. A follow-up chatbot answers questions
+about tax terminology and the uploaded document. The Resources tab has Somali-voiced video walkthroughs with quick
 comprehension quizzes, and an Our Collaborators page highlights Somali tax experts and the people they've helped.
 
 Uploaded documents and their extracted text are processed entirely in-memory and never persisted to disk or a
@@ -14,8 +14,7 @@ database — see `CLAUDE.md` for this and other architecture decisions.
 - **Next.js (App Router)** + **Tailwind** — frontend and API routes (no separate backend server)
 - **Supabase** — Postgres database for public, read-only content (Resources videos/quizzes, Collaborators) and
   anonymous aggregate usage counters
-- **Claude API** (`@anthropic-ai/sdk`) — the chatbot
-- **Tesseract.js** — in-browser OCR for document field extraction
+- **Claude API** (`@anthropic-ai/sdk`) — document field extraction (vision) and the chatbot
 - **Vercel Analytics** — page-visit analytics (active automatically once deployed to Vercel)
 
 ## Getting started
@@ -34,7 +33,7 @@ See `.env.example` for the full list with explanations. In short:
 
 | Variable | Required for |
 | --- | --- |
-| `ANTHROPIC_API_KEY` | The chatbot (`src/app/api/chat`) |
+| `ANTHROPIC_API_KEY` | Document extraction (`src/app/api/extract`) and the chatbot (`src/app/api/chat`) |
 | `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Resources videos/quizzes and Our Collaborators |
 | `NEXT_PUBLIC_DONATION_LINK` | The Donate page's button (shows a "not open yet" state without it) |
 
@@ -51,6 +50,7 @@ the app except through the narrow, allowlisted increment functions.
 src/
   app/                    Next.js App Router pages and API routes
     api/
+      extract/            Document field extraction endpoint (Claude vision)
       chat/               Chatbot endpoint (Claude API)
       collaborators/      GET endpoint for the Collaborators page
       resources/          GET videos+quizzes, POST quiz-answer stat
@@ -58,9 +58,9 @@ src/
   components/
     TaxDocumentHelper/    Upload -> detect -> annotated viewer flow
   lib/
-    ocr/                  Document OCR + field-matching logic
+    documentTypes.js      Per-document-type field list (drives the extraction prompt)
     annotations/          Seeded, human-vetted field explanations (the Somali glossary)
-    pdf/, supabase/       PDF rendering and Supabase client helpers
+    supabase/             Supabase client helper
 supabase/
   migrations/             Schema + seed SQL, run manually (see Database setup)
 ```

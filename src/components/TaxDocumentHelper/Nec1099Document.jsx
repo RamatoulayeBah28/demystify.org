@@ -10,6 +10,12 @@ export default function Nec1099Document({ activeN, onBoxClick, fieldValues }) {
     ...field,
     value: fieldValues[field.fieldId] || "—",
   }));
+
+  const payerInfo = fieldValues["1099-nec:payerInfo"] || "—";
+  const payerTin = fieldValues["1099-nec:payerTin"] || "—";
+  const recipientName = fieldValues["1099-nec:recipientName"] || "—";
+  const recipientTin = fieldValues["1099-nec:recipientTin"] || "—";
+
   return (
     <div className="w-[600px] flex-none rounded-md border border-dm-paper-line bg-white p-[18px] text-dm-paper-ink">
       <div className="mb-[10px] flex gap-[10px]">
@@ -40,13 +46,14 @@ export default function Nec1099Document({ activeN, onBoxClick, fieldValues }) {
               Payer&apos;s name, address &amp; TIN
             </div>
             <div className="mt-[3px] text-[15px] font-semibold leading-[1.4]">
-              Sunrise Cleaning Services LLC
+              {payerInfo.split("\n").map((line, i) => (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </span>
+              ))}
               <br />
-              88 Maple Street
-              <br />
-              Minneapolis, MN 55404
-              <br />
-              <span className="text-dm-paper-muted">TIN: 47-1029384</span>
+              <span className="text-dm-paper-muted">TIN: {payerTin}</span>
             </div>
           </div>
           <div className="rounded border border-dm-paper-line px-[10px] py-2">
@@ -54,14 +61,14 @@ export default function Nec1099Document({ activeN, onBoxClick, fieldValues }) {
               Recipient&apos;s name
             </div>
             <div className="mt-[3px] text-[15px] font-semibold">
-              Faisal A. Mohamed
+              {recipientName}
             </div>
           </div>
           <div className="rounded border border-dm-paper-line px-[10px] py-2">
             <div className="text-[10px] uppercase tracking-[0.05em] text-dm-paper-muted">
               Recipient&apos;s TIN
             </div>
-            <div className="mt-[3px] text-base font-semibold">***-**-2207</div>
+            <div className="mt-[3px] text-base font-semibold">{recipientTin}</div>
           </div>
         </div>
 
