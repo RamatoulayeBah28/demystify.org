@@ -1,0 +1,37 @@
+{
+  "schedule-1-a:tipsDeduction": {
+    "label": "Tips deduction",
+    "soTitle": "Dhimista khadarka (tips)",
+    "so": "Tani waa qodob cusub oo dhimista canshuurta ah, ilaa $25,000, oo loogu talagalay khadarka (tips) aad ka heshay shaqo la xirira khadar.",
+    "en": "This is a new deduction, up to $25,000, for qualified tips you earned in a tip-eligible job.",
+    "draft": true
+  },
+  "schedule-1-a:overtimeDeduction": {
+    "label": "Overtime deduction",
+    "soTitle": "Dhimista saacadaha dheeraadka ah",
+    "so": "Tani waa qodob cusub oo dhimista canshuurta ah, oo loogu talagalay mushaharka saacadaha dheeraadka ah (overtime) aad shaqaysay.",
+    "en": "This is a new deduction for qualified overtime pay you earned.",
+    "draft": true
+  },
+  "schedule-1-a:carLoanInterestDeduction": {
+    "label": "Car loan interest deduction",
+    "soTitle": "Dhimista ribada deynta gaadiidka",
+    "so": "Tani waa qodob cusub oo dhimista canshuurta ah, ilaa $10,000, oo loogu talagalay ribada aad bixisay deynta gaarigaaga.",
+    "en": "This is a new deduction, up to $10,000, for interest you paid on a qualifying vehicle loan.",
+    "draft": true
+  },
+  "schedule-1-a:seniorDeduction": {
+    "label": "Senior deduction",
+    "soTitle": "Dhimista dadka da'da weyn",
+    "so": "Tani waa qodob cusub oo dhimista canshuurta ah oo loogu talagalay dadka da'doodu 65 sano ka weyn tahay.",
+    "en": "This is a new deduction for filers age 65 or older.",
+    "draft": true
+  },
+  "schedule-1-a:totalDeduction": {
+    "label": "Total additional deductions",
+    "soTitle": "Wadarta dhimisyada cusub",
+    "so": "Tani waa wadarta guud ee dhimisyada cusub ee bogga, oo loo daro Form 1040 sanduuqa 13b.",
+    "en": "This is the total of all the new deductions on this page, added into Form 1040, line 13b.",
+    "draft": true
+  }
+}

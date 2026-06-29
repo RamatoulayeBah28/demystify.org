@@ -14,6 +14,13 @@ import T4506Document from "./T4506Document";
 import InstallmentAgreementDocument from "./InstallmentAgreementDocument";
 import Ss4Document from "./Ss4Document";
 import W7Document from "./W7Document";
+import Form1040Document from "./Form1040Document";
+import Form1040SrDocument from "./Form1040SrDocument";
+import Schedule1Document from "./Schedule1Document";
+import Schedule1ADocument from "./Schedule1ADocument";
+import Schedule2Document from "./Schedule2Document";
+import Schedule3Document from "./Schedule3Document";
+import Form941Document from "./Form941Document";
 import ChatPanel from "./ChatPanel";
 
 const DOCUMENTS = {
@@ -33,10 +40,20 @@ const DOCUMENTS = {
   "9465": InstallmentAgreementDocument,
   "ss-4": Ss4Document,
   w7: W7Document,
+  "1040": Form1040Document,
+  "1040-sr": Form1040SrDocument,
+  "schedule-1": Schedule1Document,
+  "schedule-1-a": Schedule1ADocument,
+  "schedule-2": Schedule2Document,
+  "schedule-3": Schedule3Document,
+  "941": Form941Document,
 };
 
 export default function ViewerScreen({
   documentType,
+  documentCount,
+  activeDocIndex,
+  onSwitchDocument,
   fileName,
   fieldValues,
   onBack,
@@ -58,6 +75,24 @@ export default function ViewerScreen({
           <i className="fa-regular fa-file-pdf text-dm-accent" /> {fileName}
         </span>
       </div>
+
+      {documentCount > 1 && (
+        <div className="mx-auto mb-[18px] flex max-w-[608px] flex-wrap justify-center gap-[8px]">
+          {Array.from({ length: documentCount }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => onSwitchDocument(i)}
+              className={`rounded-full border px-[14px] py-[7px] text-sm font-semibold transition-colors ${
+                i === activeDocIndex
+                  ? "border-dm-accent bg-dm-accent text-white"
+                  : "border-dm-line bg-dm-surface text-dm-ink"
+              }`}
+            >
+              Document {i + 1} of {documentCount}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="mx-auto mb-[26px] flex max-w-[608px] items-center gap-[14px] rounded-2xl border border-dm-line bg-dm-accent-soft px-[18px] py-[15px]">
         <span className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-dm-accent text-base text-white">

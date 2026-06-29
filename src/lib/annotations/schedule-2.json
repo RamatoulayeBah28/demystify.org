@@ -1,0 +1,16 @@
+{
+  "schedule-2:line4": {
+    "label": "Self-employment tax",
+    "soTitle": "Canshuurta shaqada madax-bannaan",
+    "so": "Tani waa canshuurta Social Security iyo Medicare ee dadka shaqada madax-bannaan ah bixiyaan, maxaa yeelay ma laha loo-shaqeeye kara qaybtaas.",
+    "en": "This is the Social Security and Medicare tax that self-employed people pay, since there's no employer to split it with.",
+    "draft": true
+  },
+  "schedule-2:line21": {
+    "label": "Total other taxes",
+    "soTitle": "Canshuuraha kale ee guud",
+    "so": "Tani waa wadarta guud ee canshuuraha kale ee bogga, oo loo daro Form 1040 sanduuqa 23.",
+    "en": "This is the total of all the other taxes on this page, added into Form 1040, line 23.",
+    "draft": true
+  }
+}

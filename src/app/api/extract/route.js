@@ -20,18 +20,20 @@ function buildSystemPrompt() {
   });
 
   return [
-    "You are a document-extraction assistant for demystify.org, a tax-document explainer app. You will be shown an image or PDF of one tax document.",
+    "You are a document-extraction assistant for demystify.org, a tax-document explainer app. You will be shown an image or PDF, which may contain ONE OR MORE separate tax documents — for example, a multi-page PDF where each page is a different form, or several forms scanned together in one file.",
     "",
-    "1. Identify the document type by reading the form's own printed title. It is one of the types listed below, or \"unknown\" if it matches none of them.",
+    "1. Find every distinct tax document present. Multiple pages that are copies/parts of the SAME document (e.g. a 2-page W-2, or a form's Copy B and Copy C printed on separate pages) count as ONE document, not several — group those pages together. Only treat pages as separate documents when they are genuinely different forms or different filings (e.g. a W-2 followed by a 1099-NEC, or two different employers' W-2s).",
     "",
-    "2. If you recognized a type, extract that type's fields exactly as printed on the document. Never estimate, guess, or calculate a value that isn't directly visible — omit a field entirely (don't include its key) if it's blank or illegible. Dollar amounts are plain decimals with no $ sign, e.g. \"152.05\".",
+    "2. For each distinct document, identify its type by reading the form's own printed title. It is one of the types listed below, or \"unknown\" if it matches none of them.",
+    "",
+    "3. If you recognized a type, extract that type's fields exactly as printed on the document. Never estimate, guess, or calculate a value that isn't directly visible — omit a field entirely (don't include its key) if it's blank or illegible. Dollar amounts are plain decimals with no $ sign, e.g. \"152.05\".",
     "",
     "Document types and their fields:",
     "",
     typeBlocks.join("\n\n"),
     "",
-    "Respond with ONLY this JSON shape — no other text, no markdown code fences, no commentary:",
-    '{"documentType": "w2" | "w2c" | "1099-nec" | "unknown", "fields": {"<fieldKey>": "<value>", ...}}',
+    "Respond with ONLY this JSON shape — no other text, no markdown code fences, no commentary. One entry in \"documents\" per distinct document found, in the order they appear:",
+    '{"documents": [{"documentType": "w2" | "w2c" | "1099-nec" | "unknown" | ..., "fields": {"<fieldKey>": "<value>", ...}}]}',
   ].join("\n");
 }
 
@@ -59,7 +61,7 @@ function buildFieldValues(documentType, fields) {
 function parseExtraction(text) {
   const cleaned = text.trim().replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");
   const parsed = JSON.parse(cleaned);
-  if (typeof parsed.documentType !== "string") throw new Error("Missing documentType.");
+  if (!Array.isArray(parsed.documents)) throw new Error("Missing documents array.");
   return parsed;
 }
 
@@ -107,13 +109,13 @@ export async function POST(request) {
   try {
     const response = await anthropic.messages.create({
       model: MODEL,
-      max_tokens: 2048,
+      max_tokens: 4096,
       thinking: { type: "adaptive" },
       system: SYSTEM_PROMPT,
       messages: [
         {
           role: "user",
-          content: [documentBlock, { type: "text", text: "Extract this document's fields as JSON." }],
+          content: [documentBlock, { type: "text", text: "Extract this file's document(s) as JSON." }],
         },
       ],
     });
@@ -123,12 +125,15 @@ export async function POST(request) {
       .map((block) => block.text)
       .join("\n");
 
-    const { documentType, fields } = parseExtraction(text);
-    if (!SUPPORTED_TYPES.has(documentType)) {
-      return Response.json({ documentType: null, fieldValues: {} });
-    }
+    const { documents } = parseExtraction(text);
+    const recognized = documents
+      .filter((doc) => doc && SUPPORTED_TYPES.has(doc.documentType))
+      .map((doc) => ({
+        documentType: doc.documentType,
+        fieldValues: buildFieldValues(doc.documentType, doc.fields),
+      }));
 
-    return Response.json({ documentType, fieldValues: buildFieldValues(documentType, fields) });
+    return Response.json({ documents: recognized });
   } catch (error) {
     console.error("[api/extract] Extraction failed:", error);
     return Response.json({ error: "Extraction failed." }, { status: 502 });

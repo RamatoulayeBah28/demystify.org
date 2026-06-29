@@ -1,0 +1,79 @@
+{
+  "941:quarter": {
+    "label": "Quarter",
+    "soTitle": "Rubuca sannadka",
+    "so": "Tani waa rubucii sannadka ee soo gudbintaani ka hadlayso.",
+    "en": "This is which quarter of the year this filing covers.",
+    "draft": true
+  },
+  "941:line1": {
+    "label": "Number of employees",
+    "soTitle": "Tirada shaqaalaha",
+    "so": "Tani waa tirada shaqaalaha ee mushahar ka heshay rubuca canshuurta.",
+    "en": "This is the number of employees who received pay during the quarter.",
+    "draft": true
+  },
+  "941:line2": {
+    "label": "Total wages paid",
+    "soTitle": "Wadarta mushaharka la bixiyay",
+    "so": "Tani waa wadarta guud ee mushaharka, khadarka, iyo lacagaha kale ee shirkadda u bixisay shaqaalaha rubucan.",
+    "en": "This is the total wages, tips, and other compensation the business paid employees this quarter.",
+    "draft": true
+  },
+  "941:line3": {
+    "label": "Federal tax withheld",
+    "soTitle": "Canshuurta federaalka ee laga jaray",
+    "so": "Tani waa wadarta canshuurta federaalka ah ee shirkaddu ka jartay mushaharka shaqaalaha rubucan.",
+    "en": "This is the total federal income tax the business withheld from employees' pay this quarter.",
+    "draft": true
+  },
+  "941:line5a": {
+    "label": "Social security wages",
+    "soTitle": "Mushaharka Social Security",
+    "so": "Tani waa wadarta mushaharka ee loo xisaabiyo canshuurta Social Security.",
+    "en": "This is the total wages counted toward Social Security tax.",
+    "draft": true
+  },
+  "941:line5c": {
+    "label": "Medicare wages",
+    "soTitle": "Mushaharka Medicare",
+    "so": "Tani waa wadarta mushaharka ee loo xisaabiyo canshuurta Medicare.",
+    "en": "This is the total wages counted toward Medicare tax.",
+    "draft": true
+  },
+  "941:line6": {
+    "label": "Total taxes before adjustments",
+    "soTitle": "Wadarta canshuurta ka hor hagaajinta",
+    "so": "Tani waa wadarta canshuurta federaalka, Social Security, iyo Medicare ka hor inta aan hagaajin lagu darin.",
+    "en": "This is the total of federal income tax, Social Security tax, and Medicare tax before any adjustments.",
+    "draft": true
+  },
+  "941:line12": {
+    "label": "Total tax liability",
+    "soTitle": "Wadarta canshuurta lagu leeyahay",
+    "so": "Tani waa wadarta guud ee canshuurta shirkaddu lugta ku haysato rubucan.",
+    "en": "This is the total tax the business owes for this quarter.",
+    "draft": true
+  },
+  "941:line13": {
+    "label": "Total deposits",
+    "soTitle": "Wadarta lacagaha la dhigay",
+    "so": "Tani waa wadarta lacagaha shirkaddu horay u dhigtay sanduuqa canshuurta rubucan.",
+    "en": "This is the total tax deposits the business already made for this quarter.",
+    "draft": true
+  },
+  "941:line14": {
+    "label": "Balance due",
+    "soTitle": "Hadhaaga la bixin",
+    "so": "Tani waa lacagta shirkaddu weli ka bixin lahayd canshuurta rubucan.",
+    "en": "This is the remaining tax balance the business still owes for this quarter.",
+    "draft": true
+  },
+  "941:line15": {
+    "label": "Overpayment",
+    "soTitle": "Lacag dheeraad ah oo la bixiyay",
+    "so": "Tani waa lacagta shirkaddu ka bixisay in ka badan canshuurta lugta ku haysatay rubucan.",
+    "en": "This is the amount the business paid in excess of what it owed for this quarter.",
+    "draft": true
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schedule-1:line1": {
+    "label": "Taxable state/local tax refunds",
+    "soTitle": "Lacag-celinta canshuurta stateka",
+    "so": "Tani waa lacag-celinta canshuurta stateka ee sannadkii hore, oo sannadkan la canshuuro.",
+    "en": "This is a state or local tax refund from last year that's taxable this year.",
+    "draft": true
+  },
+  "schedule-1:line3": {
+    "label": "Business income",
+    "soTitle": "Dakhliga ganacsiga",
+    "so": "Tani waa faa'iidada ama khasaaraha ganacsigaaga gaarka ah (Schedule C), sida ganacsi yar oo aad keligaa leedahay.",
+    "en": "This is the profit or loss from your own business, like a small business or self-employment work.",
+    "draft": true
+  },
+  "schedule-1:line7": {
+    "label": "Unemployment compensation",
+    "soTitle": "Lacagta shaqo-la'aanta",
+    "so": "Tani waa wadarta lacagta shaqo-la'aanta ee dawladdu kuu siisay sanadkan.",
+    "en": "This is the total unemployment benefits you received this year.",
+    "draft": true
+  },
+  "schedule-1:line9": {
+    "label": "Total other income",
+    "soTitle": "Dakhliga kale ee guud",
+    "so": "Tani waa wadarta dakhliga kale ee aanan ku habboonayn sanduuqyada kale.",
+    "en": "This is the total of other income that doesn't fit the categories above.",
+    "draft": true
+  },
+  "schedule-1:line10": {
+    "label": "Total additional income",
+    "soTitle": "Dakhliga dheeraadka ah ee guud",
+    "so": "Tani waa wadarta guud ee dakhliga dheeraadka ah ee ku jirta bogga 1, oo loo daro Form 1040 sanduuqa 8.",
+    "en": "This is the total additional income from this page, added into Form 1040, line 8.",
+    "draft": true
+  },
+  "schedule-1:line11": {
+    "label": "Educator expenses",
+    "soTitle": "Kharashka macallinka",
+    "so": "Tani waa kharashka aad ka bixisay alaabta fasalka haddii aad tahay macallin.",
+    "en": "This is money you spent on classroom supplies if you're a teacher.",
+    "draft": true
+  },
+  "schedule-1:line13": {
+    "label": "HSA deduction",
+    "soTitle": "Dhimista HSA",
+    "so": "Tani waa lacagta aad geliyay akoonkaaga HSA (Health Savings Account), oo laga jaray dakhligaaga.",
+    "en": "This is money you put into your HSA (Health Savings Account), deducted from your income.",
+    "draft": true
+  },
+  "schedule-1:line15": {
+    "label": "Self-employment tax deduction",
+    "soTitle": "Dhimista canshuurta shaqada madax-bannaan",
+    "so": "Tani waa qaybta canshuurta shaqada madax-bannaan ee aad ka dhimi karto dakhligaaga.",
+    "en": "This is the part of your self-employment tax you get to deduct from your income.",
+    "draft": true
+  },
+  "schedule-1:line20": {
+    "label": "IRA deduction",
+    "soTitle": "Dhimista IRA",
+    "so": "Tani waa lacagta aad geliyay akoonkaaga hawlgabka IRA, oo laga jaray dakhligaaga.",
+    "en": "This is money you put into an IRA retirement account, deducted from your income.",
+    "draft": true
+  },
+  "schedule-1:line21": {
+    "label": "Student loan interest deduction",
+    "soTitle": "Dhimista ribada deynta waxbarashada",
+    "so": "Tani waa ribada aad bixisay deynta waxbarashada, oo laga jaray dakhligaaga.",
+    "en": "This is the interest you paid on student loans, deducted from your income.",
+    "draft": true
+  },
+  "schedule-1:line25": {
+    "label": "Total adjustments to income",
+    "soTitle": "Hagaajinta dakhliga ee guud",
+    "so": "Tani waa wadarta guud ee hagaajinta dakhliga ee bogga 2, oo loo daro Form 1040 sanduuqa 10.",
+    "en": "This is the total of all the adjustments from this page, added into Form 1040, line 10.",
+    "draft": true
+  }
+}

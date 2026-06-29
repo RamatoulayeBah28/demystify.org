@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { getAnnotation } from "@/lib/annotations";
 import { getBox12Annotation } from "@/lib/box12Codes";
-import { SUPPORTED_TYPES } from "@/lib/documentTypes";
 import UploadScreen from "./UploadScreen";
 import DetectingScreen from "./DetectingScreen";
 import UnmatchedScreen from "./UnmatchedScreen";
@@ -62,8 +61,12 @@ function recordFileUploaded() {
 export default function TaxDocumentHelper() {
   const [screen, setScreen] = useState("upload");
   const [fileName, setFileName] = useState(null);
-  const [documentType, setDocumentType] = useState(null);
-  const [fieldValues, setFieldValues] = useState({});
+  // One upload can contain several distinct documents (e.g. a multi-page
+  // PDF with a W-2 followed by a 1099-NEC) — each entry is its own
+  // {documentType, fieldValues}, and activeDocIndex picks which one the
+  // viewer currently shows.
+  const [documents, setDocuments] = useState([]);
+  const [activeDocIndex, setActiveDocIndex] = useState(0);
   // Full "doctype:box1"-style key, not a bare number — some forms have
   // non-numeric box labels (e.g. 1099-R's box2a), so the annotation
   // lookup can't assume "box" + a number.
@@ -77,6 +80,10 @@ export default function TaxDocumentHelper() {
 
   const containerRef = useRef(null);
   const timerRef = useRef(null);
+
+  const activeDocument = documents[activeDocIndex] ?? null;
+  const documentType = activeDocument?.documentType ?? null;
+  const fieldValues = activeDocument?.fieldValues ?? {};
 
   const stopTimer = () => {
     if (timerRef.current) {
@@ -139,14 +146,22 @@ export default function TaxDocumentHelper() {
   const goUpload = () => {
     stopTimer();
     setScreen("upload");
-    setDocumentType(null);
-    setFieldValues({});
+    setDocuments([]);
+    setActiveDocIndex(0);
     setActiveFieldId(null);
     setPlayLang(null);
   };
 
   const closePop = () => {
     stopTimer();
+    setActiveFieldId(null);
+    setPlayLang(null);
+    setProgress(0);
+  };
+
+  const switchDocument = (index) => {
+    stopTimer();
+    setActiveDocIndex(index);
     setActiveFieldId(null);
     setPlayLang(null);
     setProgress(0);
@@ -161,27 +176,23 @@ export default function TaxDocumentHelper() {
     setFileName(candidate.name);
     setScreen("detecting");
 
-    let detected = null;
-    let extracted = {};
+    let found = [];
     try {
       const formData = new FormData();
       formData.append("file", candidate);
       const res = await fetch("/api/extract", { method: "POST", body: formData });
       const data = await res.json();
       if (res.ok) {
-        detected = data.documentType;
-        extracted = data.fieldValues || {};
+        found = data.documents || [];
       }
     } catch {
       // Treated the same as an unrecognized document below.
     }
 
-    const supported =
-      detected && SUPPORTED_TYPES.has(detected) ? detected : null;
-    setDocumentType(supported);
-    setFieldValues(extracted);
+    setDocuments(found);
+    setActiveDocIndex(0);
     setActiveFieldId(null);
-    setScreen(supported ? "viewer" : "unmatched");
+    setScreen(found.length ? "viewer" : "unmatched");
   };
 
   const onDragOver = (e) => {
@@ -224,6 +235,9 @@ export default function TaxDocumentHelper() {
       {screen === "viewer" && (
         <ViewerScreen
           documentType={documentType}
+          documentCount={documents.length}
+          activeDocIndex={activeDocIndex}
+          onSwitchDocument={switchDocument}
           fileName={fileName}
           fieldValues={fieldValues}
           onBack={goUpload}

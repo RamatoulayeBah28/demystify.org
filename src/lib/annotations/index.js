@@ -14,6 +14,12 @@ import t4506 from "./4506-t.json";
 import installmentAgreement from "./9465.json";
 import ss4 from "./ss-4.json";
 import w7 from "./w7.json";
+import form1040 from "./1040.json";
+import schedule1 from "./schedule-1.json";
+import schedule1A from "./schedule-1-a.json";
+import schedule2 from "./schedule-2.json";
+import schedule3 from "./schedule-3.json";
+import form941 from "./941.json";
 
 const LIBRARIES = {
   w2,
@@ -32,11 +38,25 @@ const LIBRARIES = {
   "9465": installmentAgreement,
   "ss-4": ss4,
   w7,
+  "1040": form1040,
+  "schedule-1": schedule1,
+  "schedule-1-a": schedule1A,
+  "schedule-2": schedule2,
+  "schedule-3": schedule3,
+  "941": form941,
 };
+
+// 1040-SR is the exact same return as 1040, just printed in larger type
+// for older filers — same lines, same meanings — so it reuses 1040's
+// annotations rather than maintaining a duplicate translation file that
+// could drift out of sync with the original during review.
+const DOC_TYPE_ALIASES = { "1040-sr": "1040" };
 
 // key is the full "docType:fieldId" form (e.g. "w2:box1"), matching how
 // the annotation JSON itself is keyed.
 export function getAnnotation(key) {
-  const docType = key.split(":")[0];
-  return LIBRARIES[docType]?.[key] ?? null;
+  const [rawType, ...rest] = key.split(":");
+  const docType = DOC_TYPE_ALIASES[rawType] ?? rawType;
+  const lookupKey = docType === rawType ? key : `${docType}:${rest.join(":")}`;
+  return LIBRARIES[docType]?.[lookupKey] ?? null;
 }

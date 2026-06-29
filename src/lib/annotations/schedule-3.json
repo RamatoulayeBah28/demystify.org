@@ -1,0 +1,37 @@
+{
+  "schedule-3:line2": {
+    "label": "Child & dependent care credit",
+    "soTitle": "Credit-ka daryeelka carruurta",
+    "so": "Tani waa credit-ka kharashka daryeelka carruurta ama qof kale oo aad masuul ka tahay, intaad shaqaynayso.",
+    "en": "This is a credit for child or dependent care expenses you paid while working.",
+    "draft": true
+  },
+  "schedule-3:line3": {
+    "label": "Education credits",
+    "soTitle": "Credit-yada waxbarashada",
+    "so": "Tani waa credit-yada canshuurta ee la xidhiidha kharashka waxbarashada kolejka.",
+    "en": "These are tax credits related to college or higher-education expenses.",
+    "draft": true
+  },
+  "schedule-3:line4": {
+    "label": "Retirement savings credit (Saver's Credit)",
+    "soTitle": "Credit-ka kaydka hawlgabka",
+    "so": "Tani waa credit dadka dakhliga yar leh, oo loogu talagalay lacagta ay geliyaan akoonkooda hawlgabka.",
+    "en": "This is a credit for lower-income workers who contribute to a retirement account.",
+    "draft": true
+  },
+  "schedule-3:line8": {
+    "label": "Total nonrefundable credits",
+    "soTitle": "Credit-yada aan la soo celin karin ee guud",
+    "so": "Tani waa wadarta guud ee credit-yada Qaybta I, oo loo daro Form 1040 sanduuqa 20. Credit-yadan waxay dhimi karaan canshuurtaada ilaa $0 oo kaliya, lacagna laguma soo celin karo.",
+    "en": "This is the total of Part I's credits, added into Form 1040, line 20. These credits can only reduce your tax to $0 — they don't create a refund on their own.",
+    "draft": true
+  },
+  "schedule-3:line15": {
+    "label": "Total other payments & refundable credits",
+    "soTitle": "Lacag-bixinnada kale ee guud",
+    "so": "Tani waa wadarta guud ee lacag-bixinnada kale iyo credit-yada la soo celin karo, oo loo daro Form 1040 sanduuqa 31.",
+    "en": "This is the total of other payments and refundable credits, added into Form 1040, line 31.",
+    "draft": true
+  }
+}

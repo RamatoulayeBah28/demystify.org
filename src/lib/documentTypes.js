@@ -10,6 +10,40 @@
 // foreign tax paid, bond CUSIP numbers, etc.) are skipped per-form, noted
 // inline. Pure identifier fields (not a dollar amount or status) are
 // skipped too since there's nothing to "explain" about a reference number.
+// 1040 and 1040-SR are the same return, line-for-line — 1040-SR just uses
+// larger print for older filers — so they share this field list rather
+// than risking the two drifting out of sync if edited separately.
+// Skips: the dependents table (a list, not a single line — a known gap),
+// the digital-assets question, standard-deduction/age/blindness
+// checkboxes, line 13a (QBI deduction), and Schedule 2's niche AMT detail
+// — all lower-value for this audience than the lines below.
+const FORM_1040_FIELDS = {
+  taxYear: "The tax year printed on the form, e.g. \"2025\"",
+  name: "Your first and last name",
+  ssn: "Your SSN — return ONLY the last 4 digits, formatted as ***-**-1234",
+  filingStatus: "Filing status checked — \"Single\", \"Married filing jointly\", \"Married filing separately\", \"Head of household\", or \"Qualifying surviving spouse\"",
+  line1z: "Line 1z: total wages, salaries, tips, etc. — dollar amount",
+  line2b: "Line 2b: taxable interest — dollar amount",
+  line3b: "Line 3b: ordinary dividends — dollar amount",
+  line6b: "Line 6b: taxable amount of social security benefits — dollar amount",
+  line9: "Line 9: total income — dollar amount",
+  line10: "Line 10: adjustments to income — dollar amount",
+  line11: "Line 11: adjusted gross income (AGI) — dollar amount",
+  line12: "Line 12: standard deduction or itemized deductions — dollar amount",
+  line13b: "Line 13b: total additional deductions from Schedule 1-A (tips, overtime, car loan interest, senior deduction) — dollar amount",
+  line15: "Line 15: taxable income — dollar amount",
+  line16: "Line 16: tax — dollar amount",
+  line19: "Line 19: child tax credit and credit for other dependents — dollar amount",
+  line22: "Line 22: total tax after credits — dollar amount",
+  line24: "Line 24: total tax — dollar amount",
+  line25d: "Line 25d: total federal income tax withheld — dollar amount",
+  line27: "Line 27: earned income credit (EIC) — dollar amount",
+  line28: "Line 28: additional child tax credit — dollar amount",
+  line33: "Line 33: total payments — dollar amount",
+  line34: "Line 34: overpayment — dollar amount, omit if there's a balance due instead",
+  line37: "Line 37: amount you owe — dollar amount, omit if there's a refund/overpayment instead",
+};
+
 export const DOCUMENT_TYPES = {
   w2: {
     title: "Form W-2, Wage and Tax Statement",
@@ -314,6 +348,94 @@ export const DOCUMENT_TYPES = {
       dateOfBirth: "Line 4: date of birth",
       countryOfCitizenship: "Line 6a: country of citizenship",
       idDocumentType: "Line 6c/6d: type of identification document submitted, e.g. \"Passport\"",
+    },
+  },
+  "1040": {
+    title: "Form 1040, U.S. Individual Income Tax Return",
+    fields: FORM_1040_FIELDS,
+  },
+  "1040-sr": {
+    title: "Form 1040-SR, U.S. Tax Return for Seniors",
+    fields: FORM_1040_FIELDS,
+  },
+  "schedule-1": {
+    title: "Schedule 1 (Form 1040), Additional Income and Adjustments to Income",
+    // Skips alimony, farm income, rental/royalty/partnership income
+    // (Schedule E), and the granular "other income" sub-lines — niche or
+    // too detailed for this audience.
+    fields: {
+      name: "Your first and last name",
+      ssn: "Your SSN — return ONLY the last 4 digits, formatted as ***-**-1234",
+      line1: "Line 1: taxable refunds of state and local income taxes — dollar amount",
+      line3: "Line 3: business income or loss (Schedule C) — dollar amount",
+      line7: "Line 7: unemployment compensation — dollar amount",
+      line9: "Line 9: total other income — dollar amount",
+      line10: "Line 10: total additional income, flows to Form 1040 line 8 — dollar amount",
+      line11: "Line 11: educator expenses — dollar amount",
+      line13: "Line 13: health savings account (HSA) deduction — dollar amount",
+      line15: "Line 15: deductible part of self-employment tax — dollar amount",
+      line20: "Line 20: IRA deduction — dollar amount",
+      line21: "Line 21: student loan interest deduction — dollar amount",
+      line25: "Line 25: total adjustments to income, flows to Form 1040 line 10 — dollar amount",
+    },
+  },
+  "schedule-1-a": {
+    title: "Schedule 1-A (Form 1040), Additional Deductions",
+    // New for tax year 2025. Exact sub-line letters within each Part
+    // aren't verified here, so fields are described at the Part level,
+    // which is enough for the model to locate the right dollar amount.
+    fields: {
+      name: "Your first and last name",
+      ssn: "Your SSN — return ONLY the last 4 digits, formatted as ***-**-1234",
+      tipsDeduction: "Part II: qualified tips deduction — dollar amount (capped at $25,000)",
+      overtimeDeduction: "Part III: qualified overtime compensation deduction — dollar amount (capped at $12,500, or $25,000 if married filing jointly)",
+      carLoanInterestDeduction: "Part IV: qualified passenger vehicle loan interest deduction — dollar amount (capped at $10,000)",
+      seniorDeduction: "Part V: enhanced deduction for seniors age 65+ — dollar amount (capped at $6,000, or $12,000 if both spouses qualify and file jointly)",
+      totalDeduction: "Part VI: total additional deductions, flows to Form 1040 line 13b — dollar amount",
+    },
+  },
+  "schedule-2": {
+    title: "Schedule 2 (Form 1040), Additional Taxes",
+    // Skips Part I (AMT, excess advance premium tax credit repayment) —
+    // niche for this audience.
+    fields: {
+      name: "Your first and last name",
+      ssn: "Your SSN — return ONLY the last 4 digits, formatted as ***-**-1234",
+      line4: "Line 4: self-employment tax — dollar amount",
+      line21: "Line 21: total other taxes, flows to Form 1040 line 23 — dollar amount",
+    },
+  },
+  "schedule-3": {
+    title: "Schedule 3 (Form 1040), Additional Credits and Payments",
+    // Skips foreign tax credit, residential energy credits, and the
+    // granular Part II payment sub-lines — niche for this audience.
+    fields: {
+      name: "Your first and last name",
+      ssn: "Your SSN — return ONLY the last 4 digits, formatted as ***-**-1234",
+      line2: "Line 2: credit for child and dependent care expenses — dollar amount",
+      line3: "Line 3: education credits — dollar amount",
+      line4: "Line 4: retirement savings contributions credit (Saver's Credit) — dollar amount",
+      line8: "Line 8: total nonrefundable credits, flows to Form 1040 line 20 — dollar amount",
+      line15: "Line 15: total other payments and refundable credits, flows to Form 1040 line 31 — dollar amount",
+    },
+  },
+  "941": {
+    title: "Form 941, Employer's Quarterly Federal Tax Return",
+    fields: {
+      taxYear: "The tax year printed on the form, e.g. \"2025\"",
+      quarter: "Which quarter this return covers — \"1\", \"2\", \"3\", or \"4\"",
+      employerName: "Employer's name",
+      employerEin: "Employer identification number (EIN)",
+      line1: "Line 1: number of employees who received wages this quarter",
+      line2: "Line 2: total wages, tips, and other compensation paid this quarter — dollar amount",
+      line3: "Line 3: federal income tax withheld from wages, tips, and other compensation — dollar amount",
+      line5a: "Line 5a: taxable social security wages — dollar amount (the wage column, not the tax column)",
+      line5c: "Line 5c: taxable Medicare wages and tips — dollar amount (the wage column, not the tax column)",
+      line6: "Line 6: total taxes before adjustments — dollar amount",
+      line12: "Line 12: total tax liability for the quarter — dollar amount",
+      line13: "Line 13: total deposits for this quarter — dollar amount",
+      line14: "Line 14: balance due — dollar amount, omit if there's an overpayment instead",
+      line15: "Line 15: overpayment — dollar amount, omit if there's a balance due instead",
     },
   },
 };

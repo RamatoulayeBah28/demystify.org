@@ -1,0 +1,149 @@
+{
+  "1040:filingStatus": {
+    "label": "Filing status",
+    "soTitle": "Xaaladda canshuurta",
+    "so": "Tani waa xaaladda guurka ee aad u soo gudbisay canshuurtaada, sida qof keligiis ah ama lammaane is dhaafsaday soo gudbinta. Waxay saamayn ku yeelataa intaad bixinayso iyo intaad heli karto dib-u-celin.",
+    "en": "This is the filing status you used for your tax return, like single or married filing jointly. It affects how much tax you owe and how much you can get back.",
+    "draft": true
+  },
+  "1040:line1z": {
+    "label": "Total wages",
+    "soTitle": "Wadarta mushaharka",
+    "so": "Tani waa wadarta guud ee mushaharkaaga sanadkan oo dhan, sida ku qoran dukumentiyada W-2 ee aad heshay.",
+    "en": "This is your total wages for the year, added up from all your W-2 forms.",
+    "draft": true
+  },
+  "1040:line2b": {
+    "label": "Taxable interest",
+    "soTitle": "Ribada la canshuuro",
+    "so": "Tani waa wadarta ribada aad heshay oo la canshuuro, sida ribada akoonka kaydka.",
+    "en": "This is the total taxable interest you earned, like from a savings account.",
+    "draft": true
+  },
+  "1040:line3b": {
+    "label": "Ordinary dividends",
+    "soTitle": "Saamiyada caadiga ah",
+    "so": "Tani waa wadarta saamiyada (dividends) ee aad heshay maalgashiyo ahaan.",
+    "en": "This is the total ordinary dividend income you received from investments.",
+    "draft": true
+  },
+  "1040:line6b": {
+    "label": "Taxable social security benefits",
+    "soTitle": "Lacagta Social Security ee la canshuuro",
+    "so": "Tani waa qaybta lacagtaada Social Security ee la canshuuro — ma aha wadarta guud ee aad heshay.",
+    "en": "This is the portion of your Social Security benefits that's actually taxable — not the full amount you received.",
+    "draft": true
+  },
+  "1040:line9": {
+    "label": "Total income",
+    "soTitle": "Dakhliga guud",
+    "so": "Tani waa wadarta guud ee dakhligaaga sanadkan, ka hor inta aan dhimis ama caddaymo laga jarin.",
+    "en": "This is your total income for the year, before any deductions are subtracted.",
+    "draft": true
+  },
+  "1040:line10": {
+    "label": "Adjustments to income",
+    "soTitle": "Hagaajinta dakhliga",
+    "so": "Tani waa wadarta dhimisyada gaarka ah ee laga jarayo dakhligaaga, sida lacagta IRA ama deynta waxbarashada.",
+    "en": "This is the total of specific deductions subtracted from your income, like IRA contributions or student loan interest.",
+    "draft": true
+  },
+  "1040:line11": {
+    "label": "Adjusted gross income (AGI)",
+    "soTitle": "Dakhliga la hagaajiyay (AGI)",
+    "so": "Tani waa dakhligaaga guud ka dib markii laga jaray hagaajinta — lambarkan ayaa lagu xisaabiyaa qodobyo badan oo canshuur ah.",
+    "en": "This is your total income after the adjustments above — this single number is used to calculate many other parts of your taxes.",
+    "draft": true
+  },
+  "1040:line12": {
+    "label": "Standard or itemized deduction",
+    "soTitle": "Dhimista caadiga ah ama tirsan",
+    "so": "Tani waa qiimaha dhimista ee dakhligaaga laga jarayo ka hor inta aan canshuurta lagu xisaabin — inta badan dadku waxay isticmaalaan dhimista caadiga ah (standard deduction).",
+    "en": "This is the deduction amount subtracted from your income before tax is calculated — most people use the standard deduction.",
+    "draft": true
+  },
+  "1040:line13b": {
+    "label": "Schedule 1-A deductions",
+    "soTitle": "Dhimista Schedule 1-A",
+    "so": "Tani waa wadarta dhimisyada cusub ee Schedule 1-A — sida khadarka (tips), saacadaha dheeraadka ah (overtime), ribada deynta gaadiidka, ama dhimista dadka da'da weyn.",
+    "en": "This is the total of the new Schedule 1-A deductions — for things like tips, overtime pay, car loan interest, or the senior deduction.",
+    "draft": true
+  },
+  "1040:line15": {
+    "label": "Taxable income",
+    "soTitle": "Dakhliga la canshuuro",
+    "so": "Tani waa dakhliga aad dhab ahaan canshuuro lagu xisaabiyo — waa dakhliga (line 11) ka dib markii dhimisyada laga jaray.",
+    "en": "This is the income that tax is actually calculated on — your AGI minus your deductions.",
+    "draft": true
+  },
+  "1040:line16": {
+    "label": "Tax",
+    "soTitle": "Canshuurta",
+    "so": "Tani waa qiimaha canshuurta lagu xisaabiyay dakhligaaga la canshuuro, ka hor inta aan credit-yada laga jarin.",
+    "en": "This is the tax calculated on your taxable income, before any credits are subtracted.",
+    "draft": true
+  },
+  "1040:line19": {
+    "label": "Child tax credit / credit for other dependents",
+    "soTitle": "Credit-ka carruurta",
+    "so": "Tani waa credit-ka canshuurta ee carruurtaada ama dadka kale ee aad masuul ka tahay, oo dhimaya canshuurta aad bixinayso.",
+    "en": "This is the tax credit for your qualifying children or other dependents, which reduces the tax you owe.",
+    "draft": true
+  },
+  "1040:line22": {
+    "label": "Tax after credits",
+    "soTitle": "Canshuurta ka dib credit-yada",
+    "so": "Tani waa canshuurtaada ka dib markii credit-yada laga jaray.",
+    "en": "This is your tax after credits like the child tax credit have been subtracted.",
+    "draft": true
+  },
+  "1040:line24": {
+    "label": "Total tax",
+    "soTitle": "Wadarta canshuurta",
+    "so": "Tani waa wadarta guud ee canshuurta aad ka bixinayso sannadkan — lambarkan ayaa lagu barbar dhigaa lacagta horay laga jaray si loo ogaado dib-u-celin ama bixinta soo hartay.",
+    "en": "This is your total tax for the year — this number gets compared against what was already withheld to figure out your refund or amount owed.",
+    "draft": true
+  },
+  "1040:line25d": {
+    "label": "Total federal tax withheld",
+    "soTitle": "Canshuurta horay loo jaray",
+    "so": "Tani waa wadarta guud ee canshuurta federaalka ah ee horay laga jaray mushaharkaaga iyo dakhligaaga kale sanadkan oo dhan.",
+    "en": "This is the total federal tax that was already withheld from your wages and other income throughout the year.",
+    "draft": true
+  },
+  "1040:line27": {
+    "label": "Earned income credit (EIC)",
+    "soTitle": "Credit-ka dakhliga la shaqeeyay (EIC)",
+    "so": "Tani waa credit-ka canshuurta ee dadka dakhli yar leh, taasoo dhimi karta canshuurtaada ama kor u qaadi karta dib-u-celinta.",
+    "en": "This is a tax credit for workers with lower income, which can reduce your tax or increase your refund.",
+    "draft": true
+  },
+  "1040:line28": {
+    "label": "Additional child tax credit",
+    "soTitle": "Credit-ka dheeraadka ah ee carruurta",
+    "so": "Tani waa qaybta credit-ka carruurta ee laguu soo celin karo lacag ahaan, xitaa haddii aanad canshuur lahayn.",
+    "en": "This is the part of the child tax credit you can get back as a refund, even if you don't owe any tax.",
+    "draft": true
+  },
+  "1040:line33": {
+    "label": "Total payments",
+    "soTitle": "Wadarta lacag-bixinta",
+    "so": "Tani waa wadarta guud ee lacagta canshuurta aad horay u bixisay sanadkan — horjarka, lacag-bixinta qiyaasan, iyo credit-yada la soo celin karo.",
+    "en": "This is the total of everything you've already paid toward your taxes this year — withholding, estimated payments, and refundable credits.",
+    "draft": true
+  },
+  "1040:line34": {
+    "label": "Overpayment",
+    "soTitle": "Lacag dheeraad ah oo la bixiyay",
+    "so": "Tani waa lacagta aad ka bixisay in ka badan canshuurtaada — waa lacagta lagu soo celin doono.",
+    "en": "This is how much more you paid than you owed — this is the amount that gets refunded to you.",
+    "draft": true
+  },
+  "1040:line37": {
+    "label": "Amount you owe",
+    "soTitle": "Lacagta aad lugta ku haysid",
+    "so": "Tani waa lacagta aad weli dawladda u baahan tahay inaad bixiso.",
+    "en": "This is the additional amount you still owe the government.",
+    "draft": true
+  }
+}
