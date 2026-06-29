@@ -6,7 +6,17 @@ const STATIC_FIELDS = [
   { key: "recipientTin", label: "Recipient's TIN" },
 ];
 
-const INTERACTIVE_FIELDS = [{ key: "box1" }, { key: "box2" }, { key: "box4" }, { key: "box11" }];
+const INTERACTIVE_FIELDS = [
+  { key: "box1" },
+  { key: "box2" },
+  { key: "box4" },
+  { key: "box5" },
+  { key: "box6" },
+  { key: "box7" },
+  { key: "box9" },
+  { key: "box10" },
+  { key: "box11" },
+];
 
 export default function G1099Document(props) {
   return (

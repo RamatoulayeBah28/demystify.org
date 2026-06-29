@@ -13,6 +13,20 @@
     "en": "This is the part of that money the government will count when figuring out your taxes.",
     "draft": true
   },
+  "1099-r:box2b": {
+    "label": "Checkboxes",
+    "soTitle": "Sanduuqyada calaamadaysan",
+    "so": "Sanduuqani waxay tilmaamaysaa haddii qiimaha la canshuuro aan la go'aamin, ama haddii tani tahay lacag-bixin dhammaystiran.",
+    "en": "These checkboxes flag whether the taxable amount couldn't be determined, or whether this was a total distribution.",
+    "draft": true
+  },
+  "1099-r:box3": {
+    "label": "Capital gain",
+    "soTitle": "Faa'iidada raasamaalka",
+    "so": "Tani waa qaybta lacagta ah ee loo xisaabiyo faa'iidada raasamaalka, oo heshay xeerar canshuur ka duwan kuwa caadiga ah.",
+    "en": "This is the portion treated as a capital gain, which can get different tax treatment than regular income.",
+    "draft": true
+  },
   "1099-r:box4": {
     "label": "Federal income tax withheld",
     "soTitle": "Canshuurta federaalka horay loo jaray",
@@ -20,11 +34,32 @@
     "en": "This is the federal tax that was already taken out of this payment and sent to the government.",
     "draft": true
   },
+  "1099-r:box5": {
+    "label": "Employee contributions",
+    "soTitle": "Lacagta aad geliyay",
+    "so": "Tani waa qaybtii lacagta aad aadnaa ka gelin qorshahaaga hawlgabka, oo aadan u baahnayn inaad mar kale canshuur ka bixiso.",
+    "en": "This is the part of the payout that's your own contributions you already put in — you usually don't pay tax on this part again.",
+    "draft": true
+  },
   "1099-r:box7": {
     "label": "Distribution code",
     "soTitle": "Koodhka nooca lacag-bixinta",
     "so": "Tani waa koodh yar oo sharaxaya nooca lacag-bixintan, tusaale ahaan haddii ay tahay hawlgab caadi ah ama mid hore. Koodhkan kaliya wuxuu kuu sheegayaa nooca — ma uusan macno gaar ah u qabin lacag-bixinta.",
     "en": "This is a short code explaining what kind of payout this was, like a normal retirement payout or an early one. It just labels the type — it doesn't change the amount.",
+    "draft": true
+  },
+  "1099-r:box14": {
+    "label": "State tax withheld",
+    "soTitle": "Canshuurta stateka",
+    "so": "Tani waa canshuurta stateka ee horay laga jaray lacag-bixintan.",
+    "en": "This is any state tax that was already withheld from this distribution.",
+    "draft": true
+  },
+  "1099-r:box16": {
+    "label": "State distribution",
+    "soTitle": "Lacag-bixinta stateka",
+    "so": "Tani waa qaybta lacag-bixinta ee stateku canshuuro.",
+    "en": "This is the portion of the distribution your state taxes.",
     "draft": true
   }
 }

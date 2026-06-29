@@ -7,7 +7,18 @@ const STATIC_FIELDS = [
   { key: "recipientTin", label: "Recipient's TIN" },
 ];
 
-const INTERACTIVE_FIELDS = [{ key: "box1" }, { key: "box3" }, { key: "box4" }];
+const INTERACTIVE_FIELDS = [
+  { key: "box1" },
+  { key: "box2" },
+  { key: "box3" },
+  { key: "box4" },
+  { key: "box6" },
+  { key: "box8" },
+  { key: "box10" },
+  { key: "box16" },
+  { key: "box17" },
+  { key: "box18" },
+];
 
 export default function Misc1099Document(props) {
   return (

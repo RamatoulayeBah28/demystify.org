@@ -13,6 +13,13 @@
     "en": "This is money you lost as a penalty for taking money out of a savings account before its term was up.",
     "draft": true
   },
+  "1099-int:box3": {
+    "label": "US Savings Bonds & Treasury interest",
+    "soTitle": "Ribada Treasury bonds",
+    "so": "Tani waa ribada laga helay deymaha dawladda Maraykanka (Treasury) ama U.S. Savings Bonds.",
+    "en": "This is interest from U.S. Savings Bonds or Treasury obligations.",
+    "draft": true
+  },
   "1099-int:box4": {
     "label": "Federal income tax withheld",
     "soTitle": "Canshuurta horay loo jaray",
@@ -20,11 +27,60 @@
     "en": "This is the federal tax that was already taken out of this interest money and sent to the government.",
     "draft": true
   },
+  "1099-int:box5": {
+    "label": "Investment expenses",
+    "soTitle": "Kharashka maalgashiga",
+    "so": "Tani waa qaybtaada ka mid ah kharashka maalgashiga ee la xidhiidha lacagta ribada.",
+    "en": "This is your share of investment expenses related to this interest income.",
+    "draft": true
+  },
   "1099-int:box8": {
     "label": "Tax-exempt interest",
     "soTitle": "Riba aan canshuur lahayn",
     "so": "Tani waa lacag riba ah oo aadan u baahnayn inaad canshuur federaal ah ka bixiso.",
     "en": "This is interest income that you don't have to pay federal tax on.",
+    "draft": true
+  },
+  "1099-int:box9": {
+    "label": "Specified private activity bond interest",
+    "soTitle": "Riba bond gaar ah",
+    "so": "Tani waa qayb ka mid ah ribada sanduuqa 8 oo laga yaabo in lagu canshuuro canshuurta dheeriga ah (AMT).",
+    "en": "This is part of the box 8 interest that may be subject to an extra tax called the Alternative Minimum Tax.",
+    "draft": true
+  },
+  "1099-int:box10": {
+    "label": "Market discount",
+    "soTitle": "Dhimista suuqa",
+    "so": "Tani waa dakhli laga helay bond aad ka iibsatay qiime ka hooseeya qiimaha asalka ah.",
+    "en": "This is income from a bond you bought at a discount below its original price.",
+    "draft": true
+  },
+  "1099-int:box11": {
+    "label": "Bond premium",
+    "soTitle": "Dhaca bond-ka",
+    "so": "Tani waa lacag laga jaray ribada bond-ka maxaa yeelay waxaad bond-ka ka iibsatay qiime ka sareeya qiimihiisii asalka ahaa.",
+    "en": "This is an amount subtracted from your bond interest because you paid more than face value for the bond.",
+    "draft": true
+  },
+  "1099-int:box13": {
+    "label": "Bond premium on tax-exempt bond",
+    "soTitle": "Dhaca bond-ka aan canshuurta lahayn",
+    "so": "Tani waa isla dhaca bond-ka, laakiin halkan waxay la xidhiidhaa bond-yada aan canshuur lahayn ee sanduuqa 8.",
+    "en": "This is the same kind of bond premium, but for the tax-exempt bonds reported in box 8.",
+    "draft": true
+  },
+  "1099-int:box15": {
+    "label": "State & state ID number",
+    "soTitle": "Stateka & lambarkiisa",
+    "so": "Tani waa stateka iyo lambarka diiwaangashan ee shirkadda kuu bixisay ribada.",
+    "en": "This is the state and the payer's state-registered ID number.",
+    "draft": true
+  },
+  "1099-int:box17": {
+    "label": "State tax withheld",
+    "soTitle": "Canshuurta stateka",
+    "so": "Tani waa canshuurta stateka ee horay laga jaray lacagtan ribada ah.",
+    "en": "This is any state tax that was already withheld from this interest income.",
     "draft": true
   }
 }

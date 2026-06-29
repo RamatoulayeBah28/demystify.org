@@ -7,7 +7,14 @@ const STATIC_FIELDS = [
   { key: "recipientTin", label: "Recipient's TIN" },
 ];
 
-const INTERACTIVE_FIELDS = [{ key: "box1" }, { key: "box4" }];
+const INTERACTIVE_FIELDS = [
+  { key: "box1" },
+  { key: "box2" },
+  { key: "box4" },
+  { key: "box5" },
+  { key: "box6" },
+  { key: "box7" },
+];
 
 export default function Nec1099Document(props) {
   return (

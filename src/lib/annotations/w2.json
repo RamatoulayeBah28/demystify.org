@@ -35,6 +35,55 @@
     "so": "Tani waa lacagta canshuurta Medicare ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
     "en": "This is the Medicare tax amount your employer took out of your pay."
   },
+  "w2:box7": {
+    "label": "Social security tips",
+    "soTitle": "Tips-ka Social Security",
+    "so": "Tani waa qaybta khadarkaaga (tips) ee loo xisaabiyo Social Security.",
+    "en": "This is the part of your reported tips counted toward Social Security.",
+    "draft": true
+  },
+  "w2:box8": {
+    "label": "Allocated tips",
+    "soTitle": "Tips-ka la qaybiyay",
+    "so": "Tani waa khadar (tips) loo-shaqeeyahaagu kuu qoondeeyay, oo aadan horay u sheegin — waa inaad ku daraysaa dakhligaaga.",
+    "en": "These are tips your employer assigned to you that you didn't report yourself — you need to add them to your income.",
+    "draft": true
+  },
+  "w2:box10": {
+    "label": "Dependent care benefits",
+    "soTitle": "Faa'iidada daryeelka carruurta",
+    "so": "Tani waa lacagta loo-shaqeeyahaagu bixiyay si lagu daryeelo carruurtaada ama qof kale oo aad masuul ka tahay, intii aad shaqaynaysay.",
+    "en": "This is money your employer provided to help pay for the care of your children or another dependent while you worked.",
+    "draft": true
+  },
+  "w2:box11": {
+    "label": "Nonqualified plans",
+    "soTitle": "Qorshooyinka aan caadiga ahayn",
+    "so": "Tani waa lacag laga bixiyay qorshe hawlgab oo aan caadiga ahayn — way ku jirtaa mushaharkaaga la canshuuro.",
+    "en": "This is money paid to you from a nonqualified retirement plan — it's already included in your taxable wages.",
+    "draft": true
+  },
+  "w2:box13": {
+    "label": "Checkboxes",
+    "soTitle": "Sanduuqyada calaamadaysan",
+    "so": "Sanduuqani waxay tilmaamaysaa haddii aad tahay shaqaale gaar ah, mid ka mid ah qorshe hawlgab, ama haddii cudur-bixinta dhaqsaha ah ay bixiso shirkad saddexaad.",
+    "en": "These checkboxes flag special situations: being a statutory employee, being part of a retirement plan, or sick pay handled by a third party.",
+    "draft": true
+  },
+  "w2:box14": {
+    "label": "Other",
+    "soTitle": "Waxyaabo kale",
+    "so": "Tani waa nooc kale oo lacag ah oo loo-shaqeeyahaagu rabo inuu kuu sheego, sida kharashka ururka shaqaalaha (union dues) — sharaxaadu way ku xardhan tahay sanduuqa.",
+    "en": "This box lists other amounts your employer wants you to know about, like union dues — the description is printed right in the box.",
+    "draft": true
+  },
+  "w2:box15": {
+    "label": "State & employer's state ID",
+    "soTitle": "Stateka & lambarka shirkadda",
+    "so": "Tani waa stateka loo-shaqeeyahaagu canshuurta uga jaray, iyo lambarkiisa diiwaangashan ee stateka.",
+    "en": "This is the state your employer withheld taxes for, plus their state-registered ID number.",
+    "draft": true
+  },
   "w2:box16": {
     "label": "State wages, tips, etc.",
     "soTitle": "State mushaharka",
@@ -46,5 +95,26 @@
     "soTitle": "State canshuurta",
     "so": "Tani waa lacagta canshuurta stateka ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
     "en": "This is the state income tax your employer took out of your paychecks."
+  },
+  "w2:box18": {
+    "label": "Local wages, tips, etc.",
+    "soTitle": "Mushaharka magaalada/degmada",
+    "so": "Tani waa qaybta mushaharkaaga ee loo xisaabiyo canshuurta magaalada ama degmada.",
+    "en": "This is the part of your wages counted for local (city or county) income tax.",
+    "draft": true
+  },
+  "w2:box19": {
+    "label": "Local income tax withheld",
+    "soTitle": "Canshuurta magaalada/degmada",
+    "so": "Tani waa lacagta canshuurta magaalada ama degmada ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
+    "en": "This is the local (city or county) income tax your employer took out of your pay.",
+    "draft": true
+  },
+  "w2:box20": {
+    "label": "Locality name",
+    "soTitle": "Magaca degmada",
+    "so": "Tani waa magaca magaalada ama degmada ee canshuurta sanduuqa 19 loo bixiyay.",
+    "en": "This is the name of the city or county that the box 19 tax was paid to.",
+    "draft": true
   }
 }

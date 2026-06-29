@@ -34,5 +34,82 @@
     "soTitle": "Medicare canshuurta oo la saxay",
     "so": "Kani waa lacagta canshuurta Medicare ee saxda ah ee cusub.",
     "en": "This is the corrected Medicare tax amount."
+  },
+  "w2c:box7": {
+    "label": "Social security tips (corrected)",
+    "soTitle": "Tips-ka Social Security oo la saxay",
+    "so": "Kani waa qaybta khadarkaaga (tips) ee loo xisaabiyo Social Security, saxda ah ee cusub.",
+    "en": "This is the corrected Social Security tips amount.",
+    "draft": true
+  },
+  "w2c:box8": {
+    "label": "Allocated tips (corrected)",
+    "soTitle": "Tips-ka la qaybiyay oo la saxay",
+    "so": "Kani waa khadarka (tips) loo-shaqeeyahaagu kuu qoondeeyay, saxda ah ee cusub.",
+    "en": "This is the corrected allocated tips amount.",
+    "draft": true
+  },
+  "w2c:box10": {
+    "label": "Dependent care benefits (corrected)",
+    "soTitle": "Faa'iidada daryeelka carruurta oo la saxay",
+    "so": "Kani waa lacagta daryeelka carruurta, saxda ah ee cusub.",
+    "en": "This is the corrected dependent care benefits amount.",
+    "draft": true
+  },
+  "w2c:box11": {
+    "label": "Nonqualified plans (corrected)",
+    "soTitle": "Qorshooyinka aan caadiga ahayn oo la saxay",
+    "so": "Kani waa lacagta qorshaha hawlgabka aan caadiga ahayn, saxda ah ee cusub.",
+    "en": "This is the corrected nonqualified plans amount.",
+    "draft": true
+  },
+  "w2c:box14": {
+    "label": "Other (corrected)",
+    "soTitle": "Waxyaabo kale oo la saxay",
+    "so": "Kani waa qiimaha saxda ah ee cusub ee sanduuqa \"Other\".",
+    "en": "This is the corrected amount for the \"Other\" box.",
+    "draft": true
+  },
+  "w2c:box15": {
+    "label": "State & employer's state ID (corrected)",
+    "soTitle": "Stateka & lambarka shirkadda oo la saxay",
+    "so": "Kani waa stateka iyo lambarka shirkadda, saxda ah ee cusub.",
+    "en": "This is the corrected state and employer's state ID.",
+    "draft": true
+  },
+  "w2c:box16": {
+    "label": "State wages, tips, etc. (corrected)",
+    "soTitle": "State mushaharka oo la saxay",
+    "so": "Kani waa mushaharka stateka, saxda ah ee cusub.",
+    "en": "This is the corrected state wages amount.",
+    "draft": true
+  },
+  "w2c:box17": {
+    "label": "State income tax withheld (corrected)",
+    "soTitle": "State canshuurta oo la saxay",
+    "so": "Kani waa canshuurta stateka, saxda ah ee cusub.",
+    "en": "This is the corrected state income tax amount.",
+    "draft": true
+  },
+  "w2c:box18": {
+    "label": "Local wages, tips, etc. (corrected)",
+    "soTitle": "Mushaharka degmada oo la saxay",
+    "so": "Kani waa mushaharka degmada, saxda ah ee cusub.",
+    "en": "This is the corrected local wages amount.",
+    "draft": true
+  },
+  "w2c:box19": {
+    "label": "Local income tax withheld (corrected)",
+    "soTitle": "Canshuurta degmada oo la saxay",
+    "so": "Kani waa canshuurta degmada, saxda ah ee cusub.",
+    "en": "This is the corrected local income tax amount.",
+    "draft": true
+  },
+  "w2c:box20": {
+    "label": "Locality name (corrected)",
+    "soTitle": "Magaca degmada oo la saxay",
+    "so": "Kani waa magaca degmada, saxda ah ee cusub.",
+    "en": "This is the corrected locality name.",
+    "draft": true
   }
 }

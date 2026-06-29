@@ -6,7 +6,14 @@ const STATIC_FIELDS = [
   { key: "recipientTin", label: "Student's TIN" },
 ];
 
-const INTERACTIVE_FIELDS = [{ key: "box1" }, { key: "box5" }];
+const INTERACTIVE_FIELDS = [
+  { key: "box1" },
+  { key: "box4" },
+  { key: "box5" },
+  { key: "box6" },
+  { key: "box789", display: "7/8/9" },
+  { key: "box10" },
+];
 
 export default function T1098Document(props) {
   return (

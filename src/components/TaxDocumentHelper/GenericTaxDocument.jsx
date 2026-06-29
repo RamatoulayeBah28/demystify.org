@@ -18,6 +18,8 @@ export default function GenericTaxDocument({
   onBoxClick,
   fieldValues,
 }) {
+  const taxYear = fieldValues[`${documentType}:taxYear`] || "—";
+
   return (
     <div className="w-[600px] flex-none rounded-md border border-dm-paper-line bg-white p-[18px] text-dm-paper-ink">
       <div className="mb-[10px] flex gap-[10px]">
@@ -27,7 +29,7 @@ export default function GenericTaxDocument({
             <div className="mt-[3px] text-xs text-dm-paper-muted-2">{formSubtitle}</div>
           </div>
           <div className="text-right">
-            <div className="font-serif text-[28px] font-semibold leading-none">2025</div>
+            <div className="font-serif text-[28px] font-semibold leading-none">{taxYear}</div>
             <div className="mt-0.5 text-[10px] text-dm-paper-muted">{ombNumber}</div>
           </div>
         </div>
@@ -60,9 +62,22 @@ export default function GenericTaxDocument({
           {interactiveFields.map((field) => {
             const fieldId = `${documentType}:${field.key}`;
             const annotation = getAnnotation(fieldId);
-            const isActive = activeFieldId === fieldId;
             const value = fieldValues[fieldId] || "—";
-            const displayNumber = field.key.replace(/^box/, "");
+            const displayNumber = field.display ?? field.key.replace(/^box/, "");
+
+            if (value === "—") {
+              return (
+                <div key={field.key} className="rounded-lg border border-dm-paper-line pt-[9px] px-[11px] pb-[11px]">
+                  <div className="text-[11px] leading-[1.25] text-dm-paper-disabled">
+                    <b className="text-[13px] text-dm-paper-disabled">{displayNumber}</b>
+                    &nbsp; {annotation?.label}
+                  </div>
+                  <div className="mt-[6px] text-lg font-semibold text-dm-paper-disabled">{value}</div>
+                </div>
+              );
+            }
+
+            const isActive = activeFieldId === fieldId;
             return (
               <div
                 key={field.key}

@@ -20,6 +20,41 @@
     "en": "This is the federal tax that was already taken out of this payment and sent to the government.",
     "draft": true
   },
+  "1099-g:box5": {
+    "label": "RTAA payments",
+    "soTitle": "Lacagta RTAA",
+    "so": "Tani waa lacag caawimaad oo dawladdu ku siisay shaqaalaha shaqadooda lumiyay sababtoo ah ganacsiga dibadda.",
+    "en": "This is a trade-adjustment assistance payment for workers who lost jobs due to foreign trade.",
+    "draft": true
+  },
+  "1099-g:box6": {
+    "label": "Taxable grants",
+    "soTitle": "Deeqaha la canshuuro",
+    "so": "Tani waa deeq lacag ah oo dawladdu ku siisay oo la canshuuro.",
+    "en": "This is a government grant payment that is taxable income.",
+    "draft": true
+  },
+  "1099-g:box7": {
+    "label": "Agriculture payments",
+    "soTitle": "Lacagaha beeraha",
+    "so": "Tani waa lacag dawladdu ku siisay beeraley.",
+    "en": "This is a payment the government made to a farmer or agricultural business.",
+    "draft": true
+  },
+  "1099-g:box9": {
+    "label": "Market gain",
+    "soTitle": "Faa'iidada suuqa",
+    "so": "Tani waa faa'iido laga helay deyn beereed marka la bixiyo.",
+    "en": "This is a market gain from repaying a commodity credit loan.",
+    "draft": true
+  },
+  "1099-g:box10": {
+    "label": "State & state ID number",
+    "soTitle": "Gobolka & lambarkiisa",
+    "so": "Tani waa gobolka iyo lambarka diiwaangashan ee xafiiska kuu bixiyay lacagta.",
+    "en": "This is the state and the state ID number of the agency that paid you.",
+    "draft": true
+  },
   "1099-g:box11": {
     "label": "State income tax withheld",
     "soTitle": "Canshuurta gobolka horay loo jaray",

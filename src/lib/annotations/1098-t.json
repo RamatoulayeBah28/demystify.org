@@ -6,11 +6,39 @@
     "en": "This is the total tuition money paid this year, which may qualify for an education tax credit.",
     "draft": true
   },
+  "1098-t:box4": {
+    "label": "Adjustments for a prior year",
+    "soTitle": "Sax sannadkii hore",
+    "so": "Tani waa saxitaan lagu sameeyay lacagta dugsiga ee sannadkii hore, taasoo bedeli karta credit-ka canshuurta ee aad horay u sheegtay.",
+    "en": "This is an adjustment to tuition payments from a prior year, which may change an education credit you already claimed.",
+    "draft": true
+  },
   "1098-t:box5": {
     "label": "Scholarships or grants",
     "soTitle": "Deeq-waxbarasho",
     "so": "Tani waa wadarta deeq-waxbarashada (scholarships) ama kaalmada (grants) ee ardaygu helay sanadkan, taasoo dhimi karta lacagta credit-ka canshuurta la helayo.",
     "en": "This is the total scholarship or grant money the student received this year, which can reduce how much education tax credit you can claim.",
+    "draft": true
+  },
+  "1098-t:box6": {
+    "label": "Scholarship adjustments for a prior year",
+    "soTitle": "Sax deeq-waxbarasho sannadkii hore",
+    "so": "Tani waa saxitaan lagu sameeyay deeq-waxbarasho sannadkii hore.",
+    "en": "This is an adjustment to scholarships or grants reported in a prior year.",
+    "draft": true
+  },
+  "1098-t:box789": {
+    "label": "Enrollment status",
+    "soTitle": "Xaaladda diiwaangelinta",
+    "so": "Sanduuqyadani waxay tilmaamayaan haddii ardaygu yahay arday wakhti-buuxa ah ugu yaraan, ama arday heer-koris ah.",
+    "en": "These checkboxes flag whether the student was at least half-time, and whether they're a graduate student.",
+    "draft": true
+  },
+  "1098-t:box10": {
+    "label": "Insurance reimbursement",
+    "soTitle": "Lacag-celin caymis",
+    "so": "Tani waa lacag aad ka heshay caymiska dugsiga oo lagu celiyay kharashka waxbarashada.",
+    "en": "This is a refund or reimbursement of tuition expenses from an insurance contract.",
     "draft": true
   }
 }

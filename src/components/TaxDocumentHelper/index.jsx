@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getAnnotation } from "@/lib/annotations";
+import { getBox12Annotation } from "@/lib/box12Codes";
 import { SUPPORTED_TYPES } from "@/lib/documentTypes";
 import UploadScreen from "./UploadScreen";
 import DetectingScreen from "./DetectingScreen";
@@ -13,6 +14,36 @@ const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png", "image/hei
 // Browsers/OSes are inconsistent about reporting a MIME type for HEIC
 // files (some leave candidate.type blank) — fall back to the extension.
 const HEIC_EXTENSION_PATTERN = /\.(heic|heif)$/i;
+// W-2 box 12 slots (e.g. "w2:box12a") aren't real annotation keys — the
+// explanation depends on which letter code was extracted into that slot,
+// so resolution reads the code back out of fieldValues instead of doing a
+// static lookup.
+const BOX_12_SLOT_PATTERN = /^w2:box12([a-d])$/;
+
+function resolveActiveAnnotation(fieldId, fieldValues) {
+  const slotMatch = fieldId.match(BOX_12_SLOT_PATTERN);
+  if (slotMatch) {
+    const code = fieldValues[`w2:box12${slotMatch[1]}_code`];
+    return getBox12Annotation(code);
+  }
+  return getAnnotation(fieldId);
+}
+
+// A box with nothing extracted isn't interactive at all — w2c stores its
+// values under :previous/:corrected suffixes rather than the bare fieldId,
+// so it needs its own check; everything else (including box 12 slots) can
+// look at fieldValues[fieldId] directly.
+function fieldHasValue(fieldId, fieldValues) {
+  const slotMatch = fieldId.match(BOX_12_SLOT_PATTERN);
+  if (slotMatch) {
+    return Boolean(fieldValues[`w2:box12${slotMatch[1]}_code`]);
+  }
+  if (fieldId.startsWith("w2c:box")) {
+    return Boolean(fieldValues[`${fieldId}:previous`]) || Boolean(fieldValues[`${fieldId}:corrected`]);
+  }
+  return Boolean(fieldValues[fieldId]);
+}
+
 const POPOVER_WIDTH = 344;
 const POPOVER_HEIGHT = 480;
 const POPOVER_GAP = 16;
@@ -57,6 +88,7 @@ export default function TaxDocumentHelper() {
   useEffect(() => stopTimer, []);
 
   const openBox = (e, fieldId) => {
+    if (!fieldHasValue(fieldId, fieldValues)) return;
     const container = containerRef.current;
     if (!container) return;
     const c = container.getBoundingClientRect();
@@ -168,7 +200,9 @@ export default function TaxDocumentHelper() {
     acceptFile(e.dataTransfer.files?.[0]);
   };
 
-  const active = activeFieldId ? getAnnotation(activeFieldId) : null;
+  const active = activeFieldId
+    ? resolveActiveAnnotation(activeFieldId, fieldValues)
+    : null;
 
   return (
     <div

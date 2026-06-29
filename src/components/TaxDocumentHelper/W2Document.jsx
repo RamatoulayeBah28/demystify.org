@@ -1,5 +1,7 @@
 import { getAnnotation } from "@/lib/annotations";
+import { getBox12Annotation } from "@/lib/box12Codes";
 
+// Box 9 is unused on current W-2s — intentionally not listed here.
 const INTERACTIVE_FIELDS_TEMPLATE = [
   { n: 1, fieldId: "w2:box1" },
   { n: 2, fieldId: "w2:box2" },
@@ -7,26 +9,85 @@ const INTERACTIVE_FIELDS_TEMPLATE = [
   { n: 4, fieldId: "w2:box4" },
   { n: 5, fieldId: "w2:box5" },
   { n: 6, fieldId: "w2:box6" },
+  { n: 7, fieldId: "w2:box7" },
+  { n: 8, fieldId: "w2:box8" },
+  { n: 10, fieldId: "w2:box10" },
+  { n: 11, fieldId: "w2:box11" },
+  { n: 13, fieldId: "w2:box13" },
+  { n: 14, fieldId: "w2:box14" },
+  { n: 15, fieldId: "w2:box15" },
+  { n: 16, fieldId: "w2:box16" },
+  { n: 17, fieldId: "w2:box17" },
+  { n: 18, fieldId: "w2:box18" },
+  { n: 19, fieldId: "w2:box19" },
+  { n: 20, fieldId: "w2:box20" },
 ];
 
-// Shown with their extracted value but not clickable — no annotation
-// popover or audio icon, unlike INTERACTIVE_FIELDS_TEMPLATE above.
-const STATIC_FIELDS = [
-  { n: 16, label: "State wages, tips, etc." },
-  { n: 17, label: "State income tax" },
-];
+// Box 12 holds up to 4 letter-code + amount slots, each clicked as one
+// unit — the popover explanation depends on the code, resolved in
+// TaxDocumentHelper/index.jsx via getBox12Annotation, not a static lookup.
+const BOX_12_SLOTS = ["a", "b", "c", "d"];
+
+// A box with no extracted value isn't clickable — rendered like the
+// static (non-interactive) fields instead, with no accent border, no
+// hover state, and no audio icon.
+function renderInteractiveField(field, activeFieldId, onBoxClick) {
+  const annotation = getAnnotation(field.fieldId);
+  if (field.value === "—") {
+    return (
+      <div key={field.n} className="rounded-lg border border-dm-paper-line pt-[9px] px-[11px] pb-[11px]">
+        <div className="text-[11px] leading-[1.25] text-dm-paper-disabled">
+          <b className="text-[13px] text-dm-paper-disabled">{field.n}</b>
+          &nbsp; {annotation?.label}
+        </div>
+        <div className="mt-[6px] text-lg font-semibold text-dm-paper-disabled">{field.value}</div>
+      </div>
+    );
+  }
+  const isActive = activeFieldId === field.fieldId;
+  return (
+    <div
+      key={field.n}
+      onClick={(e) => onBoxClick(e, field.fieldId)}
+      className={`relative cursor-pointer rounded-lg border border-dm-paper-line border-l-4 border-l-dm-accent bg-dm-accent-soft pt-[9px] px-[11px] pb-[11px] outline-2 outline-offset-2 transition-[transform,box-shadow] duration-150 hover:-translate-y-px hover:shadow-[0_6px_18px_rgba(31,61,92,0.16)] ${
+        isActive ? "outline-dm-accent" : "outline-transparent"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-[6px]">
+        <div className="text-[11px] leading-[1.25] tracking-[0.03em] text-dm-paper-label">
+          <b className="text-[13px] text-dm-accent">{field.n}</b>
+          &nbsp; {annotation?.label}
+        </div>
+        <span className="flex h-[26px] w-[26px] flex-none items-center justify-center rounded-full bg-dm-accent text-[11px] text-white">
+          <i className="fa-solid fa-volume-high" />
+        </span>
+      </div>
+      <div className="mt-[6px] text-xl font-bold tracking-[0.02em] text-dm-paper-ink-strong">{field.value}</div>
+    </div>
+  );
+}
 
 export default function W2Document({ activeFieldId, onBoxClick, fieldValues }) {
   const INTERACTIVE_FIELDS = INTERACTIVE_FIELDS_TEMPLATE.map((field) => ({
     ...field,
     value: fieldValues[field.fieldId] || "—",
   }));
+  const FIELDS_BEFORE_BOX_12 = INTERACTIVE_FIELDS.filter((f) => f.n <= 11);
+  const FIELDS_AFTER_BOX_12 = INTERACTIVE_FIELDS.filter((f) => f.n >= 13);
 
-  const STATIC_FIELDS_WITH_VALUES = STATIC_FIELDS.map((field) => ({
-    ...field,
-    value: fieldValues[`w2:box${field.n}`] || "—",
-  }));
+  const BOX_12_FIELDS = BOX_12_SLOTS.map((slot) => {
+    const code = fieldValues[`w2:box12${slot}_code`] || "";
+    const amount = fieldValues[`w2:box12${slot}_amount`] || "";
+    return {
+      slot,
+      fieldId: `w2:box12${slot}`,
+      code,
+      amount,
+      label: getBox12Annotation(code).label,
+    };
+  });
 
+  const taxYear = fieldValues["w2:taxYear"] || "—";
   const ssn = fieldValues["w2:boxA"] || "—";
   const ein = fieldValues["w2:boxB"] || "—";
   const employerNameAddress = fieldValues["w2:boxC"] || "—";
@@ -56,7 +117,7 @@ export default function W2Document({ activeFieldId, onBoxClick, fieldValues }) {
           </div>
           <div className="text-right">
             <div className="font-serif text-[28px] font-semibold leading-none">
-              2025
+              {taxYear}
             </div>
             <div className="mt-0.5 text-[10px] text-dm-paper-muted">
               Dept. of the Treasury — IRS
@@ -118,47 +179,56 @@ export default function W2Document({ activeFieldId, onBoxClick, fieldValues }) {
         </div>
 
         <div className="grid flex-1 grid-cols-2 content-start gap-[10px]">
-          {INTERACTIVE_FIELDS.map((field) => {
-            const annotation = getAnnotation(field.fieldId);
-            const isActive = activeFieldId === field.fieldId;
-            return (
-              <div
-                key={field.n}
-                onClick={(e) => onBoxClick(e, field.fieldId)}
-                className={`relative cursor-pointer rounded-lg border border-dm-paper-line border-l-4 border-l-dm-accent bg-dm-accent-soft pt-[9px] px-[11px] pb-[11px] outline-2 outline-offset-2 transition-[transform,box-shadow] duration-150 hover:-translate-y-px hover:shadow-[0_6px_18px_rgba(31,61,92,0.16)] ${
-                  isActive ? "outline-dm-accent" : "outline-transparent"
-                }`}
-              >
-                <div className="flex items-start justify-between gap-[6px]">
-                  <div className="text-[11px] leading-[1.25] tracking-[0.03em] text-dm-paper-label">
-                    <b className="text-[13px] text-dm-accent">{field.n}</b>
-                    &nbsp; {annotation?.label}
-                  </div>
-                  <span className="flex h-[26px] w-[26px] flex-none items-center justify-center rounded-full bg-dm-accent text-[11px] text-white">
-                    <i className="fa-solid fa-volume-high" />
-                  </span>
-                </div>
-                <div className="mt-[6px] text-xl font-bold tracking-[0.02em] text-dm-paper-ink-strong">
-                  {field.value}
-                </div>
-              </div>
-            );
-          })}
+          {FIELDS_BEFORE_BOX_12.map((field) => renderInteractiveField(field, activeFieldId, onBoxClick))}
 
-          {STATIC_FIELDS_WITH_VALUES.map((field) => (
-            <div
-              key={field.n}
-              className="rounded-lg border border-dm-paper-line pt-[9px] px-[11px] pb-[11px]"
-            >
-              <div className="text-[11px] leading-[1.25] text-dm-paper-disabled">
-                <b className="text-[13px] text-dm-paper-disabled">{field.n}</b>
-                &nbsp; {field.label}
-              </div>
-              <div className="mt-[6px] text-lg font-semibold text-dm-paper-disabled">
-                {field.value}
-              </div>
+          <div className="col-span-2 rounded-lg border border-dm-paper-line pt-[9px] px-[11px] pb-[11px]">
+            <div className="text-[11px] leading-[1.25] tracking-[0.03em] text-dm-paper-label">
+              <b className="text-[13px] text-dm-accent">12</b>
+              &nbsp; Codes a–d (up to 4 code + amount pairs)
             </div>
-          ))}
+            <div className="mt-[8px] grid grid-cols-2 gap-[8px]">
+              {BOX_12_FIELDS.map((field) => {
+                const isActive = activeFieldId === field.fieldId;
+                if (!field.code) {
+                  return (
+                    <div
+                      key={field.slot}
+                      className="rounded-lg border border-dm-paper-line px-[10px] py-[8px]"
+                    >
+                      <div className="text-[11px] leading-[1.25] text-dm-paper-disabled">
+                        <b className="text-[13px] text-dm-paper-disabled">12{field.slot}</b>
+                      </div>
+                      <div className="mt-[5px] text-base font-semibold text-dm-paper-disabled">—</div>
+                    </div>
+                  );
+                }
+                return (
+                  <div
+                    key={field.slot}
+                    onClick={(e) => onBoxClick(e, field.fieldId)}
+                    className={`relative cursor-pointer rounded-lg border border-dm-paper-line border-l-4 border-l-dm-accent bg-dm-accent-soft px-[10px] py-[8px] outline-2 outline-offset-2 transition-[transform,box-shadow] duration-150 hover:-translate-y-px hover:shadow-[0_6px_18px_rgba(31,61,92,0.16)] ${
+                      isActive ? "outline-dm-accent" : "outline-transparent"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-[6px]">
+                      <div className="text-[11px] leading-[1.25] tracking-[0.03em] text-dm-paper-label">
+                        <b className="text-[13px] text-dm-accent">12{field.slot}</b>
+                        &nbsp; {field.label}
+                      </div>
+                      <span className="flex h-[22px] w-[22px] flex-none items-center justify-center rounded-full bg-dm-accent text-[10px] text-white">
+                        <i className="fa-solid fa-volume-high" />
+                      </span>
+                    </div>
+                    <div className="mt-[5px] text-base font-bold tracking-[0.02em] text-dm-paper-ink-strong">
+                      {field.code}  {field.amount || "—"}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {FIELDS_AFTER_BOX_12.map((field) => renderInteractiveField(field, activeFieldId, onBoxClick))}
         </div>
       </div>
     </div>

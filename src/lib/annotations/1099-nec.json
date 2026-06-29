@@ -5,10 +5,38 @@
     "so": "Tani waa wadarta lacagta lagu siiyay sanadkan oo dhan halka aad u shaqaynaysay sidii qof madax-bannaan (mid aan shaqo joogto ahayn), ka hor inta aan canshuur laga jarin.",
     "en": "This is the total amount you were paid this year for work you did as an independent contractor or freelancer, before any taxes were taken out."
   },
+  "1099-nec:box2": {
+    "label": "Direct sales of $5,000+",
+    "soTitle": "Iibka tooska ah ee $5,000+",
+    "so": "Haddii ay leedahay \"Yes\", waxay micnaheedu yahay shirkadda ku siisay alaab si aad u iibiso, oo qiimaha ka badan $5,000 — sanduuqani waa calaamad kaliya, ma aha lacag.",
+    "en": "If this says \"Yes\", the payer sold you $5,000 or more of goods to resell — this box is just a flag, not a dollar amount.",
+    "draft": true
+  },
   "1099-nec:box4": {
     "label": "Federal income tax withheld",
     "soTitle": "Canshuurta federaalka ee horay loo jaray",
     "so": "Tani waa canshuurta federaalka ah ee horay laga jaray mushaharkaaga oo loo diray dawladda. Inta badan, dadka shaqada madax-bannaan ah meel canshuur kama jarin, marka tani inta badan waxay noqon kartaa $0.",
     "en": "This is any federal tax that was already taken out of your pay and sent to the government for you. Most independent contractors don't have tax withheld, so this is often $0."
+  },
+  "1099-nec:box5": {
+    "label": "State tax withheld",
+    "soTitle": "Canshuurta stateka",
+    "so": "Tani waa canshuurta stateka ee horay laga jaray mushaharkaaga.",
+    "en": "This is any state tax that was already taken out of your pay.",
+    "draft": true
+  },
+  "1099-nec:box6": {
+    "label": "State & payer's state number",
+    "soTitle": "Stateka & lambarka shirkadda",
+    "so": "Tani waa stateka iyo lambarka diiwaangashan ee shirkadda kuu bixisay lacagta.",
+    "en": "This is the state and the payer's state-registered ID number.",
+    "draft": true
+  },
+  "1099-nec:box7": {
+    "label": "State income",
+    "soTitle": "Dakhliga stateka",
+    "so": "Tani waa qaybta dakhligaaga ee stateku canshuuro.",
+    "en": "This is the portion of your income the state taxes.",
+    "draft": true
   }
 }

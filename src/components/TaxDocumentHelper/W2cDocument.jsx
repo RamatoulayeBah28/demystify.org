@@ -7,6 +7,17 @@ const INTERACTIVE_FIELDS_TEMPLATE = [
   { n: 4, fieldId: "w2c:box4" },
   { n: 5, fieldId: "w2c:box5" },
   { n: 6, fieldId: "w2c:box6" },
+  { n: 7, fieldId: "w2c:box7" },
+  { n: 8, fieldId: "w2c:box8" },
+  { n: 10, fieldId: "w2c:box10" },
+  { n: 11, fieldId: "w2c:box11" },
+  { n: 14, fieldId: "w2c:box14" },
+  { n: 15, fieldId: "w2c:box15" },
+  { n: 16, fieldId: "w2c:box16" },
+  { n: 17, fieldId: "w2c:box17" },
+  { n: 18, fieldId: "w2c:box18" },
+  { n: 19, fieldId: "w2c:box19" },
+  { n: 20, fieldId: "w2c:box20" },
 ];
 
 export default function W2cDocument({ activeFieldId, onBoxClick, fieldValues }) {
@@ -16,6 +27,7 @@ export default function W2cDocument({ activeFieldId, onBoxClick, fieldValues }) 
     corrected: fieldValues[`${field.fieldId}:corrected`] || "—",
   }));
 
+  const taxYear = fieldValues["w2c:taxYear"] || "—";
   const ssn = fieldValues["w2c:boxA"] || "—";
   const ein = fieldValues["w2c:boxB"] || "—";
   const employerNameAddress = fieldValues["w2c:boxC"] || "—";
@@ -43,7 +55,7 @@ export default function W2cDocument({ activeFieldId, onBoxClick, fieldValues }) 
           </div>
           <div className="text-right">
             <div className="font-serif text-[28px] font-semibold leading-none">
-              2025
+              {taxYear}
             </div>
             <div className="mt-0.5 text-[10px] text-dm-paper-muted">
               OMB No. 1545-0029
@@ -86,6 +98,33 @@ export default function W2cDocument({ activeFieldId, onBoxClick, fieldValues }) 
         <div className="flex flex-1 flex-col gap-[10px]">
           {INTERACTIVE_FIELDS.map((field) => {
             const annotation = getAnnotation(field.fieldId);
+            const hasValue = field.previouslyReported !== "—" || field.corrected !== "—";
+
+            if (!hasValue) {
+              return (
+                <div key={field.n} className="rounded-lg border border-dm-paper-line pt-[9px] px-[11px] pb-[11px]">
+                  <div className="text-[11px] leading-[1.25] text-dm-paper-disabled">
+                    <b className="text-[13px] text-dm-paper-disabled">{field.n}</b>
+                    &nbsp; {annotation?.label}
+                  </div>
+                  <div className="mt-[8px] grid grid-cols-2 gap-[10px]">
+                    <div>
+                      <div className="text-[10px] uppercase tracking-[0.04em] text-dm-paper-muted">
+                        Previously reported
+                      </div>
+                      <div className="mt-[2px] text-base font-semibold text-dm-paper-disabled">—</div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-[0.04em] text-dm-paper-muted">
+                        Correct information
+                      </div>
+                      <div className="mt-[2px] text-base font-semibold text-dm-paper-disabled">—</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
             const isActive = activeFieldId === field.fieldId;
             return (
               <div

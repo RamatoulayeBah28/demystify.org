@@ -6,6 +6,13 @@
     "en": "This is the total rent money you received this year, for example if you rented out a house or land.",
     "draft": true
   },
+  "1099-misc:box2": {
+    "label": "Royalties",
+    "soTitle": "Lacagta royalties",
+    "so": "Tani waa lacag laga helay royalties, tusaale ahaan haddii la adeegsado hantidaada qoraallada, suugaanta, ama macdanta.",
+    "en": "This is royalty income, for example from copyrights, patents, or mineral rights.",
+    "draft": true
+  },
   "1099-misc:box3": {
     "label": "Other income",
     "soTitle": "Dakhli kale",
@@ -18,6 +25,48 @@
     "soTitle": "Canshuurta federaalka horay loo jaray",
     "so": "Tani waa lacagta canshuurta federaalka ah ee horay laga jaray lacagtan, oo dawladda federaalka loo diray.",
     "en": "This is the federal tax that was already taken out of this payment and sent to the government.",
+    "draft": true
+  },
+  "1099-misc:box6": {
+    "label": "Medical & health care payments",
+    "soTitle": "Lacagaha caafimaadka",
+    "so": "Tani waa lacag laguu siiyay adoo bixiyay adeeg caafimaad.",
+    "en": "This is payment you received for providing medical or health care services.",
+    "draft": true
+  },
+  "1099-misc:box8": {
+    "label": "Substitute payments",
+    "soTitle": "Lacag bedel ah",
+    "so": "Tani waa lacag laguu siiyay halkii saamilaha ama ribada, badanaa la xidhiidha amaahinta saamiga.",
+    "en": "This is a payment made to you in place of dividends or interest, usually related to securities lending.",
+    "draft": true
+  },
+  "1099-misc:box10": {
+    "label": "Gross proceeds to an attorney",
+    "soTitle": "Lacagta qareenka",
+    "so": "Tani waa wadarta lacagta loo bixiyay qareen, oo aysan ahayn agaasimahaaga lacagta.",
+    "en": "This is the total amount paid to an attorney, not necessarily your own legal fees.",
+    "draft": true
+  },
+  "1099-misc:box16": {
+    "label": "State tax withheld",
+    "soTitle": "Canshuurta stateka",
+    "so": "Tani waa canshuurta stateka ee horay laga jaray lacagtan.",
+    "en": "This is any state tax that was already withheld from this payment.",
+    "draft": true
+  },
+  "1099-misc:box17": {
+    "label": "State & payer's state number",
+    "soTitle": "Stateka & lambarka shirkadda",
+    "so": "Tani waa stateka iyo lambarka diiwaangashan ee shirkadda kuu bixisay lacagta.",
+    "en": "This is the state and the payer's state-registered ID number.",
+    "draft": true
+  },
+  "1099-misc:box18": {
+    "label": "State income",
+    "soTitle": "Dakhliga stateka",
+    "so": "Tani waa qaybta dakhligaaga ee stateku canshuuro.",
+    "en": "This is the portion of your income the state taxes.",
     "draft": true
   }
 }
