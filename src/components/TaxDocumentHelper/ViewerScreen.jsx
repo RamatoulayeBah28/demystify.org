@@ -7,6 +7,13 @@ import R1099Document from "./R1099Document";
 import Ssa1099Document from "./Ssa1099Document";
 import T1098Document from "./T1098Document";
 import Misc1099Document from "./Misc1099Document";
+import W4Document from "./W4Document";
+import Es1040Document from "./Es1040Document";
+import W9Document from "./W9Document";
+import T4506Document from "./T4506Document";
+import InstallmentAgreementDocument from "./InstallmentAgreementDocument";
+import Ss4Document from "./Ss4Document";
+import W7Document from "./W7Document";
 import ChatPanel from "./ChatPanel";
 
 const DOCUMENTS = {
@@ -19,6 +26,13 @@ const DOCUMENTS = {
   "ssa-1099": Ssa1099Document,
   "1098-t": T1098Document,
   "1099-misc": Misc1099Document,
+  w4: W4Document,
+  "1040-es": Es1040Document,
+  w9: W9Document,
+  "4506-t": T4506Document,
+  "9465": InstallmentAgreementDocument,
+  "ss-4": Ss4Document,
+  w7: W7Document,
 };
 
 export default function ViewerScreen({

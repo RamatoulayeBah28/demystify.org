@@ -1,0 +1,16 @@
+{
+  "4506-t:transcriptType": {
+    "label": "Transcript type requested",
+    "soTitle": "Nooca dukumentiga la codsaday",
+    "so": "Tani waa nooca diiwaanka canshuurta ee aad ka codsanayso IRS-ka — tusaale ahaan koobi guud oo soo gudbintaadii canshuurta ah, ama taariikh faahfaahsan oo bixinaha iyo isbeddelada canshuurtaada.",
+    "en": "This is the type of tax record you're requesting from the IRS — for example, a copy of your filed return, or a detailed history of your tax payments and changes.",
+    "draft": true
+  },
+  "4506-t:yearsRequested": {
+    "label": "Years requested",
+    "soTitle": "Sannadaha la codsaday",
+    "so": "Tani waa sannadaha canshuurta ee aad codsanayso diiwaankooda.",
+    "en": "These are the tax years you're requesting records for.",
+    "draft": true
+  }
+}

@@ -7,6 +7,13 @@ import r1099 from "./1099-r.json";
 import ssa1099 from "./ssa-1099.json";
 import t1098 from "./1098-t.json";
 import misc1099 from "./1099-misc.json";
+import w4 from "./w4.json";
+import es1040 from "./1040-es.json";
+import w9 from "./w9.json";
+import t4506 from "./4506-t.json";
+import installmentAgreement from "./9465.json";
+import ss4 from "./ss-4.json";
+import w7 from "./w7.json";
 
 const LIBRARIES = {
   w2,
@@ -18,6 +25,13 @@ const LIBRARIES = {
   "ssa-1099": ssa1099,
   "1098-t": t1098,
   "1099-misc": misc1099,
+  w4,
+  "1040-es": es1040,
+  w9,
+  "4506-t": t4506,
+  "9465": installmentAgreement,
+  "ss-4": ss4,
+  w7,
 };
 
 // key is the full "docType:fieldId" form (e.g. "w2:box1"), matching how

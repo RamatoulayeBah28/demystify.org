@@ -1,0 +1,30 @@
+{
+  "ss-4:entityType": {
+    "label": "Type of entity",
+    "soTitle": "Nooca ganacsiga",
+    "so": "Tani waa nooca sharciga ah ee ganacsigaaga, sida qof keligiis leh ganacsi, iskaashato, ama shirkad. Noocan wuxuu saamayn karaa sida loo canshuuro ganacsigaaga.",
+    "en": "This is the legal type of your business, like a sole proprietorship, partnership, or corporation. It affects how your business gets taxed.",
+    "draft": true
+  },
+  "ss-4:businessStartDate": {
+    "label": "Business start date",
+    "soTitle": "Taariikhda bilowga ganacsiga",
+    "so": "Tani waa taariikhda ay ganacsigaagu bilaabay ama aad ku heshay.",
+    "en": "This is the date your business started or was acquired.",
+    "draft": true
+  },
+  "ss-4:reasonForApplying": {
+    "label": "Reason for applying",
+    "soTitle": "Sababta codsiga",
+    "so": "Tani waa sababta aad u codsanayso lambarka EIN, sida inaad bilaabayso ganacsi cusub ama aad shaqaalayn doonto.",
+    "en": "This is the reason you're applying for an EIN, like starting a new business or hiring employees.",
+    "draft": true
+  },
+  "ss-4:principalActivity": {
+    "label": "Principal business activity",
+    "soTitle": "Hawsha ugu weyn ee ganacsiga",
+    "so": "Tani waa sharaxaad kooban oo ku saabsan waxa ganacsigaagu sameeyo.",
+    "en": "This is a short description of what your business actually does.",
+    "draft": true
+  }
+}

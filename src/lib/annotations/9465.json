@@ -1,0 +1,30 @@
+{
+  "9465:totalOwed": {
+    "label": "Total amount you owe",
+    "soTitle": "Wadarta canshuurta aad lugta ku haysid",
+    "so": "Tani waa wadarta guud ee canshuurta aad weli dawladda ka lugta tahay.",
+    "en": "This is the total tax amount you still owe the government.",
+    "draft": true
+  },
+  "9465:downPayment": {
+    "label": "Amount you can pay now",
+    "soTitle": "Lacagta aad hadda bixin karto",
+    "so": "Tani waa qiimaha lacagta aad hadda diyaar u tahay inaad bixiso, taasoo dhimaysa lacagta soo hartay.",
+    "en": "This is the amount you're able to pay right now, which reduces how much is left on the payment plan.",
+    "draft": true
+  },
+  "9465:monthlyPayment": {
+    "label": "Proposed monthly payment",
+    "soTitle": "Lacagta bishiiba",
+    "so": "Tani waa lacagta aad soo jeedinayso inaad bishiiba bixiso ilaa aad dhammaystirto bixinta canshuurta lagaa lugta tahay.",
+    "en": "This is the monthly payment amount you're proposing until the full amount you owe is paid off.",
+    "draft": true
+  },
+  "9465:paymentDate": {
+    "label": "Monthly payment date",
+    "soTitle": "Taariikhda bixinta bishiiba",
+    "so": "Tani waa maalinta bisha aad doorato inaad lacagta bixiso bil kasta.",
+    "en": "This is the day of each month you've chosen to make your payment.",
+    "draft": true
+  }
+}

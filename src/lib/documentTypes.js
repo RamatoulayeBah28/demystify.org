@@ -228,6 +228,94 @@ export const DOCUMENT_TYPES = {
       recipientTin: "Recipient's TIN — return ONLY the last 4 digits, formatted as ***-**-1234",
     },
   },
+  w4: {
+    title: "Form W-4, Employee's Withholding Certificate",
+    fields: {
+      taxYear: "The tax year/revision year printed on the form, e.g. \"2025\"",
+      employeeName: "Step 1(a): employee's first and last name",
+      ssn: "Step 1(a): employee's SSN — return ONLY the last 4 digits, formatted exactly as ***-**-1234",
+      filingStatus: "Step 1(c): filing status checked — \"Single or Married filing separately\", \"Married filing jointly or Qualifying surviving spouse\", or \"Head of household\"",
+      multipleJobs: "Step 2: \"Yes\" if the Step 2 checkbox (multiple jobs or spouse works) is checked, otherwise omit",
+      dependentsAmount: "Step 3: total dependents/credits amount — dollar amount",
+      otherIncome: "Step 4(a): other income (not from jobs) — dollar amount",
+      deductions: "Step 4(b): deductions — dollar amount",
+      extraWithholding: "Step 4(c): extra withholding per pay period — dollar amount",
+    },
+  },
+  "1040-es": {
+    title: "Form 1040-ES, Estimated Tax for Individuals",
+    // Most people only ever see the payment voucher portion of this form,
+    // not the full worksheet — that's what this focuses on.
+    fields: {
+      name: "Name as printed on the payment voucher",
+      ssn: "SSN on the payment voucher — return ONLY the last 4 digits, formatted as ***-**-1234",
+      quarter: "Which quarterly voucher this is, e.g. \"1\", \"2\", \"3\", or \"4\" — read from the voucher number or due date printed on the form",
+      paymentAmount: "Amount of estimated tax payment for this voucher — dollar amount",
+    },
+  },
+  w9: {
+    title: "Form W-9, Request for Taxpayer Identification Number and Certification",
+    // Skips exempt payee code / FATCA exemption code — these are almost
+    // always blank for individuals and rarely meaningful to this audience.
+    fields: {
+      name: "Line 1: name as shown on your income tax return",
+      businessName: "Line 2: business name/disregarded entity name, if different from line 1 — omit if blank",
+      taxClassification: "Line 3a: federal tax classification checked — e.g. \"Individual/sole proprietor\", \"C Corporation\", \"S Corporation\", \"Partnership\", \"Trust/estate\", \"Limited liability company\", or \"Other\"",
+      address: "Address, city, state, and ZIP code together — multiple lines joined with \\n",
+      taxpayerId: "Part I: taxpayer identification number (SSN or EIN) — return ONLY the last 4 digits, formatted as ***-**-1234",
+    },
+  },
+  "4506-t": {
+    title: "Form 4506-T, Request for Transcript of Tax Return",
+    // Skips line 5 (third-party recipient info) for now — lower priority
+    // than the request itself.
+    fields: {
+      name: "Line 1a: name shown on the tax return",
+      taxpayerId: "Line 1b: SSN, ITIN, or EIN shown on the tax return — return ONLY the last 4 digits, formatted as ***-**-1234",
+      transcriptType: "Lines 6a/6b/6c: which transcript type is checked — \"Return Transcript\", \"Account Transcript\", or \"Record of Account\"",
+      yearsRequested: "Line 9: tax year(s) or period(s) requested, as printed, e.g. \"12/31/2023\"",
+    },
+  },
+  "9465": {
+    title: "Form 9465, Installment Agreement Request",
+    // Intentionally never extracts the bank routing/account number fields
+    // (lines 13a/13b) — there's no explanatory value in them, and reading
+    // full bank account + routing numbers off a document is a fraud-risk
+    // surface this app doesn't need to take on.
+    fields: {
+      name: "Name shown on the tax return",
+      ssn: "SSN shown on the tax return — return ONLY the last 4 digits, formatted as ***-**-1234",
+      totalOwed: "Line 7: total amount you owe — dollar amount",
+      downPayment: "Line 8: amount you can pay now — dollar amount",
+      monthlyPayment: "Line 11: proposed monthly payment amount — dollar amount",
+      paymentDate: "Line 12: day of the month you want to make your payment, e.g. \"15\"",
+    },
+  },
+  "ss-4": {
+    title: "Form SS-4, Application for Employer Identification Number",
+    // Skips the detailed employee-count breakdown and excise/alcohol-tax
+    // checkboxes — too niche for this audience's typical small businesses.
+    fields: {
+      entityName: "Line 1: legal name of entity (or individual) for whom the EIN is being requested",
+      responsiblePartyName: "Line 7a: name of responsible party",
+      entityType: "Line 9a: type of entity checked — e.g. \"Sole proprietor\", \"Partnership\", \"Corporation\", \"Limited liability company\", or \"Other\"",
+      businessStartDate: "Line 11: date business started or acquired",
+      reasonForApplying: "Line 10: reason for applying checked — e.g. \"Started new business\", \"Hired employees\", \"Banking purpose\", or \"Other\"",
+      principalActivity: "Line 16: principal activity of the business, as described",
+    },
+  },
+  w7: {
+    title: "Form W-7, Application for IRS Individual Taxpayer Identification Number",
+    // No SSN field exists on this form — applicants don't have one yet,
+    // which is the whole reason they're filing it.
+    fields: {
+      name: "Line 1a: applicant's legal name",
+      reasonForApplying: "Boxes a–h: which reason for applying is checked, as printed, e.g. \"b — Nonresident alien filing a U.S. tax return\"",
+      dateOfBirth: "Line 4: date of birth",
+      countryOfCitizenship: "Line 6a: country of citizenship",
+      idDocumentType: "Line 6c/6d: type of identification document submitted, e.g. \"Passport\"",
+    },
+  },
 };
 
 export const SUPPORTED_TYPES = new Set(Object.keys(DOCUMENT_TYPES));

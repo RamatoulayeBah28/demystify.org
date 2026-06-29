@@ -1,0 +1,44 @@
+{
+  "w4:filingStatus": {
+    "label": "Filing status",
+    "soTitle": "Xaaladda canshuurta",
+    "so": "Tani waa xaaladda guurka ee aad dooratay marka aad buuxinayso foomkan, taasoo go'aamisa inta canshuur ee shaqaaluhu kaa jarayo mushaharkaaga.",
+    "en": "This is the filing status you chose on this form, which affects how much tax your employer withholds from each paycheck.",
+    "draft": true
+  },
+  "w4:multipleJobs": {
+    "label": "Multiple jobs or spouse works",
+    "soTitle": "Shaqo badan ama xaaska wuu shaqeeyaa",
+    "so": "Haddii ay leedahay \"Yes\", waxay micnaheedu yahay adiga ama xaaskaaga waxaad haysataan in ka badan hal shaqo, taasoo bedeli karta inta canshuur ee laga jarayo si aanad u bixin canshuur ka yar tan saxda ah.",
+    "en": "If this says \"Yes\", you or your spouse have more than one job, which changes the withholding math so you don't end up paying less tax than you owe.",
+    "draft": true
+  },
+  "w4:dependentsAmount": {
+    "label": "Dependents amount",
+    "soTitle": "Lacagta carruurta/qof kale ee aad masuul ka tahay",
+    "so": "Tani waa wadarta lacagta credit-ka carruurta iyo dadka kale ee aad masuul ka tahay, taasoo dhimaysa canshuurta laga jarayo mushaharkaaga.",
+    "en": "This is the total credit amount for your dependents, which reduces how much tax gets withheld from your pay.",
+    "draft": true
+  },
+  "w4:otherIncome": {
+    "label": "Other income",
+    "soTitle": "Dakhli kale",
+    "so": "Tani waa dakhli kale oo aanad ka helin shaqo, sida ribada ama saamiga, oo aad rabto in canshuur dheeraad ah laga jaro.",
+    "en": "This is other income you have (not from a job), like interest or dividends, that you want extra tax withheld for.",
+    "draft": true
+  },
+  "w4:deductions": {
+    "label": "Deductions",
+    "soTitle": "Dhimista canshuurta",
+    "so": "Tani waa qiimaha dhimista canshuurta ee aad u baahan tahay haddii aad rabto in dhimis ka badan caadiga ah la xisaabiyo.",
+    "en": "This is the amount of itemized deductions you expect to claim beyond the standard deduction.",
+    "draft": true
+  },
+  "w4:extraWithholding": {
+    "label": "Extra withholding",
+    "soTitle": "Canshuur dheeraad ah",
+    "so": "Tani waa lacag dheeraad ah oo aad rabto in mushahar kasta laga jaro, taasoo kaa caawin karta inaadan dayn canshuur ah lahaan sannadka dambe.",
+    "en": "This is an extra dollar amount you've asked to have withheld from each paycheck, to help avoid owing tax at the end of the year.",
+    "draft": true
+  }
+}

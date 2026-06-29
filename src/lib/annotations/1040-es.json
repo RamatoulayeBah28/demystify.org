@@ -1,0 +1,16 @@
+{
+  "1040-es:quarter": {
+    "label": "Which quarter",
+    "soTitle": "Rubucii canshuurta",
+    "so": "Tani waa rubucii sannadka ee lacagtan canshuurta ee qiyaasan loogu talagalay — dadka shaqada madax-bannaan ah ayaa inta badan bixiya canshuur afar jeer sannadkii.",
+    "en": "This is which quarter of the year this estimated tax payment is for — self-employed people often pay taxes four times a year instead of through paycheck withholding.",
+    "draft": true
+  },
+  "1040-es:paymentAmount": {
+    "label": "Payment amount",
+    "soTitle": "Qiimaha lacag-bixinta",
+    "so": "Tani waa qiimaha lacagta canshuurta qiyaasan ee aad u dirayso dawladda rubucan.",
+    "en": "This is the amount of estimated tax you're sending to the government for this quarter.",
+    "draft": true
+  }
+}

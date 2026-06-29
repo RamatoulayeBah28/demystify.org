@@ -1,0 +1,30 @@
+{
+  "w7:reasonForApplying": {
+    "label": "Reason for applying",
+    "soTitle": "Sababta codsiga ITIN",
+    "so": "Tani waa sababta aad u codsanayso lambarka ITIN — tusaale ahaan, qof shisheeye ah oo soo gudbinaya canshuur Maraykan ah, ama qof ay ku tiirsan tahay muwaadin ama deggan rasmi ah oo Maraykan ah.",
+    "en": "This is the reason you're applying for an ITIN — for example, being a foreign national filing a U.S. tax return, or being a dependent of a U.S. citizen or resident.",
+    "draft": true
+  },
+  "w7:dateOfBirth": {
+    "label": "Date of birth",
+    "soTitle": "Taariikhda dhalashada",
+    "so": "Tani waa taariikhda dhalashada applicant-ka, sida ku qoran dukumentiga aqoonsiga.",
+    "en": "This is the applicant's date of birth, as shown on their identification document.",
+    "draft": true
+  },
+  "w7:countryOfCitizenship": {
+    "label": "Country of citizenship",
+    "soTitle": "Dalka jinsiyadda",
+    "so": "Tani waa dalka uu applicant-ku jinsiyad u leeyahay.",
+    "en": "This is the country the applicant is a citizen of.",
+    "draft": true
+  },
+  "w7:idDocumentType": {
+    "label": "ID document type",
+    "soTitle": "Nooca dukumentiga aqoonsiga",
+    "so": "Tani waa nooca dukumentiga aqoonsiga ee la soo gudbiyay si loo xaqiijiyo aqoonsiga applicant-ka, sida baasaboor.",
+    "en": "This is the type of ID document submitted to prove the applicant's identity, like a passport.",
+    "draft": true
+  }
+}

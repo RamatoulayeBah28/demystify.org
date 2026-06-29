@@ -1,0 +1,9 @@
+{
+  "w9:taxClassification": {
+    "label": "Federal tax classification",
+    "soTitle": "Nooca canshuurta",
+    "so": "Tani waa nooca ganacsi ee aad sheegtay — tusaale ahaan qof keligiis leh ganacsi (individual/sole proprietor) ama shirkad (corporation). Shirkaddu waxay isticmaalaysaa nooca si ay u ogaato sida loo soo wargeliyo dakhliga aad ka heshay.",
+    "en": "This is the type of business entity you identified yourself as — for example, an individual/sole proprietor versus a corporation. The company paying you uses this to know how to report your income.",
+    "draft": true
+  }
+}
