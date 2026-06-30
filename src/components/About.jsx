@@ -5,7 +5,7 @@ const FEATURES = [
     icon: "fa-solid fa-comment-dots",
     title: "Plain-language explanations",
     description:
-      "Every box on your document gets a short, clear explanation with no tax jargon.",
+      "Every field on your document gets a short, clear explanation with no tax jargon.",
   },
   {
     icon: "fa-solid fa-language",
@@ -15,21 +15,27 @@ const FEATURES = [
   },
   {
     icon: "fa-solid fa-magnifying-glass",
-    title: "Automatic document detection",
+    title: "Automatic form detection",
     description:
-      "Upload your form and we recognize the type: no manual selection needed!",
+      "Recognizes 23 IRS tax forms automatically — including multi-page PDFs with several different forms in one file. No manual selection needed.",
   },
   {
     icon: "fa-solid fa-lock",
     title: "Privacy by design",
     description:
-      "Your document is processed in the moment and never stored neither on our servers nor in a database.",
+      "Your document is processed in the moment and never stored on our servers or in a database.",
   },
   {
     icon: "fa-solid fa-cloud-arrow-up",
     title: "Works with PDF, JPG, PNG or HEIC",
     description:
       "Upload a scan or a photo of your document, however you have it.",
+  },
+  {
+    icon: "fa-solid fa-robot",
+    title: "Follow-up chatbot",
+    description:
+      "Ask Mist any question about your document or a tax term — in Somali or English — and get a plain-language answer.",
   },
   {
     icon: "fa-solid fa-clapperboard",
@@ -82,10 +88,14 @@ export default function About() {
           Astaamaha muhiimka ah · Key features
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {FEATURES.map((feature) => (
+          {FEATURES.map((feature, i) => (
             <div
               key={feature.title}
-              className="flex items-start gap-3 rounded-2xl border border-dm-line bg-dm-surface px-5 py-4"
+              className={`flex items-start gap-3 rounded-2xl border border-dm-line bg-dm-surface px-5 py-4 ${
+                i === FEATURES.length - 1 && FEATURES.length % 2 !== 0
+                  ? "col-span-2 mx-auto w-[calc(50%-8px)]"
+                  : ""
+              }`}
             >
               <span className="flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-dm-accent text-sm text-white">
                 <i className={feature.icon} />
