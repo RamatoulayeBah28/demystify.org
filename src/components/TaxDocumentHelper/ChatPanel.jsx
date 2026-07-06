@@ -16,7 +16,9 @@ function useSomaliVoice() {
     }
     const findVoice = () => {
       const voices = window.speechSynthesis.getVoices();
-      setVoice(voices.find((v) => v.lang?.toLowerCase().startsWith("so")) ?? null);
+      setVoice(
+        voices.find((v) => v.lang?.toLowerCase().startsWith("so")) ?? null,
+      );
     };
     const id = setTimeout(findVoice, 0);
     window.speechSynthesis.addEventListener("voiceschanged", findVoice);
@@ -32,13 +34,18 @@ function useSomaliVoice() {
 // Static, instant opening line — an earlier version asked Claude to
 // generate a document-grounded greeting on open, but that meant a real
 // API round trip (and its latency) before the user saw anything.
-const GREETING = "Hi, I'm Mist, your tax tutor. Ask me anything around tax terminology or your uploaded document!";
+const GREETING =
+  "Hi, I'm Mist, your tax tutor. Ask me anything around tax terminology or your uploaded document! Type in Somali and I'll reply in your language. Prefer English? I got you too ;)";
 
 async function requestReply(messagesForApi, documentType, fieldValues) {
   const res = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ messages: messagesForApi, documentType, fieldValues }),
+    body: JSON.stringify({
+      messages: messagesForApi,
+      documentType,
+      fieldValues,
+    }),
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || "Chat request failed.");
@@ -55,7 +62,8 @@ export default function ChatPanel({ documentType, fieldValues }) {
   const listRef = useRef(null);
 
   useEffect(() => {
-    if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
+    if (listRef.current)
+      listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages, sending]);
 
   const speak = (text) => {
@@ -79,7 +87,9 @@ export default function ChatPanel({ documentType, fieldValues }) {
       const reply = await requestReply(nextMessages, documentType, fieldValues);
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
     } catch {
-      setError("Waan ka xunnahay, khalad ayaa dhacay. Fadlan isku day mar kale.");
+      setError(
+        "Waan ka xunnahay, khalad ayaa dhacay. Fadlan isku day mar kale.",
+      );
     } finally {
       setSending(false);
     }
@@ -108,7 +118,9 @@ export default function ChatPanel({ documentType, fieldValues }) {
     <div className="fixed bottom-6 right-6 z-40 flex h-[560px] w-[380px] flex-col overflow-hidden rounded-[20px] border border-dm-line bg-dm-panel shadow-[0_22px_60px_rgba(31,61,92,0.22)] animate-[dm-pop_0.18s_ease]">
       <div className="flex items-center justify-between border-b border-dm-line px-[18px] py-[14px]">
         <div>
-          <div className="font-serif text-lg font-semibold leading-none text-dm-ink">Mist</div>
+          <div className="font-serif text-lg font-semibold leading-none text-dm-ink">
+            Mist
+          </div>
           <div className="mt-0.5 text-xs text-dm-muted">Your tax tutor</div>
         </div>
         <button
@@ -127,10 +139,15 @@ export default function ChatPanel({ documentType, fieldValues }) {
           </div>
         </div>
         {messages.map((m, i) => (
-          <div key={i} className={`mb-3 flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+          <div
+            key={i}
+            className={`mb-3 flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+          >
             <div
               className={`max-w-[280px] rounded-[14px] px-4 py-[10px] text-[15px] leading-[1.5] ${
-                m.role === "user" ? "bg-dm-accent text-white" : "bg-dm-bg text-dm-ink"
+                m.role === "user"
+                  ? "bg-dm-accent text-white"
+                  : "bg-dm-bg text-dm-ink"
               }`}
             >
               {m.content}
@@ -148,7 +165,9 @@ export default function ChatPanel({ documentType, fieldValues }) {
         ))}
         {sending && (
           <div className="mb-3 flex justify-start">
-            <div className="rounded-[14px] bg-dm-bg px-4 py-[10px] text-[15px] text-dm-muted">...</div>
+            <div className="rounded-[14px] bg-dm-bg px-4 py-[10px] text-[15px] text-dm-muted">
+              ...
+            </div>
           </div>
         )}
         {error && (
@@ -158,7 +177,8 @@ export default function ChatPanel({ documentType, fieldValues }) {
         )}
         {somaliVoice === null && (
           <div className="text-center text-[11px] text-dm-muted">
-            Codka Soomaaliga lama helin aaladaadan. (Somali voice isn’t available on this device.)
+            Codka Soomaaliga lama helin aaladaadan. (Somali voice isn’t
+            available on this device.)
           </div>
         )}
       </div>

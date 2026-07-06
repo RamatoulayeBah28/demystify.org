@@ -118,7 +118,7 @@ export default function Contact() {
             <i className="fa-solid fa-paper-plane" /> Dir fariinta · Send
           </button>
           <div className="text-center text-sm text-dm-muted">
-            Waxaa lagugu xidhi doonaa{" "}
+            Cinwaankayaga iimaylka waa{" "}
             <span className="font-semibold text-dm-accent">
               contact@demystifytax.org
             </span>

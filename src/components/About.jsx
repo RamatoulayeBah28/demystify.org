@@ -57,12 +57,14 @@ export default function About() {
           className="mx-auto mb-4 h-64 w-auto"
         />
         <h1 className="mb-[18px] font-serif text-[40px] font-semibold leading-[1.15] tracking-[-0.015em] text-dm-ink">
-          Canshuurtaada, luqaddaada
+          Luqaddaada, Canshuurtaada
         </h1>
         <p className="mx-auto max-w-[600px] text-lg leading-[1.6] text-dm-muted">
           demystify.org wuxuu u sharxaa warqadaha canshuurta si fudud, cod
           Soomaali ah. Soo geli foom W-2 ah ama dukumeenti kale, riix sanduuq
-          kasta, oo dhageyso micnihiisa luqaddaada hooyo.
+          kasta, oo dhageyso micnihiisa luqaddaada hooyo. Waxaan u dhisnay dadka
+          cusub iyo qoysaska ku hadla afka Soomaaliga ee ku dhex wareegaya
+          nidaamka canshuuraha Mareykanka.
         </p>
         <p className="mx-auto mt-[18px] max-w-[600px] text-base leading-[1.6] text-dm-muted">
           demystify.org turns confusing tax paperwork into plain, spoken Somali.

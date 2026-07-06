@@ -9,7 +9,13 @@ const FILE_TYPE_CHIPS = [
   { icon: "fa-regular fa-image", label: "HEIC" },
 ];
 
-export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onDragLeave, onDrop }) {
+export default function UploadScreen({
+  dragOver,
+  onFileSelected,
+  onDragOver,
+  onDragLeave,
+  onDrop,
+}) {
   const inputRef = useRef(null);
 
   const openPicker = () => inputRef.current?.click();
@@ -23,8 +29,8 @@ export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onD
         Faham warqadahaaga canshuurta
       </h1>
       <p className="mx-auto mb-[46px] max-w-[560px] text-xl leading-relaxed text-dm-muted">
-        Understand your tax documents, explained simply, with audio in Somali. Soo geli foomkaaga, qayb walbana
-        waan kuu sharxi doonaa.
+        Understand your tax documents, explained simply, with audio in Somali.
+        Soo geli foomkaaga, qayb walbana waan kuu sharxi doonaa.
       </p>
 
       <div
@@ -33,7 +39,9 @@ export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onD
         onDragLeave={onDragLeave}
         onDrop={onDrop}
         className={`cursor-pointer rounded-3xl border-2 border-dashed px-10 py-14 transition-colors duration-200 ${
-          dragOver ? "border-dm-accent bg-dm-accent-soft" : "border-dm-line bg-dm-surface"
+          dragOver
+            ? "border-dm-accent bg-dm-accent-soft"
+            : "border-dm-line bg-dm-surface"
         }`}
       >
         <input
@@ -47,8 +55,12 @@ export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onD
         <div className="mx-auto mb-6 flex h-[84px] w-[84px] items-center justify-center rounded-full bg-dm-accent text-[34px] text-white shadow-[0_0_0_12px_var(--color-dm-glow)]">
           <i className="fa-solid fa-cloud-arrow-up" />
         </div>
-        <div className="mb-2 font-serif text-[27px] font-medium text-dm-ink">Halkan ku soo rid faylkaaga</div>
-        <div className="mb-[26px] text-[17px] text-dm-muted">Drop your file here, or click to browse</div>
+        <div className="mb-2 font-serif text-[27px] font-medium text-dm-ink">
+          Halkan ku soo rid faylkaaga
+        </div>
+        <div className="mb-[26px] text-[17px] text-dm-muted">
+          Drop your file here, or click to browse
+        </div>
         <button
           type="button"
           className="inline-flex items-center gap-[10px] rounded-[13px] bg-dm-accent px-7 py-[14px] text-[17px] font-semibold text-white"
@@ -69,8 +81,9 @@ export default function UploadScreen({ dragOver, onFileSelected, onDragOver, onD
       </div>
 
       <div className="mt-10 inline-flex items-center gap-[9px] text-[15px] text-dm-muted">
-        <i className="fa-solid fa-lock text-dm-accent" /> Gudaha aaminada ah — faylkaagu wuu ku sii jiraa
-        qarsoodi. Your file stays private.
+        <i className="fa-solid fa-lock text-dm-accent" /> Waxaan nahay degel
+        ammaan ah — faylkaagu wuu ku sii jiraa qarsoodi. Your file stays
+        private.
       </div>
     </div>
   );

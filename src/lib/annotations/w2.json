@@ -7,7 +7,7 @@
   },
   "w2:box2": {
     "label": "Federal income tax withheld",
-    "soTitle": "Canshuurta horay loo jaray",
+    "soTitle": "Federal canshuurta horay loo jaray",
     "so": "Tani waa lacagta canshuurta federaalka ah ee loo-shaqeeyahaagu mushaharkaaga ka jaray, oo uu dawladda kuugu diray.",
     "en": "This is the federal tax your employer already took out of your paychecks and sent to the government for you."
   },
@@ -19,7 +19,7 @@
   },
   "w2:box4": {
     "label": "Social security tax withheld",
-    "soTitle": "Social Security canshuur",
+    "soTitle": "Social Security canshuur horay loo jaray",
     "so": "Tani waa lacagta canshuurta Social Security ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
     "en": "This is the Social Security tax amount your employer took out of your pay."
   },
@@ -31,7 +31,7 @@
   },
   "w2:box6": {
     "label": "Medicare tax withheld",
-    "soTitle": "Medicare canshuur",
+    "soTitle": "Medicare canshuur horay loo jaray",
     "so": "Tani waa lacagta canshuurta Medicare ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
     "en": "This is the Medicare tax amount your employer took out of your pay."
   },
@@ -92,7 +92,7 @@
   },
   "w2:box17": {
     "label": "State income tax withheld",
-    "soTitle": "State canshuurta",
+    "soTitle": "State canshuurta horay loo jaray",
     "so": "Tani waa lacagta canshuurta stateka ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
     "en": "This is the state income tax your employer took out of your paychecks."
   },
@@ -105,7 +105,7 @@
   },
   "w2:box19": {
     "label": "Local income tax withheld",
-    "soTitle": "Canshuurta magaalada/degmada",
+    "soTitle": "Canshuurta magaalada/degmada horay loo jaray",
     "so": "Tani waa lacagta canshuurta magaalada ama degmada ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
     "en": "This is the local (city or county) income tax your employer took out of your pay.",
     "draft": true

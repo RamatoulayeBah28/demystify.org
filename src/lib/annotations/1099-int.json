@@ -22,7 +22,7 @@
   },
   "1099-int:box4": {
     "label": "Federal income tax withheld",
-    "soTitle": "Canshuurta horay loo jaray",
+    "soTitle": "Federal canshuurta horay loo jaray",
     "so": "Tani waa lacagta canshuurta federaalka ah ee horay laga jaray lacagtan ribada ah, oo dawladda loo diray.",
     "en": "This is the federal tax that was already taken out of this interest money and sent to the government.",
     "draft": true

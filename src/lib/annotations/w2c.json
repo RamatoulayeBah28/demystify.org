@@ -7,7 +7,7 @@
   },
   "w2c:box2": {
     "label": "Federal income tax withheld (corrected)",
-    "soTitle": "Canshuurta federaalka ee la saxay",
+    "soTitle": "Federal canshuurta horay loo jaray (oo la saxay)",
     "so": "Kani waa sanduuq muujinaya lacagtii canshuurta federaalka ee horay laga jaray iyo tan saxda ah ee cusub. Tan waxay kaa caawin kartaa inaad ogaato haddii canshuurta lagaa jaray ay sax tahay.",
     "en": "This box shows the federal tax withheld amount that was originally reported and the corrected amount, so you can check whether the right amount was taken out."
   },
@@ -31,7 +31,7 @@
   },
   "w2c:box6": {
     "label": "Medicare tax withheld (corrected)",
-    "soTitle": "Medicare canshuurta oo la saxay",
+    "soTitle": "Medicare canshuur horay loo jaray (oo la saxay)",
     "so": "Kani waa lacagta canshuurta Medicare ee saxda ah ee cusub.",
     "en": "This is the corrected Medicare tax amount."
   },
@@ -86,7 +86,7 @@
   },
   "w2c:box17": {
     "label": "State income tax withheld (corrected)",
-    "soTitle": "State canshuurta oo la saxay",
+    "soTitle": "State canshuurta horay loo jaray (oo la saxay)",
     "so": "Kani waa canshuurta stateka, saxda ah ee cusub.",
     "en": "This is the corrected state income tax amount.",
     "draft": true

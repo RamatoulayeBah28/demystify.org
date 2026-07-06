@@ -14,7 +14,7 @@
   },
   "1099-nec:box4": {
     "label": "Federal income tax withheld",
-    "soTitle": "Canshuurta federaalka ee horay loo jaray",
+    "soTitle": "Federal canshuurta horay loo jaray",
     "so": "Tani waa canshuurta federaalka ah ee horay laga jaray mushaharkaaga oo loo diray dawladda. Inta badan, dadka shaqada madax-bannaan ah meel canshuur kama jarin, marka tani inta badan waxay noqon kartaa $0.",
     "en": "This is any federal tax that was already taken out of your pay and sent to the government for you. Most independent contractors don't have tax withheld, so this is often $0."
   },
