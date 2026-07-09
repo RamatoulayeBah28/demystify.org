@@ -3,51 +3,59 @@
     "label": "Wages, tips, other comp.",
     "soTitle": "Mushaharkaaga guud",
     "so": "Tani waa wadarta lacagta aad shaqadaada ka heshay sanadkan oo dhan, ka hor inta aan canshuurta laga jarin.",
-    "en": "This is the total money you earned from your job this year, before any taxes were taken out."
+    "en": "This is the total money you earned from your job this year, before any taxes were taken out.",
+    "soAudio": "/audios/This is the total money you earned from your job this year….m4a"
   },
   "w2:box2": {
     "label": "Federal income tax withheld",
     "soTitle": "Federal canshuurta horay loo jaray",
     "so": "Tani waa lacagta canshuurta federaalka ah ee loo-shaqeeyahaagu mushaharkaaga ka jaray, oo uu dawladda kuugu diray.",
-    "en": "This is the federal tax your employer already took out of your paychecks and sent to the government for you."
+    "en": "This is the federal tax your employer already took out of your paychecks and sent to the government for you.",
+    "soAudio": "/audios/Federal income tax withheld.m4a"
   },
   "w2:box3": {
     "label": "Social security wages",
     "soTitle": "Mushaharka Social Security",
     "so": "Tani waa qaybta mushaharkaaga ee loo xisaabiyo Social Security — lacag ku taageeraysa marka aad hawlgabto.",
-    "en": "This is the part of your pay counted toward Social Security — money that helps support you when you retire."
+    "en": "This is the part of your pay counted toward Social Security — money that helps support you when you retire.",
+    "soAudio": "/audios/This is the part of your pay counted toward social security — money that helps support you when you.m4a"
   },
   "w2:box4": {
     "label": "Social security tax withheld",
     "soTitle": "Social Security canshuur horay loo jaray",
     "so": "Tani waa lacagta canshuurta Social Security ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
-    "en": "This is the Social Security tax amount your employer took out of your pay."
+    "en": "This is the Social Security tax amount your employer took out of your pay.",
+    "soAudio": "/audios/Social security tax withheld.m4a"
   },
   "w2:box5": {
     "label": "Medicare wages & tips",
     "soTitle": "Medicare mushaharkaaga",
     "so": "Tani waa qaybta mushaharkaaga ee loo xisaabiyo Medicare — kaasoo gaashaan caafimaadka.",
-    "en": "This is the part of your pay counted toward Medicare — health insurance for seniors."
+    "en": "This is the part of your pay counted toward Medicare — health insurance for seniors.",
+    "soAudio": "/audios/This is the part of your pay counted toward Medicare - health insurance for seniors.m4a"
   },
   "w2:box6": {
     "label": "Medicare tax withheld",
     "soTitle": "Medicare canshuur horay loo jaray",
     "so": "Tani waa lacagta canshuurta Medicare ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
-    "en": "This is the Medicare tax amount your employer took out of your pay."
+    "en": "This is the Medicare tax amount your employer took out of your pay.",
+    "soAudio": "/audios/Medicare Tax Witheld.m4a"
   },
   "w2:box7": {
     "label": "Social security tips",
     "soTitle": "Tips-ka Social Security",
     "so": "Tani waa qaybta khadarkaaga (tips) ee loo xisaabiyo Social Security.",
     "en": "This is the part of your reported tips counted toward Social Security.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/This is the part of your reported tips counted toward social security.m4a"
   },
   "w2:box8": {
     "label": "Allocated tips",
     "soTitle": "Tips-ka la qaybiyay",
     "so": "Tani waa khadar (tips) loo-shaqeeyahaagu kuu qoondeeyay, oo aadan horay u sheegin — waa inaad ku daraysaa dakhligaaga.",
     "en": "These are tips your employer assigned to you that you didn't report yourself — you need to add them to your income.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/Allocated Tips.m4a"
   },
   "w2:box10": {
     "label": "Dependent care benefits",

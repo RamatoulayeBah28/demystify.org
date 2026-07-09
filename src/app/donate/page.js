@@ -1,5 +1,5 @@
-import Donate from "@/components/Donate";
+// import Donate from "@/components/Donate";
 
-export default function DonatePage() {
-  return <Donate />;
-}
+// export default function DonatePage() {
+//   return <Donate />;
+// }

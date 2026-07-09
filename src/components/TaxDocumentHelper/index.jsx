@@ -80,6 +80,8 @@ export default function TaxDocumentHelper() {
 
   const containerRef = useRef(null);
   const timerRef = useRef(null);
+  const utteranceRef = useRef(null);
+  const audioRef = useRef(null);
 
   const activeDocument = documents[activeDocIndex] ?? null;
   const documentType = activeDocument?.documentType ?? null;
@@ -89,6 +91,14 @@ export default function TaxDocumentHelper() {
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = null;
+    }
+    if (utteranceRef.current) {
+      if (typeof window !== "undefined") window.speechSynthesis?.cancel();
+      utteranceRef.current = null;
+    }
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
     }
   };
 
@@ -118,10 +128,7 @@ export default function TaxDocumentHelper() {
     setProgress(0);
   };
 
-  // Simulated playback only — there's no audio file or TTS call here, just
-  // a progress bar that fills over ~4.5s. Real audio for the annotation
-  // library is a separate, not-yet-built piece of work.
-  const toggle = (lang) => {
+  const toggle = (lang, text) => {
     if (playLang === lang) {
       stopTimer();
       setPlayLang(null);
@@ -130,17 +137,53 @@ export default function TaxDocumentHelper() {
     stopTimer();
     setPlayLang(lang);
     setProgress(0);
-    timerRef.current = setInterval(() => {
-      setProgress((p) => {
-        const next = p + 2.4;
-        if (next >= 100) {
-          stopTimer();
-          setPlayLang(null);
-          return 100;
-        }
-        return next;
-      });
-    }, 110);
+
+    if (lang === "so" && text && typeof window !== "undefined") {
+      const audio = new Audio(encodeURI(text));
+      audioRef.current = audio;
+      audio.ontimeupdate = () => {
+        if (audio.duration) setProgress((audio.currentTime / audio.duration) * 100);
+      };
+      audio.onended = () => { stopTimer(); setPlayLang(null); setProgress(0); };
+      audio.onerror = () => { stopTimer(); setPlayLang(null); setProgress(0); };
+      audio.play().catch(() => { stopTimer(); setPlayLang(null); setProgress(0); });
+      return;
+    }
+
+    const canSpeak =
+      lang === "en" &&
+      text &&
+      typeof window !== "undefined" &&
+      window.speechSynthesis;
+
+    if (canSpeak) {
+      // Estimate duration at ~12.5 chars/sec (150 wpm × 5 chars/word) so the
+      // progress bar stays roughly in sync with the actual speech.
+      const estMs = Math.max(3000, text.length * 80);
+      const step = 100 / (estMs / 110);
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US";
+      utteranceRef.current = utterance;
+      utterance.onend = () => { stopTimer(); setPlayLang(null); setProgress(0); };
+      utterance.onerror = () => { stopTimer(); setPlayLang(null); setProgress(0); };
+      window.speechSynthesis.speak(utterance);
+      timerRef.current = setInterval(() => {
+        setProgress((p) => {
+          const next = p + step;
+          if (next >= 100) { clearInterval(timerRef.current); timerRef.current = null; return 100; }
+          return next;
+        });
+      }, 110);
+    } else {
+      // Somali (no browser TTS support) or unsupported browser: simulated bar.
+      timerRef.current = setInterval(() => {
+        setProgress((p) => {
+          const next = p + 2.4;
+          if (next >= 100) { stopTimer(); setPlayLang(null); return 100; }
+          return next;
+        });
+      }, 110);
+    }
   };
 
   const goUpload = () => {
@@ -259,8 +302,8 @@ export default function TaxDocumentHelper() {
           playLang={playLang}
           progress={progress}
           onClose={closePop}
-          onPlaySomali={() => toggle("so")}
-          onPlayEnglish={() => toggle("en")}
+          onPlaySomali={() => toggle("so", active.soAudio)}
+          onPlayEnglish={() => toggle("en", active.en)}
         />
       )}
     </div>

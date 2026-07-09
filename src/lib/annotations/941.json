@@ -25,21 +25,24 @@
     "soTitle": "Canshuurta federaalka ee laga jaray",
     "so": "Tani waa wadarta canshuurta federaalka ah ee shirkaddu ka jartay mushaharka shaqaalaha rubucan.",
     "en": "This is the total federal income tax the business withheld from employees' pay this quarter.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/Federal income tax withheld.m4a"
   },
   "941:line5a": {
     "label": "Social security wages",
     "soTitle": "Mushaharka Social Security",
     "so": "Tani waa wadarta mushaharka ee loo xisaabiyo canshuurta Social Security.",
     "en": "This is the total wages counted toward Social Security tax.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/Social Security Wages.m4a"
   },
   "941:line5c": {
     "label": "Medicare wages",
     "soTitle": "Mushaharka Medicare",
     "so": "Tani waa wadarta mushaharka ee loo xisaabiyo canshuurta Medicare.",
     "en": "This is the total wages counted toward Medicare tax.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/Medicare Wages & Tips.m4a"
   },
   "941:line6": {
     "label": "Total taxes before adjustments",
