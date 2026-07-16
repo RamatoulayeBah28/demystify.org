@@ -49,7 +49,6 @@ function CollaboratorCard({ collaborator }) {
     </div>
   );
 }
-
 export default function Collaborators() {
   const [collaborators, setCollaborators] = useState([]);
   const [status, setStatus] = useState("loading"); // loading | ready | error
