@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import Donate from "@/components/Donate";
 
 export default function DonatePage() {
-  redirect("/");
+  return <Donate />;
 }
