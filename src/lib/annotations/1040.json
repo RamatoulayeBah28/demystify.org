@@ -11,7 +11,8 @@
     "soTitle": "Wadarta mushaharka",
     "so": "Tani waa wadarta guud ee mushaharkaaga sanadkan oo dhan, sida ku qoran dukumentiyada W-2 ee aad heshay.",
     "en": "This is your total wages for the year, added up from all your W-2 forms.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/This is your total wages for the year added up from all your w-2 forms.m4a"
   },
   "1040:line2b": {
     "label": "Taxable interest",
@@ -32,7 +33,8 @@
     "soTitle": "Lacagta Social Security ee la canshuuro",
     "so": "Tani waa qaybta lacagtaada Social Security ee la canshuuro — ma aha wadarta guud ee aad heshay.",
     "en": "This is the portion of your Social Security benefits that's actually taxable — not the full amount you received.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/This is the portion of your social security benefits that’s actually taxable—not the full amount you.m4a"
   },
   "1040:line9": {
     "label": "Total income",

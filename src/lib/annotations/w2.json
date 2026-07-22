@@ -11,35 +11,35 @@
     "soTitle": "Federal canshuurta horay loo jaray",
     "so": "Tani waa lacagta canshuurta federaalka ah ee loo-shaqeeyahaagu mushaharkaaga ka jaray, oo uu dawladda kuugu diray.",
     "en": "This is the federal tax your employer already took out of your paychecks and sent to the government for you.",
-    "soAudio": "/audios/Federal income tax withheld.m4a"
+    "soAudio": "/audios/This is the federal tax your employer already took out of your paychecks and sent to the government.m4a"
   },
   "w2:box3": {
     "label": "Social security wages",
     "soTitle": "Mushaharka Social Security",
     "so": "Tani waa qaybta mushaharkaaga ee loo xisaabiyo Social Security — lacag ku taageeraysa marka aad hawlgabto.",
     "en": "This is the part of your pay counted toward Social Security — money that helps support you when you retire.",
-    "soAudio": "/audios/This is the part of your pay counted toward social security — money that helps support you when you.m4a"
+    "soAudio": "/audios/This is the part of your pay counted toward social security —money that helps support you when you r.m4a"
   },
   "w2:box4": {
     "label": "Social security tax withheld",
     "soTitle": "Social Security canshuur horay loo jaray",
     "so": "Tani waa lacagta canshuurta Social Security ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
     "en": "This is the Social Security tax amount your employer took out of your pay.",
-    "soAudio": "/audios/Social security tax withheld.m4a"
+    "soAudio": "/audios/This is the social security tax amount your employer took out of your pay.m4a"
   },
   "w2:box5": {
     "label": "Medicare wages & tips",
     "soTitle": "Medicare mushaharkaaga",
     "so": "Tani waa qaybta mushaharkaaga ee loo xisaabiyo Medicare — kaasoo gaashaan caafimaadka.",
     "en": "This is the part of your pay counted toward Medicare — health insurance for seniors.",
-    "soAudio": "/audios/This is the part of your pay counted toward Medicare - health insurance for seniors.m4a"
+    "soAudio": "/audios/This is the part of your pay counted toward Medicare — health insurance for seniors.m4a"
   },
   "w2:box6": {
     "label": "Medicare tax withheld",
     "soTitle": "Medicare canshuur horay loo jaray",
     "so": "Tani waa lacagta canshuurta Medicare ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
     "en": "This is the Medicare tax amount your employer took out of your pay.",
-    "soAudio": "/audios/Medicare Tax Witheld.m4a"
+    "soAudio": "/audios/This is the Medicare tax amount your employer took out of your pay.m4a"
   },
   "w2:box7": {
     "label": "Social security tips",
@@ -55,28 +55,31 @@
     "so": "Tani waa khadar (tips) loo-shaqeeyahaagu kuu qoondeeyay, oo aadan horay u sheegin — waa inaad ku daraysaa dakhligaaga.",
     "en": "These are tips your employer assigned to you that you didn't report yourself — you need to add them to your income.",
     "draft": true,
-    "soAudio": "/audios/Allocated Tips.m4a"
+    "soAudio": "/audios/These are the tips your employer assigned to you that you didn’t report yourself — you need to add.m4a"
   },
   "w2:box10": {
     "label": "Dependent care benefits",
     "soTitle": "Faa'iidada daryeelka carruurta",
     "so": "Tani waa lacagta loo-shaqeeyahaagu bixiyay si lagu daryeelo carruurtaada ama qof kale oo aad masuul ka tahay, intii aad shaqaynaysay.",
     "en": "This is money your employer provided to help pay for the care of your children or another dependent while you worked.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/This is money your employer provided to help pay for the care of your children or another dependent.m4a"
   },
   "w2:box11": {
     "label": "Nonqualified plans",
     "soTitle": "Qorshooyinka aan caadiga ahayn",
     "so": "Tani waa lacag laga bixiyay qorshe hawlgab oo aan caadiga ahayn — way ku jirtaa mushaharkaaga la canshuuro.",
     "en": "This is money paid to you from a nonqualified retirement plan — it's already included in your taxable wages.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/This is money paid to you from a non qualified retirement plan -it’s already included in your taxabl.m4a"
   },
   "w2:box13": {
     "label": "Checkboxes",
     "soTitle": "Sanduuqyada calaamadaysan",
     "so": "Sanduuqani waxay tilmaamaysaa haddii aad tahay shaqaale gaar ah, mid ka mid ah qorshe hawlgab, ama haddii cudur-bixinta dhaqsaha ah ay bixiso shirkad saddexaad.",
     "en": "These checkboxes flag special situations: being a statutory employee, being part of a retirement plan, or sick pay handled by a third party.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/These checkboxes flag special situations_ being a status Tory employee being part of a retirement pl.m4a"
   },
   "w2:box14": {
     "label": "Other",
@@ -96,33 +99,38 @@
     "label": "State wages, tips, etc.",
     "soTitle": "State mushaharka",
     "so": "Tani waa lacagta mushaharkaaga ee dowladda lagaga jaray canshuurta stateka.",
-    "en": "This is the wages your state counted for calculating state income tax."
+    "en": "This is the wages your state counted for calculating state income tax.",
+    "soAudio": "/audios/This is the wages your state counted for calculating state income tax.m4a"
   },
   "w2:box17": {
     "label": "State income tax withheld",
     "soTitle": "State canshuurta horay loo jaray",
     "so": "Tani waa lacagta canshuurta stateka ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
-    "en": "This is the state income tax your employer took out of your paychecks."
+    "en": "This is the state income tax your employer took out of your paychecks.",
+    "soAudio": "/audios/This is the state income tax your employer took out of your paychecks.m4a"
   },
   "w2:box18": {
     "label": "Local wages, tips, etc.",
     "soTitle": "Mushaharka magaalada/degmada",
     "so": "Tani waa qaybta mushaharkaaga ee loo xisaabiyo canshuurta magaalada ama degmada.",
     "en": "This is the part of your wages counted for local (city or county) income tax.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/This is the part of your wages counted for local (city or county) income tax.m4a"
   },
   "w2:box19": {
     "label": "Local income tax withheld",
     "soTitle": "Canshuurta magaalada/degmada horay loo jaray",
     "so": "Tani waa lacagta canshuurta magaalada ama degmada ee loo-shaqeeyahaagu mushaharkaaga ka jaray.",
     "en": "This is the local (city or county) income tax your employer took out of your pay.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/This is the local (city or county) income tax your employer took out of your pay.m4a"
   },
   "w2:box20": {
     "label": "Locality name",
     "soTitle": "Magaca degmada",
     "so": "Tani waa magaca magaalada ama degmada ee canshuurta sanduuqa 19 loo bixiyay.",
     "en": "This is the name of the city or county that the box 19 tax was paid to.",
-    "draft": true
+    "draft": true,
+    "soAudio": "/audios/This is the name of the city or county that box 19 tax was paid to.m4a"
   }
 }
