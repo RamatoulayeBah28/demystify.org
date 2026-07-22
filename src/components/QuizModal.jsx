@@ -18,6 +18,19 @@ export default function QuizModal({ video, onClose }) {
   // graded test, so there's no submit button and no retry-until-right.
   const [answers, setAnswers] = useState({});
 
+  const allAnswered =
+    video.questions.length > 0 &&
+    Object.keys(answers).length === video.questions.length;
+
+  const score = allAnswered
+    ? video.questions.filter((q) => {
+        const chosen = answers[q.id];
+        return q.choices.find((c) => c.id === chosen)?.isCorrect;
+      }).length
+    : 0;
+
+  const total = video.questions.length;
+
   const choose = (questionId, choice) => {
     if (answers[questionId]) return;
     setAnswers((prev) => ({ ...prev, [questionId]: choice.id }));
@@ -79,7 +92,7 @@ export default function QuizModal({ video, onClose }) {
                         disabled={answered}
                         className={`flex items-center gap-[12px] rounded-[12px] border px-[16px] py-[12px] text-left transition-colors ${
                           showAsCorrect
-                            ? "border-dm-accent bg-dm-accent-soft"
+                            ? "border-green-500 bg-green-50"
                             : showAsWrong
                               ? "border-[#c0504d] bg-[#fdecec]"
                               : "border-dm-line bg-dm-surface"
@@ -88,7 +101,7 @@ export default function QuizModal({ video, onClose }) {
                         <span
                           className={`flex h-[20px] w-[20px] flex-none items-center justify-center rounded-full border-2 ${
                             showAsCorrect
-                              ? "border-dm-accent bg-dm-accent text-white"
+                              ? "border-green-500 bg-green-500 text-white"
                               : showAsWrong
                                 ? "border-[#c0504d] bg-[#c0504d] text-white"
                                 : "border-dm-line"
@@ -112,6 +125,29 @@ export default function QuizModal({ video, onClose }) {
               </div>
             );
           })}
+
+          {allAnswered && (
+            <div
+              className={`rounded-[14px] border px-[20px] py-[18px] text-center ${
+                score === total
+                  ? "border-green-300 bg-green-50"
+                  : score > 0
+                    ? "border-yellow-300 bg-yellow-50"
+                    : "border-orange-300 bg-orange-50"
+              }`}
+            >
+              <div className="text-[28px] font-bold text-dm-ink">
+                {score}/{total}
+              </div>
+              <div className="mt-1 text-[15px] leading-[1.5] text-dm-muted">
+                {score === total
+                  ? "Aad baad u fiicantahay! · Perfect — you got them all right!"
+                  : score > 0
+                    ? "Waad ku dhowdahay! · Good try — you’re getting there."
+                    : "Ha quusan! · Don’t give up — try watching the video again."}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
