@@ -63,7 +63,7 @@ export default function UploadScreen({
         </div>
         <button
           type="button"
-          className="inline-flex items-center gap-[10px] rounded-[13px] bg-dm-accent px-7 py-[14px] text-[17px] font-semibold text-white"
+          className="inline-flex items-center gap-[10px] rounded-[13px] bg-dm-accent px-7 py-[14px] text-[17px] font-semibold text-white cursor-pointer"
         >
           <i className="fa-solid fa-folder-open" /> Dooro fayl
         </button>
