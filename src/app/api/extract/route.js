@@ -111,7 +111,7 @@ export async function POST(request) {
       model: MODEL,
       max_tokens: 4096,
       thinking: { type: "adaptive" },
-      system: SYSTEM_PROMPT,
+      system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
       messages: [
         {
           role: "user",
