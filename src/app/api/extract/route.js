@@ -22,9 +22,11 @@ function buildSystemPrompt() {
   return [
     "You are a document-extraction assistant for demystify.org, a tax-document explainer app. You will be shown an image or PDF, which may contain ONE OR MORE separate tax documents — for example, a multi-page PDF where each page is a different form, or several forms scanned together in one file.",
     "",
+    "0. First check whether the file contains a tax document at all — a government tax form or tax-related statement (W-2, 1099, 1040, etc.) or similar. If it clearly does not (e.g. it's a photo unrelated to taxes, a receipt, a screenshot, an unrelated document), respond with exactly {\"documents\": [{\"documentType\": \"not-a-tax-document\"}]} and stop — do not continue to the steps below.",
+    "",
     "1. Find every distinct tax document present. Multiple pages that are copies/parts of the SAME document (e.g. a 2-page W-2, or a form's Copy B and Copy C printed on separate pages) count as ONE document, not several — group those pages together. Only treat pages as separate documents when they are genuinely different forms or different filings (e.g. a W-2 followed by a 1099-NEC, or two different employers' W-2s).",
     "",
-    "2. For each distinct document, identify its type by reading the form's own printed title. It is one of the types listed below, or \"unknown\" if it matches none of them.",
+    "2. For each distinct document, identify its type by reading the form's own printed title. It is one of the types listed below, or \"unknown\" if it's a real tax-related document that matches none of them.",
     "",
     "3. If you recognized a type, extract that type's fields exactly as printed on the document. Never estimate, guess, or calculate a value that isn't directly visible — omit a field entirely (don't include its key) if it's blank or illegible. Dollar amounts are plain decimals with no $ sign, e.g. \"152.05\".",
     "",
@@ -33,7 +35,7 @@ function buildSystemPrompt() {
     typeBlocks.join("\n\n"),
     "",
     "Respond with ONLY this JSON shape — no other text, no markdown code fences, no commentary. One entry in \"documents\" per distinct document found, in the order they appear:",
-    '{"documents": [{"documentType": "w2" | "w2c" | "1099-nec" | "unknown" | ..., "fields": {"<fieldKey>": "<value>", ...}}]}',
+    '{"documents": [{"documentType": "w2" | "w2c" | "1099-nec" | "unknown" | "not-a-tax-document" | ..., "fields": {"<fieldKey>": "<value>", ...}}]}',
   ].join("\n");
 }
 
@@ -133,7 +135,15 @@ export async function POST(request) {
         fieldValues: buildFieldValues(doc.documentType, doc.fields),
       }));
 
-    return Response.json({ documents: recognized });
+    // Only claim "not a tax document" when every returned entry says so —
+    // a mix with "unknown" means real tax content was present, just
+    // unsupported, so it should fall back to the generic unmatched message.
+    const notTaxDocument =
+      recognized.length === 0 &&
+      documents.length > 0 &&
+      documents.every((doc) => doc?.documentType === "not-a-tax-document");
+
+    return Response.json({ documents: recognized, notTaxDocument });
   } catch (error) {
     console.error("[api/extract] Extraction failed:", error);
     return Response.json({ error: "Extraction failed." }, { status: 502 });

@@ -66,6 +66,7 @@ export default function TaxDocumentHelper() {
   // {documentType, fieldValues}, and activeDocIndex picks which one the
   // viewer currently shows.
   const [documents, setDocuments] = useState([]);
+  const [notTaxDocument, setNotTaxDocument] = useState(false);
   const [activeDocIndex, setActiveDocIndex] = useState(0);
   // Full "doctype:box1"-style key, not a bare number — some forms have
   // non-numeric box labels (e.g. 1099-R's box2a), so the annotation
@@ -190,6 +191,7 @@ export default function TaxDocumentHelper() {
     stopTimer();
     setScreen("upload");
     setDocuments([]);
+    setNotTaxDocument(false);
     setActiveDocIndex(0);
     setActiveFieldId(null);
     setPlayLang(null);
@@ -220,6 +222,7 @@ export default function TaxDocumentHelper() {
     setScreen("detecting");
 
     let found = [];
+    let fileWasNotTaxDocument = false;
     try {
       const formData = new FormData();
       formData.append("file", candidate);
@@ -227,12 +230,14 @@ export default function TaxDocumentHelper() {
       const data = await res.json();
       if (res.ok) {
         found = data.documents || [];
+        fileWasNotTaxDocument = Boolean(data.notTaxDocument);
       }
     } catch {
       // Treated the same as an unrecognized document below.
     }
 
     setDocuments(found);
+    setNotTaxDocument(fileWasNotTaxDocument);
     setActiveDocIndex(0);
     setActiveFieldId(null);
     setScreen(found.length ? "viewer" : "unmatched");
@@ -290,7 +295,7 @@ export default function TaxDocumentHelper() {
       )}
 
       {screen === "unmatched" && (
-        <UnmatchedScreen onBack={goUpload} fileName={fileName} />
+        <UnmatchedScreen onBack={goUpload} fileName={fileName} notTaxDocument={notTaxDocument} />
       )}
 
       {active && (
